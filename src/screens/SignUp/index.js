@@ -5,9 +5,7 @@ import {
 import { Button } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
-import {
-  loginUser,
-} from "../../components/login/actions";
+import { signUpUser } from "../../components/login/actions";
 
 class SignUpForm extends React.PureComponent {
 
@@ -20,9 +18,7 @@ class SignUpForm extends React.PureComponent {
             autoCapitalize="none"
             autoCorrect={ false }
             keyboardType={ input.name === "login" ? "email-address" : "default" }
-            placeholder={ input.name === "login"
-              ? "login"
-              : "password"}
+            placeholder={input.name}
             secureTextEntry={ input.name === "password" ? true : false }
             { ...input }
         />
@@ -31,12 +27,17 @@ class SignUpForm extends React.PureComponent {
     );
 }
 
-handleSubmit =  () => {
+signUp = () => {
   // eslint-disable-next-line no-console
-    console.log("here");
-   // eslint-disable-next-line no-console
-   console.log(this.props.email);
-}
+  console.log("signup");
+      this.props.onSignUp(
+          this.props.email,
+          this.props.password,
+          this.props.firstName,
+          this.props.lastName,
+          this.props.locale,
+      );
+};
 
   render() {
     return (
@@ -60,6 +61,12 @@ handleSubmit =  () => {
               component={this.renderInput}
               type="text"
             />
+            <Text>Locale</Text>
+            <Field
+              name="locale"
+              component={this.renderInput}
+              type="text"
+            />
             <Text>Password</Text>
             <Field
               name="password"
@@ -67,7 +74,7 @@ handleSubmit =  () => {
               type="password"
             />
           <Button
-          onPress={this.handleSubmit}
+          onPress={this.signUp}
           title="Press Me" />
         </View>
       </Container>
@@ -85,11 +92,13 @@ const mapStateToProps = state => ({
     email: selector(state, "email"),
     firstName: selector(state, "firstName"),
     lastName: selector(state, "lastName"),
+    locale: selector(state, "locale"),
     password: selector(state, "password"),
 });
 
 const mapDispatchToProps = dispatch => ({
-    onLogin: (login, password) => dispatch(loginUser(login, password)),
+    onSignUp: (email, password, fullName, lastName, locale) => (
+    dispatch(signUpUser(email, password, fullName, lastName, locale))),
 });
 
 export default connect(
