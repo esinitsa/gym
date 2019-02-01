@@ -3,8 +3,6 @@ import { Provider } from "react-redux";
 import { store } from "./configureStore";
 import App from "../App";
 
-
-
 export default class Setup extends React.Component {
   render() {
     return (
@@ -14,4 +12,3 @@ export default class Setup extends React.Component {
     );
   }
 }
-
