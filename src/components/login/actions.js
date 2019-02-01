@@ -28,10 +28,8 @@ export const loginUser = (login, password) => (dispatch) => {
   dispatch(loginUserRequest());
   return api.get(LOGIN_REQUEST_STRING, { login, password })
       .then((data) => {
-          // authorizeApi(data.token);
-          //return dispatch(loginUserSuccess(data.token, data));
-          // eslint-disable-next-line no-console
-          console.log(data);
+          authorizeApi(data.token);
+          return dispatch(loginUserSuccess(data.token, data));
       })
       .catch((error) => {
         // eslint-disable-next-line no-console

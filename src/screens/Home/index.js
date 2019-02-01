@@ -13,7 +13,7 @@ class Home extends React.PureComponent {
     super(props);
     this.state = {
       qrcodeVisible: false,
-    }
+    };
   }
   goToLogin = () => {
     const { navigation } = this.props;
@@ -28,7 +28,7 @@ class Home extends React.PureComponent {
   openMyQRCode = () => {
     this.setState({
       qrcodeVisible: !this.state.qrcodeVisible,
-    })
+    });
   }
 
   render() {
