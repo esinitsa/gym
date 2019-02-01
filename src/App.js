@@ -4,6 +4,7 @@ import { createStackNavigator } from "react-navigation";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
+import Profile from "./screens/Profile";
 
 
 const AppNavigator = createStackNavigator({
@@ -15,6 +16,9 @@ const AppNavigator = createStackNavigator({
   },
   Login: {
     screen: Login,
+  },
+  Profile: {
+    screen: Profile,
   },
 });
 

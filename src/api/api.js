@@ -30,4 +30,8 @@ api.interceptors.response.use(
       return Promise.reject(error);
   });
 
-  export default api;
+  const authorizeApi = (token = null) => {
+    api.defaults.headers.common.Authorization = token ? "Bearer " + token : null;
+};
+
+  export { api, authorizeApi };

@@ -31,12 +31,14 @@ class LoginForm extends React.PureComponent {
     );
 }
 
-handleSubmit =  () => {
+login = () => {
   // eslint-disable-next-line no-console
-    console.log("here");
-   // eslint-disable-next-line no-console
-   console.log(this.props.login);
-}
+  console.log("signup");
+      this.props.onLogin(
+          this.props.user,
+          this.props.password,
+      );
+};
 
   render() {
     return (
@@ -55,7 +57,7 @@ handleSubmit =  () => {
               type="password"
             />
           <Button
-          onPress={this.handleSubmit}
+          onPress={this.login}
           title="Press Me" />
         </View>
       </Container>
@@ -70,7 +72,7 @@ const Login = reduxForm({
 const selector = formValueSelector("login");
 
 const mapStateToProps = state => ({
-    login: selector(state, "login"),
+    user: selector(state, "login"),
     password: selector(state, "password"),
 });
 
