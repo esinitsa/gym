@@ -1,0 +1,29 @@
+{
+  "login": {
+    "buttons": {
+      "login": "Авторизация",
+      "signup": "Регистрация",
+      "create": "Создать"
+    },
+    "placeholders": {
+      "emailOrUsername": "Email или Имя пользователя",
+      "password": "Пароль",
+      "email": "Email",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "locale": "Адрес",
+      "dateBirth": "Дата рождения"
+    },
+    "messages": {
+      "invalidLoginData": "Enter Valid Username & Password!",
+      "invalidSignUpData": "Enter Valid Info",
+      "unacceptedTermOfUse": "Please read and accept term of use",
+      "termOfUse": "I have read and agree to the [Terms of Use](%{termOfUseURL}) and [Privacy Policy](%{privacyPolicyURL})",
+      "required": "Required",
+      "maxLength": "Must be %{max} characters or less",
+      "minLength": "Must be %{min} characters or more",
+      "invalidEmail": "Invalid email",
+      "forceLogoutMessage": "Your authorization has expired. Please re-login."
+    }
+  } 
+}

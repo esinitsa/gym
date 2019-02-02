@@ -6,6 +6,7 @@ import { Button } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import { signUpUser } from "../../components/login/actions";
+import { I18n } from "react-redux-i18n";
 
 class SignUpForm extends React.PureComponent {
 
@@ -18,7 +19,19 @@ class SignUpForm extends React.PureComponent {
             autoCapitalize="none"
             autoCorrect={ false }
             keyboardType={ input.name === "login" ? "email-address" : "default" }
-            placeholder={input.name}
+            placeholder={
+                            input.name === "email"
+                                ? I18n.t("login.placeholders.email")
+                                : input.name === "password"
+                                    ? I18n.t("login.placeholders.password")
+                                    : input.name === "firstName"
+                                        ? I18n.t("login.placeholders.firstName")
+                                        : input.name === "lastName"
+                                          ? I18n.t("login.placeholders.lastName")
+                                          : input.name === "locale"
+                                            ? I18n.t("login.placeholders.locale")
+                                            : ""
+                        }
             secureTextEntry={ input.name === "password" ? true : false }
             { ...input }
         />
@@ -28,8 +41,6 @@ class SignUpForm extends React.PureComponent {
 }
 
 signUp = () => {
-  // eslint-disable-next-line no-console
-  console.log("signup");
       this.props.onSignUp(
           this.props.email,
           this.props.password,
@@ -43,31 +54,41 @@ signUp = () => {
     return (
       <Container>
         <View>
-            <Text>Login</Text>
+            <Text>
+              {I18n.t("login.placeholders.email")}
+            </Text>
             <Field
               name="email"
               component={this.renderInput}
               type="email"
             />
-              <Text>FirstName</Text>
+              <Text>
+                {I18n.t("login.placeholders.firstName")}
+              </Text>
             <Field
-              name="fistName"
+              name="firstName"
               component={this.renderInput}
               type="text"
             />
-              <Text>LastName</Text>
+              <Text>
+                {I18n.t("login.placeholders.lastName")}
+              </Text>
             <Field
               name="lastName"
               component={this.renderInput}
               type="text"
             />
-            <Text>Locale</Text>
+            <Text>
+              {I18n.t("login.placeholders.locale")}
+            </Text>
             <Field
               name="locale"
               component={this.renderInput}
               type="text"
             />
-            <Text>Password</Text>
+            <Text>
+              {I18n.t("login.placeholders.password")}
+            </Text>
             <Field
               name="password"
               component={this.renderInput}

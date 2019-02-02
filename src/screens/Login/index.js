@@ -8,11 +8,11 @@ import { connect } from "react-redux";
 import {
   loginUser,
 } from "../../components/login/actions";
+import { I18n } from "react-redux-i18n";
 
 class LoginForm extends React.PureComponent {
 
   renderInput({ input }) {
-    // eslint-disable-next-line no-console
     return (
       <View>
       <Item>
@@ -21,8 +21,8 @@ class LoginForm extends React.PureComponent {
             autoCorrect={ false }
             keyboardType={ input.name === "login" ? "email-address" : "default" }
             placeholder={ input.name === "login"
-              ? "login"
-              : "password"}
+                            ? I18n.t("login.placeholders.emailOrUsername")
+                            : I18n.t("login.placeholders.password") }
             secureTextEntry={ input.name === "password" ? true : false }
             { ...input }
         />
@@ -44,13 +44,16 @@ login = () => {
     return (
       <Container>
         <View>
-            <Text>Login</Text>
+            <Text>
+              {I18n.t("login.placeholders.emailOrUsername")}</Text>
             <Field
               name="login"
               component={this.renderInput}
               type="text"
             />
-            <Text>Password</Text>
+            <Text>
+              {I18n.t("login.placeholders.password")}
+            </Text>
             <Field
               name="password"
               component={this.renderInput}
