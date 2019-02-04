@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   Container,View, Text, Button
 } from "native-base";
@@ -33,11 +34,21 @@ class Profile extends React.PureComponent {
   }
 
   render() {
+    const { userProfile } = this.props.user;
     return (
       <Container >
       <View>
-        <Text style={{fontSize: 30}}>
-          Text here
+        <Text style={{fontSize: 20}}>
+          {userProfile.email}
+        </Text>
+        <Text style={{fontSize: 20}}>
+          {userProfile.firstName}
+        </Text>
+        <Text style={{fontSize: 20}}>
+          {userProfile.lastName}
+        </Text>
+        <Text style={{fontSize: 20}}>
+          {userProfile.locale}
         </Text>
       </View>
       <Modal
@@ -49,7 +60,7 @@ class Profile extends React.PureComponent {
           <TouchableHighlight onPress={this.visibleMyQRCode}>
               <View style={styles.touchableView}>
               <QRCode
-                    value="vk.com"
+                    value={userProfile.id}
                     size={200}
                   />
             </View>
@@ -66,4 +77,12 @@ class Profile extends React.PureComponent {
   }
 }
 
-export default Profile;
+
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+export default connect(
+  mapStateToProps
+)(Profile);
+

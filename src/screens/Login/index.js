@@ -1,8 +1,7 @@
 import React from "react";
 import {
-  View, Text, Input, Item, Container
+  View, Text, Input, Item, Container, Button
 } from "native-base";
-import { Button } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import {
@@ -32,13 +31,16 @@ class LoginForm extends React.PureComponent {
 }
 
 login = () => {
-  // eslint-disable-next-line no-console
-  console.log("signup");
       this.props.onLogin(
-          this.props.user,
+          this.props.login,
           this.props.password,
       );
 };
+
+storeCheck = () => {
+    // eslint-disable-next-line no-console
+    console.log(this.props.user);
+}
 
   render() {
     return (
@@ -59,9 +61,16 @@ login = () => {
               component={this.renderInput}
               type="password"
             />
-          <Button
-          onPress={this.login}
-          title="Press Me" />
+          <Button onPress={this.login}>
+            <Text>
+              Login
+            </Text>
+          </Button>
+          <Button onPress={this.storeCheck}>
+            <Text>
+              Check store
+            </Text>
+          </Button>
         </View>
       </Container>
     );
@@ -75,8 +84,9 @@ const Login = reduxForm({
 const selector = formValueSelector("login");
 
 const mapStateToProps = state => ({
-    user: selector(state, "login"),
+    login: selector(state, "login"),
     password: selector(state, "password"),
+    user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({

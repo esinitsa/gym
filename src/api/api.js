@@ -31,7 +31,9 @@ api.interceptors.response.use(
   });
 
   const authorizeApi = (token = null) => {
-    api.defaults.headers.common.Authorization = token ? "Bearer " + token : null;
+    // eslint-disable-next-line no-console
+    console.log(token);
+    api.defaults.headers.common["FCB-Api-Token"] = token ? token : null;
 };
 
   export { api, authorizeApi };
