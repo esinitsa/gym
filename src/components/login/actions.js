@@ -30,7 +30,7 @@ const getToken = (token, dispatch) => {
     // eslint-disable-next-line no-console
     console.log(error);
   });
-}
+};
 
 export const loginUser = (login, password) => (dispatch) => {
   dispatch(loginUserRequest());
@@ -41,7 +41,7 @@ export const loginUser = (login, password) => (dispatch) => {
     }})
       .then((data) => {
           authorizeApi(data.token);
-          getToken(data.token, dispatch);          
+          getToken(data.token, dispatch);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
