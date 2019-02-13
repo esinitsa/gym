@@ -1,10 +1,10 @@
+import { Input, Item, Label, View } from "native-base";
 import React from "react";
-import { View, Text, Input, Item, Label } from "native-base";
-import { Field, reduxForm, formValueSelector } from "redux-form";
-import { connect } from "react-redux";
-import { loginUser } from "../../components/login/actions";
-import { I18n } from "react-redux-i18n";
 import { SafeAreaView } from "react-native";
+import { connect } from "react-redux";
+import { I18n } from "react-redux-i18n";
+import { Field, formValueSelector, reduxForm } from "redux-form";
+import { loginUser } from "../../components/login/actions";
 import ButtonSubmit from "../common/buttons/submit";
 
 class LoginForm extends React.PureComponent {

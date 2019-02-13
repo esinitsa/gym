@@ -50,6 +50,7 @@
       "pit": false
     },  
     "rules": {
+      "react-native/sort-styles": 0,
       "react-native/no-inline-styles": 0,
       "react-native/no-color-literals": 0,
       "flowtype/define-flow-type": 1,

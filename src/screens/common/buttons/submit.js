@@ -1,8 +1,9 @@
-import React from 'react';
-import { Animated, Easing, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions, ActivityIndicator } from 'react-native';
-import spinner from '../../../../assets/images/loading.gif';
+import React from "react";
+import {
+    ActivityIndicator, Animated, Dimensions, Easing, StyleSheet, Text, TouchableOpacity, View
+} from "react-native";
 
-const DEVICE_WIDTH = Dimensions.get('window').width;
+const DEVICE_WIDTH = Dimensions.get("window").width;
 const MARGIN = 40;
 
 export default class ButtonSubmit extends React.Component {
@@ -16,7 +17,7 @@ export default class ButtonSubmit extends React.Component {
     }
 
     onPress = () => {
-        if (this.state.isLoading) return;
+        if (this.state.isLoading) { return; }
 
         this.setState({ isLoading: true });
         Animated.timing(this.buttonAnimated, {
@@ -73,37 +74,33 @@ export default class ButtonSubmit extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 30,
-        justifyContent: 'flex-start',
-    },
     button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#554e7b',
-        height: MARGIN,
+        alignItems: "center",
+        backgroundColor: "#554e7b",
         borderRadius: 20,
+        justifyContent: "center",
+        height: MARGIN,
         zIndex: 100,
     },
     circle: {
         height: MARGIN,
-        width: MARGIN,
         marginTop: -MARGIN,
+        width: MARGIN,
         borderWidth: 1,
-        borderColor: '#554e7b',
+        borderColor: "#554e7b",
         borderRadius: 100,
-        alignSelf: 'center',
+        alignSelf: "center",
         zIndex: 99,
-        backgroundColor: '#554e7b',
+        backgroundColor: "#554e7b",
+    },
+    container: {
+        alignItems: "center",
+        flex: 1,
+        marginTop: 30,
+        justifyContent: "flex-start",
     },
     text: {
-        color: 'white',
-        backgroundColor: 'transparent',
-    },
-    image: {
-        width: 24,
-        height: 24,
+        color: "white",
+        backgroundColor: "transparent",
     },
 });

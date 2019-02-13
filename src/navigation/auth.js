@@ -1,4 +1,4 @@
-import { createSwitchNavigator } from "react-navigation"
+import { createSwitchNavigator } from "react-navigation";
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 
@@ -8,7 +8,7 @@ export default createSwitchNavigator(
         SignUp: { screen: SignUp },
     },
     {
-        initialRouteName: 'Login',
-        headerMode: 'none',
+        initialRouteName: "Login",
+        headerMode: "none",
     }
 );
