@@ -6,6 +6,7 @@ import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import Profile from "./screens/Profile";
 
+import Navigation from "./navigation";
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -26,10 +27,10 @@ class App extends React.PureComponent {
   render() {
     return (
       <Root>
-        <AppNavigator />
+        <Navigation />
       </Root>
-   );
- }
+    );
+  }
 }
 
 export default App;
