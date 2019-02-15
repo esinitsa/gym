@@ -4,7 +4,7 @@ import {
   Container,View, Text, Button
 } from "native-base";
 import {
-  Modal, TouchableOpacity, Animated, Dimensions, Easing
+  Modal, TouchableOpacity, Animated, Easing
 } from "react-native";
 import { NavigationType } from "../../constants/navigationTypes";
 import QRCode from "react-native-qrcode-svg";

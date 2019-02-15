@@ -2,7 +2,7 @@ import React from "react";
 import {
   View, Input, Item, Label
 } from "native-base";
-import { Button, SafeAreaView } from "react-native";
+import {  SafeAreaView } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import { signUpUser } from "../../components/login/actions";
