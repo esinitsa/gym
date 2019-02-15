@@ -27,6 +27,8 @@ export const userReducer = (state = initialState, action) => {
         isUserDataLoading: false
       };
     case USER_LOGIN_REQUEST:
+    // eslint-disable-next-line no-console
+    console.log(state);
       return {
         ...state,
         isUserDataLoading: true

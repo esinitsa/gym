@@ -4,6 +4,7 @@ import {
 } from "./constants";
 import { REGISTER_REQUEST_STRING, LOGIN_REQUEST_STRING } from "../../api/apiConstants";
 
+
 const signUpUserRequest = () => ({ type: USER_SIGNUP_REQUEST });
 const signUpUserSuccess = ({ user }) => ({ type: USER_SIGNUP_SUCCESS, user, });
 
@@ -25,10 +26,11 @@ export const signUpUser = (email, password, firstName, lastName, locale) => (dis
 const getToken = (token, dispatch) => {
   return api.get("api/profile", {
   }).then( (userData) => {
-    dispatch(loginUserSuccess(token, userData));
+    return dispatch(loginUserSuccess(token, userData));
   }).catch( (error) => {
     // eslint-disable-next-line no-console
     console.log(error);
+    return error;
   });
 };
 
@@ -41,10 +43,11 @@ export const loginUser = (login, password) => (dispatch) => {
     }})
       .then((data) => {
           authorizeApi(data.token);
-          getToken(data.token, dispatch);
+        return getToken(data.token, dispatch);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.log(error);
+        return error;
       });
 };

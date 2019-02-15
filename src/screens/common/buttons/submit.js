@@ -17,8 +17,8 @@ export default class ButtonSubmit extends React.Component {
     }
 
     onPress = () => {
+        this.props.onPress();
         if (this.state.isLoading) { return; }
-
         this.setState({ isLoading: true });
         Animated.timing(this.buttonAnimated, {
             toValue: 1,
@@ -64,7 +64,7 @@ export default class ButtonSubmit extends React.Component {
                         activeOpacity={1}>
                         {this.state.isLoading
                             ? <ActivityIndicator size="small" color="#ffffff" />
-                            : (<Text style={styles.text}>Вход</Text>)}
+                            : (<Text style={styles.text}>{this.props.buttonText}</Text>)}
                     </TouchableOpacity>
                     <Animated.View style={[styles.circle, { transform: [{ scale: changeScale }] }]} Î />
                 </Animated.View>

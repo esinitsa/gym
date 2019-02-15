@@ -6,6 +6,8 @@ import { I18n } from "react-redux-i18n";
 import { Field, formValueSelector, reduxForm } from "redux-form";
 import { loginUser } from "../../components/login/actions";
 import ButtonSubmit from "../common/buttons/submit";
+import { NavigationType } from "../../constants/navigationTypes";
+
 
 class LoginForm extends React.PureComponent {
   renderInput({ input }) {
@@ -27,8 +29,12 @@ class LoginForm extends React.PureComponent {
     );
   }
 
-  login = () => this.props.onLogin(this.props.login, this.props.password);
-
+  login = () => {
+    // this.props.onLogin(this.props.login, this.props.password);
+    // eslint-disable-next-line no-console
+    const { navigation } = this.props;
+    navigation.navigate(NavigationType.Profile);
+  }
   render() {
     return (
       <SafeAreaView style={{ backgroundColor: "#2a264f", flex: 1, justifyContent: "center" }}>
@@ -37,7 +43,7 @@ class LoginForm extends React.PureComponent {
             <Field name="login" component={this.renderInput} type="text" />
             <Field name="password" component={this.renderInput} type="password" />
           </View>
-          <ButtonSubmit onPress={this.login} {...this.props} />
+          <ButtonSubmit onPress={this.login} buttonText={I18n.t("login.buttons.login")} {...this.props} />
         </View>
       </SafeAreaView>
     );
