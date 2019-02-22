@@ -24,6 +24,9 @@
       "minLength": "Must be %{min} characters or more",
       "invalidEmail": "Invalid email",
       "forceLogoutMessage": "Your authorization has expired. Please re-login."
+    },
+    "hint": {
+      "or": "или"
     }
   } 
 }

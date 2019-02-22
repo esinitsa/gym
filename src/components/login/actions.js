@@ -48,6 +48,6 @@ export const loginUser = (login, password) => (dispatch) => {
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.log(error);
-        return error;
+        throw error;
       });
 };

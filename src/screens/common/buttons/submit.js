@@ -17,7 +17,6 @@ export default class ButtonSubmit extends React.Component {
     }
 
     onPress = () => {
-        this.props.onPress();
         if (this.state.isLoading) { return; }
         this.setState({ isLoading: true });
         Animated.timing(this.buttonAnimated, {
@@ -27,6 +26,7 @@ export default class ButtonSubmit extends React.Component {
         }).start();
 
         setTimeout(() => {
+            this.props.onPress();
             this._onGrow();
         }, 2000);
 
@@ -76,7 +76,8 @@ export default class ButtonSubmit extends React.Component {
 const styles = StyleSheet.create({
     button: {
         alignItems: "center",
-        backgroundColor: "#554e7b",
+        // backgroundColor: "#554e7b",
+        backgroundColor: "#BF8330",
         borderRadius: 20,
         justifyContent: "center",
         height: MARGIN,
@@ -87,20 +88,21 @@ const styles = StyleSheet.create({
         marginTop: -MARGIN,
         width: MARGIN,
         borderWidth: 1,
-        borderColor: "#554e7b",
+        borderColor: "#BF8330",
         borderRadius: 100,
         alignSelf: "center",
         zIndex: 99,
-        backgroundColor: "#554e7b",
+        backgroundColor: "#BF8330",
     },
     container: {
         alignItems: "center",
         flex: 1,
-        marginTop: 30,
+        marginTop: 40,
         justifyContent: "flex-start",
     },
     text: {
-        color: "white",
+        color: "#ffffff",
+        fontSize: 18,
         backgroundColor: "transparent",
     },
 });

@@ -1,7 +1,7 @@
 {
   "login": {
     "buttons": {
-      "login": "Login",
+      "login": "Sign In",
       "signup": "Sign Up",
       "create": "Create"
     },
@@ -24,6 +24,9 @@
       "minLength": "Must be %{min} characters or more",
       "invalidEmail": "Invalid email",
       "forceLogoutMessage": "Your authorization has expired. Please re-login."
+    },
+    "hint": {
+      "or": "or"
     }
   } 
 }

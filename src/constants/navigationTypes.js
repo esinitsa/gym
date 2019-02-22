@@ -1,6 +1,9 @@
 export const NavigationType = {
-  Login: "Login",
+  Auth: "Auth",
+  Client: "Client",
+  Personal: "Personal",
   Home: "Home",
   SignUp: "SignUp",
+  Login: "Login",
   Profile: "Profile",
 };
