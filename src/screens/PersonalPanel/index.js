@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  View, Text, Card, CardItem,
+  View, Text,
 } from "native-base";
 import {
-  Modal, TouchableOpacity, Animated, Easing, SafeAreaView, Dimensions,
+  Modal, TouchableOpacity, Animated, SafeAreaView,
 } from "react-native";
 import { getClients } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
