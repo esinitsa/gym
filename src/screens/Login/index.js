@@ -44,35 +44,35 @@ class LoginForm extends React.PureComponent {
     navigation.navigate(NavigationType.Personal);
   }
 
-  render() {
-    const renderInput = ({ input }) => {
-      return (
-        <Item floatingLabel style={{ marginTop: 10 }}>
-          <Label style={{ color: "white", fontWeight: "200" }}>
-            {input.name === "login"
-              ? I18n.t("login.placeholders.emailOrUsername")
-              : I18n.t("login.placeholders.password")}
-          </Label>
-          <Input
-            style={styles.inputText}
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholderTextColor="#ffffff"
-            keyboardType={input.name === "login" ? "email-address" : "default"}
-            secureTextEntry={input.name === "password"}
-            {...input}
-          />
-        </Item>
-      );
-    };
+  renderInput = ({ input }) => {
+    return (
+      <Item floatingLabel style={{ marginTop: 10 }}>
+        <Label style={{ color: "white", fontWeight: "200" }}>
+          {input.name === "login"
+            ? I18n.t("login.placeholders.emailOrUsername")
+            : I18n.t("login.placeholders.password")}
+        </Label>
+        <Input
+          style={styles.inputText}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholderTextColor="#ffffff"
+          keyboardType={input.name === "login" ? "email-address" : "default"}
+          secureTextEntry={input.name === "password"}
+          {...input}
+        />
+      </Item>
+    );
+  };
 
+  render() {
     return (
       <LinearGradient colors={["#ffffff", "#093145", "#00AC6B"]} style={styles.linearGradient}>
         <SafeAreaView style={styles.container}>
           <Image style={styles.logo} source={logo} />
           <View style={styles.loginView}>
-            <Field name="login" component={renderInput} type="text" />
-            <Field name="password" component={renderInput} type="password" />
+            <Field name="login" component={this.renderInput} type="text" />
+            <Field name="password" component={this.renderInput} type="password" />
             <ButtonSubmit
               onPress={this.login}
               buttonText={I18n.t("login.buttons.login")}

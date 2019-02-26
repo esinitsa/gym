@@ -1,89 +1,74 @@
-import React from "react";
-import { connect } from "react-redux";
+/* eslint-disable no-console */
+
+import React, { Component } from "react";
+
 import {
-  View, Text,
-} from "native-base";
-import {
-  Modal, TouchableOpacity, Animated, SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Modal
 } from "react-native";
-import { getClients } from "../../components/personal/actions";
-import { NavigationType } from "../../constants/navigationTypes";
-import QRCode from "react-native-qrcode-svg";
-import styles from "./styles";
 
-class PersonalPanel extends React.PureComponent {
-  constructor(props){
-    super(props);
-    this.state = {
-      qrcodeVisible: false,
-    };
-    this.qrCodeAnimated = new Animated.Value(0);
-  }
+import QRCodeScanner from "react-native-qrcode-scanner";
 
-  goToLogin = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.Login);
-  }
-
-  goToSignUp = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.SignUp);
-  }
-
-  componentDidMount() {
-    this.props.getClients();
-  }
-
-  visibleMyQRCode = () => {
-    this.setState({
-      qrcodeVisible: !this.state.qrcodeVisible,
-    });
+class PersonalPanel extends Component {
+  onSuccess(e) {
+    console.log("----------------------------------");
+    console.log(e);
   }
 
   render() {
     return (
-      <SafeAreaView style={{ backgroundColor: "#2a264f", flex: 1, justifyContent: "center" }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor:"#ffffff"}}>
+              <Text>
+          Test
+        </Text>
         <Modal
-            animationType={"fade"}
-            transparent={false}
-            visible={this.state.qrcodeVisible}>
-              <View
-              style={styles.modalView}>
-            <TouchableOpacity onPress={this.visibleMyQRCode}>
-                <View style={styles.touchableView}>
-                <QRCode
-                      value={"200"}
-                      size={250}
-                    />
-              </View>
+          animationType={"fade"}
+          transparent={true}
+          visible={true}
+        >
+          <QRCodeScanner
+            onRead={this.onSuccess.bind(this)}
+            topContent={
+              <Text style={styles.centerText}>
+                Go to{" "}
+                <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text>{" "}
+                on your computer and scan the QR code.
+              </Text>
+            }
+            cameraProps={{ captureAudio: false }}
+            bottomContent={
+              <TouchableOpacity style={styles.buttonTouchable}>
+                <Text style={styles.buttonText}>OK. Got it!</Text>
               </TouchableOpacity>
-                </View>
-          </Modal>
-            <TouchableOpacity style={styles.button}
-                onPress={this.visibleMyQRCode}>
-                <Text   style={{
-                    fontSize: 20,
-                    color: "#ffffff",
-                    fontWeight: "bold",
-                    }} >
-                    My QR-code
-                </Text>
-            </TouchableOpacity>
+            }
+          />
+        </Modal>
+
       </SafeAreaView>
     );
   }
 }
+export default PersonalPanel;
 
-
-const mapStateToProps = state => ({
-  personal: state.personal,
+const styles = StyleSheet.create({
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: "#777"
+  },
+  textBold: {
+    fontWeight: "500",
+    color: "#000"
+  },
+  buttonText: {
+    fontSize: 21,
+    color: "rgb(0,122,255)"
+  },
+  buttonTouchable: {
+    padding: 16
+  }
 });
-
-const mapDispatchToProps = dispatch => ({
-  getClients: () => dispatch(getClients())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PersonalPanel);

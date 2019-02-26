@@ -42,7 +42,7 @@ export const loginUser = (login, password) => (dispatch) => {
     password: password,
     }})
       .then((data) => {
-          authorizeApi(data.token);
+        authorizeApi(data.token);
         return getToken(data.token, dispatch);
       })
       .catch((error) => {
