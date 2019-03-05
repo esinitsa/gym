@@ -5,9 +5,8 @@ import {
 
 const initialState = {
   isDataLoading: false,
-  clientDetails: null,
-  isTokenValid: false,
-  token: null
+  clients: null,
+  trainers: null,
 };
 
 export const personalReducer = (state = initialState, action) => {

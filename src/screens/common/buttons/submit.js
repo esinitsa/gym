@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from "react";
 import {
     ActivityIndicator, Animated, Dimensions, Easing, StyleSheet, Text, TouchableOpacity, View
@@ -13,7 +14,6 @@ export default class ButtonSubmit extends React.Component {
         this.state = { isLoading: false };
 
         this.buttonAnimated = new Animated.Value(0);
-        this.growAnimated = new Animated.Value(0);
     }
 
     onPress = () => {
@@ -25,34 +25,22 @@ export default class ButtonSubmit extends React.Component {
             easing: Easing.linear,
         }).start();
 
-        setTimeout(() => {
-            this.props.onPress();
-            this._onGrow();
-        }, 2000);
-
-        setTimeout(() => {
-            this.setState({ isLoading: false });
-            this.buttonAnimated.setValue(0);
-            this.growAnimated.setValue(0);
-        }, 2300);
+      setTimeout(() => {
+          this.props.onPress().catch(error => {
+            this.stopAnimation();
+          });
+      }, 1500);
     }
 
-    _onGrow() {
-        Animated.timing(this.growAnimated, {
-            toValue: 1,
-            duration: 200,
-            easing: Easing.linear,
-        }).start();
+    stopAnimation = () => {
+      this.setState({ isLoading: false });
+      this.buttonAnimated.setValue(0);
     }
 
     render() {
         const changeWidth = this.buttonAnimated.interpolate({
             inputRange: [0, 1],
             outputRange: [DEVICE_WIDTH - MARGIN, MARGIN],
-        });
-        const changeScale = this.growAnimated.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1, MARGIN],
         });
 
         return (
@@ -66,7 +54,7 @@ export default class ButtonSubmit extends React.Component {
                             ? <ActivityIndicator size="small" color="#ffffff" />
                             : (<Text style={styles.text}>{this.props.buttonText}</Text>)}
                     </TouchableOpacity>
-                    <Animated.View style={[styles.circle, { transform: [{ scale: changeScale }] }]} Î />
+                    <Animated.View style={[styles.circle]} Î />
                 </Animated.View>
             </View>
         );

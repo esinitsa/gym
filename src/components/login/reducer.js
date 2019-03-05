@@ -2,7 +2,12 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS
+  USER_LOGIN_SUCCESS,
+  TOKEN_VALID,
+  TOKEN_INVALID,
+  TOKEN_VERIFY_REQUEST,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
 } from "./constants";
 
 const initialState = {
@@ -27,8 +32,6 @@ export const userReducer = (state = initialState, action) => {
         isUserDataLoading: false
       };
     case USER_LOGIN_REQUEST:
-    // eslint-disable-next-line no-console
-    console.log(state);
       return {
         ...state,
         isUserDataLoading: true
@@ -42,6 +45,30 @@ export const userReducer = (state = initialState, action) => {
         isTokenValid: true
       };
     }
+    case USER_LOGOUT_REQUEST:
+    return {
+        ...state,
+        isUserDataLoading: true
+    };
+    case USER_LOGOUT_SUCCESS:
+        return initialState;
+    case TOKEN_VALID:
+      return {
+        ...state,
+        isUserDataLoading: false,
+        isTokenValid: true
+      };
+    case TOKEN_INVALID:
+      return {
+        ...state,
+        isUserDataLoading: false,
+        isTokenValid: false
+      };
+    case TOKEN_VERIFY_REQUEST:
+      return {
+        ...state,
+        isUserDataLoading: true
+      };
     default:
       return state;
   }

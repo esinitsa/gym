@@ -9,13 +9,19 @@ const api = axios.create({
   timeout: 15000,
 });
 
-
-
 api.interceptors.response.use(
   (response) => {
       if (response.data && response.data.code && response.data.code >= 300) {
           return Promise.reject(response.data.messages ?
               response.data.messages : "incorrect response");
+      }
+      else if ( response.data && response.data.statusCode && response.data.statusCode === 409) {
+        return Promise.reject(response.data.messages ?
+          response.data.messages : "Already exists");
+      }
+      else if ( response.data && response.data.statusString && response.data.statusString === "NOT_FOUND" ){
+        return Promise.reject(response.data.messages ?
+          response.data.messages : "Please active account");
       }
       // eslint-disable-next-line no-console
       console.log(response.data);

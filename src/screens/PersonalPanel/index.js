@@ -1,74 +1,145 @@
-/* eslint-disable no-console */
 
-import React, { Component } from "react";
-
+import React, { PureComponent } from "react";
+import { Header, Left, Right, Button, Title, Body, View } from "native-base";
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   SafeAreaView,
-  Modal
+  Modal,
+  FlatList,
 } from "react-native";
-
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import LinearGradient from "react-native-linear-gradient";
+import { connect } from "react-redux";
+import { getClients } from "../../components/personal/actions";
 import QRCodeScanner from "react-native-qrcode-scanner";
 
-class PersonalPanel extends Component {
-  onSuccess(e) {
-    console.log("----------------------------------");
-    console.log(e);
+class PersonalPanel extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      qrcodeVisible: false
+    };
   }
 
-  render() {
-    return (
-      <SafeAreaView style={{ flex: 1, backgroundColor:"#ffffff"}}>
-              <Text>
-          Test
-        </Text>
-        <Modal
-          animationType={"fade"}
-          transparent={true}
-          visible={true}
-        >
-          <QRCodeScanner
-            onRead={this.onSuccess.bind(this)}
-            topContent={
-              <Text style={styles.centerText}>
-                Go to{" "}
-                <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text>{" "}
-                on your computer and scan the QR code.
-              </Text>
-            }
-            cameraProps={{ captureAudio: false }}
-            bottomContent={
-              <TouchableOpacity style={styles.buttonTouchable}>
-                <Text style={styles.buttonText}>OK. Got it!</Text>
-              </TouchableOpacity>
-            }
-          />
-        </Modal>
+  componentDidMount () {
+    this.props.getMyClients();
+  }
 
-      </SafeAreaView>
+  onSuccess = e => {
+    console.log(e);
+  };
+
+  openQRCodeScanner = () => {
+    this.setState({
+      qrcodeVisible: true
+    });
+  };
+
+  closeQRCodeScanner = () => {
+    this.setState({
+      qrcodeVisible: false
+    });
+  };
+
+  _keyExtractor = (item, index) => `${index}${item.id}`;
+
+  render() {
+    const { myClients } = this.props.personal;
+    return (
+      <LinearGradient
+        colors={["#ffffff", "#093145", "#00AC6B"]}
+        style={styles.linearGradient}
+      >
+        <Header>
+          <Left>
+            <Button transparent>
+              <FontAwesome5 name={"angle-left"} size={30} solid />
+            </Button>
+          </Left>
+          <Body>
+            <Title>
+              <Text>Header</Text>
+            </Title>
+          </Body>
+          <Right>
+            <Button onPress={this.openQRCodeScanner} transparent>
+              <FontAwesome5 name={"camera"} size={25} solid />
+            </Button>
+          </Right>
+          <Right>
+            <Button transparent>
+              <FontAwesome5 name={"sign-out-alt"} size={25} solid />
+            </Button>
+          </Right>
+        </Header>
+        <SafeAreaView style={{ flex: 1 }}>
+   {/*        <FlatList
+            removeClippedSubviews={false}
+            data={myClients}
+            enableEmptySections={true}
+            keyExtractor={this._keyExtractor}
+            style={styles.postsListView}
+            renderItem={(item, index) => (
+              <View>
+                <Text>{item.firstName}</Text>
+              </View>
+            )}
+          /> */}
+          <Modal
+            animationType={"fade"}
+            transparent={true}
+            visible={this.state.qrcodeVisible}
+          >
+            <QRCodeScanner
+              style={{ flex: 1 }}
+              onRead={this.onSuccess}
+              cameraProps={{ captureAudio: false }}
+              bottomContent={
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={this.closeQRCodeScanner}
+                >
+                  <Text style={styles.buttonText}>My QR-code</Text>
+                </TouchableOpacity>
+              }
+            />
+          </Modal>
+        </SafeAreaView>
+      </LinearGradient>
     );
   }
 }
-export default PersonalPanel;
+const mapStateToProps = state => ({
+  personal: state.personal
+});
+
+const  mapDispatchToProps = dispatch => {
+  return {
+    getMyClients: () => dispatch(getClients())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalPanel);
 
 const styles = StyleSheet.create({
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: "#777"
-  },
-  textBold: {
-    fontWeight: "500",
-    color: "#000"
+  linearGradient: {
+    flex: 1
   },
   buttonText: {
-    fontSize: 21,
-    color: "rgb(0,122,255)"
+    fontSize: 20,
+    color: "#ffffff",
+    fontWeight: "bold"
   },
-  buttonTouchable: {
-    padding: 16
+  button: {
+    alignItems: "center",
+    backgroundColor: "#BF8330",
+    borderRadius: 20,
+    justifyContent: "center",
+    marginLeft: 15,
+    marginRight: 15,
+    height: 50,
+    zIndex: 100
   }
 });

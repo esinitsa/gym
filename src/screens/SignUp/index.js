@@ -6,9 +6,25 @@ import { connect } from "react-redux";
 import { signUpUser } from "../../components/login/actions";
 import { I18n } from "react-redux-i18n";
 import styles from "./styles";
+import { showToast } from "../../services/UIActions";
+import {
+  emailRegexCheck,
+  required,
+  minLength,
+  maxLength,
+  handleMaxLength
+} from "../../services/validations";
 import { NavigationType } from "../../constants/navigationTypes";
 import LinearGradient from "react-native-linear-gradient";
 import ButtonSubmit from "../common/buttons/submit";
+
+const maxLength100BlockInput = 100;
+const maxLength70BlockInput = 70;
+const maxLength30BlockInput = 30;
+const maxLength100 = maxLength(maxLength100BlockInput);
+const maxLength70 = maxLength(maxLength70BlockInput);
+const maxLength30 = maxLength(maxLength30BlockInput);
+const minLength4 = minLength(4);
 
 class SignUpForm extends React.PureComponent {
   renderInput({ input }) {
@@ -40,28 +56,69 @@ class SignUpForm extends React.PureComponent {
   goToLogin = () => {
     const { navigation } = this.props;
     navigation.navigate(NavigationType.Login);
-  }
+  };
 
   signUp = () => {
-    this.props.onSignUp(
-      this.props.email,
-      this.props.password,
-      this.props.firstName,
-      this.props.lastName,
-      this.props.locale
-    );
+    if (this.props.valid){
+      return this.props
+      .onSignUp(
+        this.props.email,
+        this.props.password,
+        this.props.firstName,
+        this.props.lastName,
+        this.props.locale
+      )
+      .then(() => {
+        showToast(I18n.t("login.messages.signUpSuccess"));
+        this.goToLogin();
+      })
+      .catch(error => {
+        showToast(error);
+        throw error;
+      });
+    }
+    else {
+      showToast(I18n.t("login.messages.invalidSignUpData"));
+      return new Promise(() => {
+        throw new Error(I18n.t("login.messages.invalidSignUpData"));
+      });
+    }
   };
 
   render() {
     return (
-      <LinearGradient colors={["#ffffff", "#093145", "#00AC6B"]} style={styles.linearGradient}>
+      <LinearGradient
+        colors={["#ffffff", "#093145", "#00AC6B"]}
+        style={styles.linearGradient}
+      >
         <SafeAreaView style={styles.container}>
           <View style={{ padding: 20 }}>
-            <Field name="email" component={this.renderInput} type="email" />
-            <Field name="firstName" component={this.renderInput} type="text" />
-            <Field name="lastName" component={this.renderInput} type="text" />
-            <Field name="locale" component={this.renderInput} type="text" />
-            <Field name="password" component={this.renderInput} type="password" />
+            <Field
+              name="email"
+              component={this.renderInput}
+              type="email"
+              validate={[emailRegexCheck, required, maxLength100]}
+            />
+            <Field name="firstName"
+            component={this.renderInput}
+            type="text"
+            validate={ [required, maxLength70] }/>
+            <Field name="lastName"
+            component={this.renderInput}
+            type="text"
+            validate={ [required, maxLength70] }/>
+            <Field name="locale"
+            component={this.renderInput}
+            type="text"
+            validate={ [minLength4, maxLength30, required] }
+            />
+            <Field
+              name="password"
+              component={this.renderInput}
+              type="password"
+              parse={handleMaxLength(maxLength30BlockInput + 1)}
+              validate={[minLength4, maxLength30, required]}
+            />
             <ButtonSubmit
               onPress={this.signUp}
               buttonText={I18n.t("login.buttons.signup")}
@@ -71,7 +128,9 @@ class SignUpForm extends React.PureComponent {
           <View style={styles.signInView}>
             <Text style={styles.text}>{I18n.t("login.hint.or")}</Text>
             <TouchableOpacity onPress={this.goToLogin} activeOpacity={1}>
-              <Text style={styles.signInText}>{I18n.t("login.buttons.login")}</Text>
+              <Text style={styles.signInText}>
+                {I18n.t("login.buttons.login")}
+              </Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>

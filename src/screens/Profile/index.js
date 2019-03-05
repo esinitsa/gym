@@ -1,13 +1,15 @@
 import React from "react";
+import { Alert } from "react-native";
 import { connect } from "react-redux";
-import { View, Text, Card, CardItem } from "native-base";
+import { View, Text, Card, CardItem, Header, Left, Right, Button, Title, Body} from "native-base";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import {
   Modal,
   TouchableOpacity,
-  Animated,
-  Easing,
   SafeAreaView,
 } from "react-native";
+import { userLogOut } from "../../components/login/actions";
+import { I18n } from "react-redux-i18n";
 import { NavigationType } from "../../constants/navigationTypes";
 import LinearGradient from "react-native-linear-gradient";
 import QRCode from "react-native-qrcode-svg";
@@ -19,7 +21,6 @@ class Profile extends React.PureComponent {
     this.state = {
       qrcodeVisible: false
     };
-    this.qrCodeAnimated = new Animated.Value(0);
   }
 
   goToLogin = () => {
@@ -38,18 +39,41 @@ class Profile extends React.PureComponent {
     });
   };
 
-  onPress = () => {
-    Animated.timing(this.qrCodeAnimated, {
-      toValue: 1,
-      duration: 750,
-      easing: Easing.linear
-    }).start();
-  };
+  onLogOut = () => {
+    const performLogout = () => {
+      this.props.onLogOut();
+      this.goToLogin();
+    };
+    Alert.alert(
+      I18n.t("settings.logout.header"),
+      I18n.t("settings.logout.description"),
+      [
+        { text: I18n.t("settings.logout.cancelButtonCaption"), style: "cancel" },
+        { text: I18n.t("settings.logout.confirmButtonCaption"), onPress: performLogout },
+      ],
+      { cancelable: true }
+    );
+  }
 
   render() {
     const { userProfile } = this.props.user;
     return (
       <LinearGradient colors={["#ffffff", "#093145", "#00AC6B"]} style={styles.linearGradient}>
+       <Header>
+          <Left>
+            <Button transparent>
+            <FontAwesome5 name={"angle-left"} size={30} solid />
+            </Button>
+          </Left>
+          <Body>
+            <Title><Text>Header</Text></Title>
+          </Body>
+          <Right>
+            <Button onPress={this.onLogOut} transparent>
+            <FontAwesome5 name={"sign-out-alt"} size={25} solid />
+            </Button>
+          </Right>
+        </Header>
       <SafeAreaView style={styles.container}>
         <Card style={styles.card}>
           <CardItem style={styles.cardItem}>
@@ -147,4 +171,10 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(Profile);
+const  mapDispatchToProps = dispatch => {
+  return {
+    onLogOut: () => dispatch(userLogOut())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

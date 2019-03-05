@@ -4,45 +4,61 @@ import { SafeAreaView, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { Field, formValueSelector, reduxForm } from "redux-form";
-import { loginUser } from "../../components/login/actions";
+import { loginUser, validateToken } from "../../components/login/actions";
 import ButtonSubmit from "../common/buttons/submit";
 import { NavigationType } from "../../constants/navigationTypes";
 import LinearGradient from "react-native-linear-gradient";
+import { showToast } from "../../services/UIActions";
 import styles from "./styles";
 const logo = require("../../../assets/images/logo.png");
 
-class LoginForm extends React.PureComponent {
+class LoginForm extends React.Component {
 
-  goToSignUp = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.SignUp);
-  };
+  componentDidMount() {
+    this.props.token && this.props.onValidateToken(this.props.token);
+    if (this.props.user.isTokenValid)
+       {this.checkAdminAndRedirect(this.props.user.userProfile);}
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.user.userProfile && newProps.user.isTokenValid) {
+      this.checkAdminAndRedirect(newProps.user.userProfile);
+    }
+}
+
+  checkAdminAndRedirect = user => {
+    const isAdmin = user.roles.includes("ADMIN");
+    if (isAdmin)
+      {return this.goToPersonalPanel();}
+    else
+      {return this.goToProfile();}
+  }
 
   login = () => {
-    this.props
+    return this.props
       .onLogin(this.props.login, this.props.password)
       .then(res => {
-        const isAdmin = this.props.user.userProfile.roles.includes("ADMIN");
-        if (isAdmin)
-          {this.goToPersonalPanel();}
-        else
-          {this.goToProfile();}
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-console
-        console.log(error); // TODO ALERT
+        return this.checkAdminAndRedirect(res.user);
+      }).catch(error => {
+        showToast(I18n.t("login.messages.invalidLoginData"));
+        throw error;
       });
   };
+
+  goToPersonalPanel = () => {
+    const { navigation } = this.props;
+    navigation.navigate(NavigationType.Personal);
+  }
 
   goToProfile = () => {
     const { navigation } = this.props;
     navigation.navigate(NavigationType.Client);
   }
 
-  goToPersonalPanel = () => {
+  goToSignUp = () => {
     const { navigation } = this.props;
-    navigation.navigate(NavigationType.Personal);
-  }
+    navigation.navigate(NavigationType.SignUp);
+  };
 
   renderInput = ({ input }) => {
     return (
@@ -66,6 +82,8 @@ class LoginForm extends React.PureComponent {
   };
 
   render() {
+    // eslint-disable-next-line no-console
+    console.log(this.props.user);
     return (
       <LinearGradient colors={["#ffffff", "#093145", "#00AC6B"]} style={styles.linearGradient}>
         <SafeAreaView style={styles.container}>
@@ -102,11 +120,13 @@ const selector = formValueSelector("login");
 const mapStateToProps = state => ({
   login: selector(state, "login"),
   password: selector(state, "password"),
-  user: state.user
+  user: state.user,
+  token: state.user.token,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLogin: (login, password) => dispatch(loginUser(login, password))
+  onLogin: (login, password) => dispatch(loginUser(login, password)),
+  onValidateToken: (token) => dispatch(validateToken(token)),
 });
 
 

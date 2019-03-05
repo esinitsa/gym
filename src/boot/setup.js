@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { store } from "./configureStore";
+import { store, persistor } from "./configureStore";
+import { PersistGate } from "redux-persist/integration/react";
 import { initializeI18n } from "../i18n";
 import App from "../App";
 
@@ -9,6 +10,7 @@ export default class Setup extends React.Component {
     super();
     this.state = {
       store: store,
+      persistor: persistor,
     };
   }
 
@@ -18,7 +20,9 @@ export default class Setup extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <App />
+       <PersistGate loading={ null } persistor={ this.state.persistor }>
+          <App />
+        </PersistGate>
       </Provider>
     );
   }

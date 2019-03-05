@@ -16,6 +16,7 @@
     },
     "messages": {
       "invalidLoginData": "Enter Valid Username & Password!",
+      "signUpSuccess": "Successfully sign up",
       "invalidSignUpData": "Enter Valid Info",
       "unacceptedTermOfUse": "Please read and accept term of use",
       "termOfUse": "I have read and agree to the [Terms of Use](%{termOfUseURL}) and [Privacy Policy](%{privacyPolicyURL})",
@@ -28,5 +29,14 @@
     "hint": {
       "or": "or"
     }
-  } 
+  },
+  "settings": {
+    "viewFullProfile": "View your Profile",
+    "logout": {
+      "header": "Log Out",
+      "description": "Do you want to log out?",
+      "cancelButtonCaption": "No, cancel",
+      "confirmButtonCaption": "Yes, log out"
+    }
+  }
 }
