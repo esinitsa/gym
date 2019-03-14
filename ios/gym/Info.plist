@@ -44,7 +44,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Using for QR-code scanner</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

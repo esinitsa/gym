@@ -1,5 +1,4 @@
-import { StyleSheet } from "react-native";
-import { Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
@@ -12,41 +11,43 @@ const styles = StyleSheet.create({
       justifyContent: "center"
     },
     card: {
-      backgroundColor: "#093145",
+       //backgroundColor: "#093145",
+      backgroundColor: "rgba(9,49,69, 0.6)",
       paddingTop: 5,
       paddingBottom: 5,
-      marginLeft: 15,
-      marginRight: 15,
-      marginBottom: 5
+      marginLeft: 20,
+      marginRight: 20,
+      marginBottom: 20
     },
     cardItem: {
-      backgroundColor: "#093145",
+       //backgroundColor: "#093145",
+       backgroundColor: "rgba(9,49,69, 0.4)",
     },
     cardText: {
       fontSize: 20, color: "#ffffff",
     },
     cardRow: {
-      height: 200,
+      height: 175,
       flexDirection: "row",
       marginBottom: 40
     },
     leftCard: {
-      backgroundColor: "#093145",
-      width: DEVICE_WIDTH / 2 - 20,
+      // backgroundColor: "#093145",
+      backgroundColor: "rgba(9,49,69, 0.6)",
+      width: DEVICE_WIDTH / 2 - 30,
       alignItems: "center",
-      paddingTop: 5,
-      paddingBottom: 5,
-      marginLeft: 15,
-      marginRight: 5
+      marginRight: 10,
+      marginLeft: 20,
     },
     rightCard: {
-      backgroundColor: "#093145",
-      width: DEVICE_WIDTH / 2 - 20,
+      //backgroundColor: "#093145",
+      backgroundColor: "rgba(9,49,69, 0.6)",
+      width: DEVICE_WIDTH / 2 - 30,
       alignItems: "center",
       paddingTop: 5,
       paddingBottom: 5,
-      marginLeft: 5,
-      marginRight: 15
+      marginLeft: 10,
+      marginRight: 20,
     },
     buttonText: {
       fontSize: 20,
@@ -68,13 +69,14 @@ const styles = StyleSheet.create({
     },
     button: {
       alignItems: "center",
-      backgroundColor: "#BF8330",
+      // backgroundColor: "#007aa3",rgb(0, 122, 163)
+      //backgroundColor: "rgba(58, 118, 168, 0.9)",
+      backgroundColor: "rgba(65, 146, 168, 0.7)",
       borderRadius: 20,
       justifyContent: "center",
       marginLeft: 15,
       marginRight: 15,
       height: 50,
-      zIndex: 100,
   },
   text: {
       color: "white",

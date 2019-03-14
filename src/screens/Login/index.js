@@ -10,6 +10,7 @@ import { NavigationType } from "../../constants/navigationTypes";
 import LinearGradient from "react-native-linear-gradient";
 import { showToast } from "../../services/UIActions";
 import styles from "./styles";
+import { GRADIENT_COLORS } from "../../constants/cssConstants";
 const logo = require("../../../assets/images/logo.png");
 
 class LoginForm extends React.Component {
@@ -85,7 +86,7 @@ class LoginForm extends React.Component {
     // eslint-disable-next-line no-console
     console.log(this.props.user);
     return (
-      <LinearGradient colors={["#ffffff", "#093145", "#00AC6B"]} style={styles.linearGradient}>
+      <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
         <SafeAreaView style={styles.container}>
           <Image style={styles.logo} source={logo} />
           <View style={styles.loginView}>

@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center"
   },
+  formContainer: {
+    padding: 20,
+  },
   signInView: {
     flexDirection: "row",
     alignItems: "flex-start",

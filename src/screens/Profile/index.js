@@ -1,18 +1,20 @@
 import React from "react";
 import { Alert } from "react-native";
 import { connect } from "react-redux";
-import { View, Text, Card, CardItem, Header, Left, Right, Button, Title, Body} from "native-base";
+import { View, Text, Header, Left, Right, Button, Title, Body} from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import {
   Modal,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import ProfileCards from "../common/profileCards/index";
 import { userLogOut } from "../../components/login/actions";
 import { I18n } from "react-redux-i18n";
 import { NavigationType } from "../../constants/navigationTypes";
 import LinearGradient from "react-native-linear-gradient";
 import QRCode from "react-native-qrcode-svg";
+import { GRADIENT_COLORS } from "../../constants/cssConstants";
 import styles from "./styles";
 
 class Profile extends React.PureComponent {
@@ -58,15 +60,11 @@ class Profile extends React.PureComponent {
   render() {
     const { userProfile } = this.props.user;
     return (
-      <LinearGradient colors={["#ffffff", "#093145", "#00AC6B"]} style={styles.linearGradient}>
+      <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
        <Header>
-          <Left>
-            <Button transparent>
-            <FontAwesome5 name={"angle-left"} size={30} solid />
-            </Button>
-          </Left>
+          <Left/>
           <Body>
-            <Title><Text>Header</Text></Title>
+            <Title><Text>Profile</Text></Title>
           </Body>
           <Right>
             <Button onPress={this.onLogOut} transparent>
@@ -75,74 +73,7 @@ class Profile extends React.PureComponent {
           </Right>
         </Header>
       <SafeAreaView style={styles.container}>
-        <Card style={styles.card}>
-          <CardItem style={styles.cardItem}>
-            <Text style={styles.cardText}>
-              {userProfile !== null ? userProfile.email : "EmailTest"}
-            </Text>
-          </CardItem>
-          <CardItem style={styles.cardItem}>
-            <Text style={styles.cardText}>
-              {userProfile !== null ? userProfile.firstName : "firstName"}
-            </Text>
-          </CardItem>
-          <CardItem style={styles.cardItem}>
-            <Text style={styles.cardText}>
-              {userProfile !== null ? userProfile.lastName : "lastName"}
-            </Text>
-          </CardItem>
-          <CardItem style={styles.cardItem}>
-            <Text style={styles.cardText}>
-              {userProfile !== null ? userProfile.locale : "locale"}
-            </Text>
-          </CardItem>
-        </Card>
-        <View style={styles.cardRow}>
-          <Card
-            style={styles.leftCard}
-          >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "bold",
-                color: "#ffffff"
-              }}
-            >
-              {userProfile !== null ? userProfile.email : "Дата окончания"}
-            </Text>
-            <Text
-              style={{
-                color: "#ffffff",
-                fontSize: 20,
-                paddingTop: "40%",
-                fontWeight: "bold"
-              }}
-            >
-              20/09/2019
-            </Text>
-          </Card>
-          <Card style={styles.rightCard}>
-            <Text
-              style={{
-                color: "#ffffff",
-                fontSize: 14,
-                fontWeight: "bold"
-              }}
-            >
-              {userProfile !== null ? userProfile.email : "Количество занятий"}
-            </Text>
-            <Text
-              style={{
-                color: "#ffffff",
-                fontSize: 24,
-                fontWeight: "bold",
-                paddingTop: "40%"
-              }}
-            >
-              12
-            </Text>
-          </Card>
-        </View>
+        <ProfileCards user={userProfile} />
         <Modal
           animationType={"fade"}
           transparent={true}

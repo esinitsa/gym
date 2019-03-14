@@ -7,6 +7,7 @@ import { signUpUser } from "../../components/login/actions";
 import { I18n } from "react-redux-i18n";
 import styles from "./styles";
 import { showToast } from "../../services/UIActions";
+import { GRADIENT_COLORS } from "../../constants/cssConstants";
 import {
   emailRegexCheck,
   required,
@@ -88,11 +89,11 @@ class SignUpForm extends React.PureComponent {
   render() {
     return (
       <LinearGradient
-        colors={["#ffffff", "#093145", "#00AC6B"]}
+        colors={GRADIENT_COLORS}
         style={styles.linearGradient}
       >
         <SafeAreaView style={styles.container}>
-          <View style={{ padding: 20 }}>
+          <View style={styles.formContainer}>
             <Field
               name="email"
               component={this.renderInput}
