@@ -7,36 +7,27 @@ import { initializeI18n } from "../i18n";
 import App from "../App";
 
 export default class Setup extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      store: store,
-      persistor: persistor,
-    };
-  }
+  state = { store, persistor };
 
   getLanguageCode = () => {
-    let systemLanguage = "en";
+    let systemLanguage;
     if (Platform.OS === "android") {
       systemLanguage = NativeModules.I18nManager.localeIdentifier;
     } else {
       systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
     }
-    if (systemLanguage.substring(0, 2) !== "en" && systemLanguage.substring(0, 2) !== "ru" ){
-      systemLanguage = "en";
-    }
-    const languageCode = systemLanguage.substring(0, 2);
-    return languageCode;
-  }
+    const language = systemLanguage.substring(0, 2);
+    return language.includes("en") || language.includes("ru") ? language : "en";
+  };
 
   componentDidMount() {
-    const systemLanguage =  this.getLanguageCode();
+    const systemLanguage = this.getLanguageCode();
     this.state.store && initializeI18n(this.state.store, systemLanguage);
   }
   render() {
     return (
       <Provider store={store}>
-       <PersistGate loading={ null } persistor={ this.state.persistor }>
+        <PersistGate loading={null} persistor={this.state.persistor}>
           <App />
         </PersistGate>
       </Provider>

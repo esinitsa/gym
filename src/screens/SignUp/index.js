@@ -32,17 +32,7 @@ class SignUpForm extends React.PureComponent {
     return (
       <Item floatingLabel style={{ marginTop: 10 }}>
         <Label style={{ color: "white", fontWeight: "200" }}>
-          {input.name === "email"
-            ? I18n.t("login.placeholders.email")
-            : input.name === "password"
-            ? I18n.t("login.placeholders.password")
-            : input.name === "firstName"
-            ? I18n.t("login.placeholders.firstName")
-            : input.name === "lastName"
-            ? I18n.t("login.placeholders.lastName")
-            : input.name === "locale"
-            ? I18n.t("login.placeholders.locale")
-            : ""}
+          {I18n.t(`login.placeholders.${input.name}`)}
         </Label>
         <Input
           autoCapitalize="none"
@@ -60,25 +50,24 @@ class SignUpForm extends React.PureComponent {
   };
 
   signUp = () => {
-    if (this.props.valid){
+    if (this.props.valid) {
       return this.props
-      .onSignUp(
-        this.props.email,
-        this.props.password,
-        this.props.firstName,
-        this.props.lastName,
-        this.props.locale
-      )
-      .then(() => {
-        showToast(I18n.t("login.messages.signUpSuccess"));
-        this.goToLogin();
-      })
-      .catch(error => {
-        showToast(error);
-        throw error;
-      });
-    }
-    else {
+        .onSignUp({
+          email: this.props.email,
+          password: this.props.password,
+          firstName: this.props.firstName,
+          lastName: this.props.lastName,
+          locale: this.props.locale
+        })
+        .then(() => {
+          showToast(I18n.t("login.messages.signUpSuccess"));
+          this.goToLogin();
+        })
+        .catch(error => {
+          showToast(error);
+          throw error;
+        });
+    } else {
       showToast(I18n.t("login.messages.invalidSignUpData"));
       return new Promise(() => {
         throw new Error(I18n.t("login.messages.invalidSignUpData"));
@@ -88,10 +77,7 @@ class SignUpForm extends React.PureComponent {
 
   render() {
     return (
-      <LinearGradient
-        colors={GRADIENT_COLORS}
-        style={styles.linearGradient}
-      >
+      <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
         <SafeAreaView style={styles.container}>
           <View style={styles.formContainer}>
             <Field
@@ -100,18 +86,23 @@ class SignUpForm extends React.PureComponent {
               type="email"
               validate={[emailRegexCheck, required, maxLength100]}
             />
-            <Field name="firstName"
-            component={this.renderInput}
-            type="text"
-            validate={ [required, maxLength70] }/>
-            <Field name="lastName"
-            component={this.renderInput}
-            type="text"
-            validate={ [required, maxLength70] }/>
-            <Field name="locale"
-            component={this.renderInput}
-            type="text"
-            validate={ [minLength4, maxLength30, required] }
+            <Field
+              name="firstName"
+              component={this.renderInput}
+              type="text"
+              validate={[required, maxLength70]}
+            />
+            <Field
+              name="lastName"
+              component={this.renderInput}
+              type="text"
+              validate={[required, maxLength70]}
+            />
+            <Field
+              name="locale"
+              component={this.renderInput}
+              type="text"
+              validate={[minLength4, maxLength30, required]}
             />
             <Field
               name="password"

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     },
     container:{
       flex: 1,
-      justifyContent: "center"
+      justifyContent: "space-around"
     },
     card: {
        //backgroundColor: "#093145",
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
       color: "#ffffff",
       fontWeight: "bold"
     },
-    modalView: {
+    touchableView: {
       backgroundColor: "rgba(0,0,0,0.6)",
       alignItems: "center",
       flex: 1,
@@ -63,15 +63,18 @@ const styles = StyleSheet.create({
       right: 0,
       top: 0,
     },
-    touchableView: {
+    modalView: {
       borderColor: "white",
       borderWidth: 20,
     },
     button: {
       alignItems: "center",
-      // backgroundColor: "#007aa3",rgb(0, 122, 163)
+      //backgroundColor: "#007aa3",
+      backgroundColor: "#086ab2",
+      //backgroundColor: "rgb(0, 122, 163)",
       //backgroundColor: "rgba(58, 118, 168, 0.9)",
-      backgroundColor: "rgba(65, 146, 168, 0.7)",
+      //backgroundColor: "rgba(65, 146, 168, 0.7)",
+      //backgroundColor: "#435977",
       borderRadius: 20,
       justifyContent: "center",
       marginLeft: 15,
@@ -82,6 +85,9 @@ const styles = StyleSheet.create({
       color: "white",
       backgroundColor: "transparent",
   },
+  leftIcon: {
+    marginLeft: 5,
+  }
 });
 
 export default styles;

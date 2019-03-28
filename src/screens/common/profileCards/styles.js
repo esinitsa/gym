@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
-import { Dimensions } from "react-native";
-
-const DEVICE_WIDTH = Dimensions.get("window").width;
+import { CARD_WIDTH } from "../../../constants/cssConstants";
 
 const styles = StyleSheet.create({
   card: {
     //backgroundColor: "#093145",
-    backgroundColor: "rgba(9,49,69, 0.6)",
+   //backgroundColor: "rgba(9,49,69, 0.6)",
+
+    //backgroundColor: "#1a2b49",
+
+    backgroundColor: "rgba(26, 43, 73, 0.9)",
     paddingTop: 5,
     paddingBottom: 5,
     marginLeft: 20,
@@ -15,7 +17,9 @@ const styles = StyleSheet.create({
   },
   cardItem: {
     //backgroundColor: "#093145",
-    backgroundColor: "rgba(9,49,69, 0.4)"
+    //backgroundColor: "rgba(9,49,69, 0.4)"
+    //backgroundColor: "#1a2b49",
+    backgroundColor: "rgba(26, 43, 73, 0.9)",
   },
   cardText: {
     fontSize: 20,
@@ -24,23 +28,25 @@ const styles = StyleSheet.create({
   cardRow: {
     height: 175,
     flexDirection: "row",
-    marginBottom: 40
   },
   leftCard: {
     // backgroundColor: "#093145",
-    backgroundColor: "rgba(9,49,69, 0.6)",
-    width: DEVICE_WIDTH / 2 - 30,
+    //backgroundColor: "rgba(9,49,69, 0.6)",
+
+    //backgroundColor: "#1a2b49",
+    backgroundColor: "rgba(26, 43, 73, 0.9)",
+    width: CARD_WIDTH,
     alignItems: "center",
     marginRight: 10,
     marginLeft: 20
   },
   rightCard: {
     //backgroundColor: "#093145",
-    backgroundColor: "rgba(9,49,69, 0.6)",
-    width: DEVICE_WIDTH / 2 - 30,
+    //backgroundColor: "rgba(9,49,69, 0.6)",
+    //backgroundColor: "#1a2b49",
+    backgroundColor: "rgba(26, 43, 73, 0.9)",
+    width: CARD_WIDTH,
     alignItems: "center",
-    paddingTop: 5,
-    paddingBottom: 5,
     marginLeft: 10,
     marginRight: 20
   },

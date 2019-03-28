@@ -20,11 +20,13 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
     marginRight: 10,
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: "TrebuchetMS",
   },
   signInText: {
     fontSize: 20,
     color: "#BF8330",
+    fontFamily: "TrebuchetMS",
   }
 });
 

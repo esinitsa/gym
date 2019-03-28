@@ -1,20 +1,17 @@
+import { Body, Button, Header, Left, Right, Title, View } from "native-base";
 import React from "react";
-import { Alert } from "react-native";
-import { connect } from "react-redux";
-import { View, Text, Header, Left, Right, Button, Title, Body} from "native-base";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import {
-  Modal,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
-import ProfileCards from "../common/profileCards/index";
-import { userLogOut } from "../../components/login/actions";
-import { I18n } from "react-redux-i18n";
-import { NavigationType } from "../../constants/navigationTypes";
+import { Alert, Modal, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import QRCode from "react-native-qrcode-svg";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import Foundation from "react-native-vector-icons/Foundation";
+import { connect } from "react-redux";
+import { I18n } from "react-redux-i18n";
+import { userLogOut } from "../../components/login/actions";
 import { GRADIENT_COLORS } from "../../constants/cssConstants";
+import { NavigationType } from "../../constants/navigationTypes";
+import ProfileCards from "../common/profileCards/index";
+import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 
 class Profile extends React.PureComponent {
@@ -25,15 +22,9 @@ class Profile extends React.PureComponent {
     };
   }
 
-  goToLogin = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.Login);
-  };
+  goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
 
-  goToSignUp = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.SignUp);
-  };
+  goToSignUp = () => this.props.navigation.navigate(NavigationType.SignUp);
 
   visibleMyQRCode = () => {
     this.setState({
@@ -61,38 +52,42 @@ class Profile extends React.PureComponent {
     const { userProfile } = this.props.user;
     return (
       <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
-       <Header>
-          <Left/>
+        <Header >
+          <Left>
+            <Button onPress={this.onLogOut} transparent style={styles.leftIcon}>
+              <Foundation name={"clipboard-notes"} size={30} solid />
+            </Button>
+          </Left>
           <Body>
-            <Title><Text>Profile</Text></Title>
+            <Title><CustomText text={"Profile"}/></Title>
           </Body>
           <Right>
             <Button onPress={this.onLogOut} transparent>
-            <FontAwesome5 name={"sign-out-alt"} size={25} solid />
+              <FontAwesome5 name={"sign-out-alt"} size={25} solid />
             </Button>
           </Right>
         </Header>
-      <SafeAreaView style={styles.container}>
-        <ProfileCards user={userProfile} />
-        <Modal
-          animationType={"fade"}
-          transparent={true}
-          visible={this.state.qrcodeVisible}>
-         <TouchableOpacity style={styles.modalView} onPress={this.visibleMyQRCode}>
+        <SafeAreaView style={styles.container}>
+          <ProfileCards user={userProfile} />
+          <Modal
+            animationType={"fade"}
+            transparent={true}
+            visible={this.state.qrcodeVisible}>
+            <TouchableWithoutFeedback onPress={this.visibleMyQRCode} >
               <View style={styles.touchableView}>
-                <QRCode
-                  value={userProfile !== null ? userProfile.id : "200"}
-                  size={250}
-                />
+                <View style={styles.modalView}>
+                  <QRCode
+                    value={userProfile !== null ? userProfile.id : "200"}
+                    size={250}
+                  />
+                </View>
               </View>
+            </TouchableWithoutFeedback>
+          </Modal>
+          <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
+            <CustomText style={styles.buttonText} text={"My QR-code"}/>
           </TouchableOpacity>
-        </Modal>
-        <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
-          <Text style={styles.buttonText}>
-            My QR-code
-          </Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+        </SafeAreaView>
       </LinearGradient>
     );
   }

@@ -1,64 +1,58 @@
+import _ from "lodash";
+import { Body, Button, Footer, FooterTab, Header, Left, Right, Title } from "native-base";
 import React, { PureComponent } from "react";
-import { Header, Button, Title, Right, Left, Body, Footer, FooterTab,} from "native-base";
-import {
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Modal,
-  FlatList,
-  View,
-  Alert,
-} from "react-native";
+import { Alert, FlatList, KeyboardAvoidingView, Modal, Text, TouchableOpacity, View } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import QRCodeScanner from "react-native-qrcode-scanner";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import LinearGradient from "react-native-linear-gradient";
-import { I18n } from "react-redux-i18n";
 import { connect } from "react-redux";
-import { NavigationType } from "../../constants/navigationTypes";
-import { getClients, getUserById } from "../../components/personal/actions";
+import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
-import QRCodeScanner from "react-native-qrcode-scanner";
-import SearchBar from "../common/searchBar/index";
+import { getAllClients,
+  getMyClients,
+  getUserById,
+  processSubscriptionVisit,
+  tokenTest
+ } from "../../components/personal/actions";
+import { GRADIENT_COLORS } from "../../constants/cssConstants";
+import { NavigationType } from "../../constants/navigationTypes";
 import { contains } from "../../services/search";
 import ScanMarker from "../common/scanMarker/index";
-import { GRADIENT_COLORS } from "../../constants/cssConstants";
+import SearchBar from "../common/searchBar/index";
 import styles from "./styles";
-import _ from "lodash";
 
 class PersonalPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       qrcodeVisible: false,
-      clients: [{firstName: "Pasha"},{firstName: "Pablo"},{firstName: "Emilio"},{firstName: "Escobar"}],
+      clients: [],
       personalClients: [{firstName: "Pasha"},{firstName: "Pablo"},{firstName: "Emilio"},{firstName: "Escobar"}],
+      searchText: "",
     };
   }
 
   componentDidMount () {
-    this.props.getMyClients()
-/*     .then( data => {
-      this.setState({
-        clients: data,
-      });
-    }) */ // Так должно быть когда Clients придут с бека
-    .catch( () => this.onLogOut());
+    this.props.getAllClients()
+    .catch( () => {
+      //this.props.getAllClients();
+      //this.onLogOut();
+    }
+      );
   }
-    // const { clients } = this.props.personal;
 
-  onSuccess = e => {
-    this.props.getUser(e.data).then( data => this.goToUserPreview(data));
-  };
-
-  openQRCodeScanner = () => {
-    this.setState({
-      qrcodeVisible: true
+  onSuccess = scanData => {
+    this.props.getUser(scanData.data).then( data => {
+      this.props.markUserVisit(data.subscriptions[0].id).then( (res) =>
+        this.goToUserPreview(res.user)
+      );
     });
   };
 
-  closeQRCodeScanner = () => {
+  changeQRState = () => {
     this.setState({
-      qrcodeVisible: false
+      qrcodeVisible: !this.state.qrcodeVisible
     });
   };
 
@@ -78,10 +72,7 @@ class PersonalPanel extends PureComponent {
     );
   }
 
-  goToLogin = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.Login);
-  };
+  goToLogin = () => this.props.navigation.navigate(NavigationType.Login)
 
   goToUserPreview = user => {
     const { navigation } = this.props;
@@ -93,14 +84,13 @@ class PersonalPanel extends PureComponent {
   _keyExtractor = (item, index) => `${index}${item.id}`;
 
   handleInput = _.debounce((text) => {
-    //const { clients } = this.props.personal;
-    const data = _.filter(this.state.personalClients, user => contains(user, text.toLowerCase()));
-    this.setState({
-      clients: data,
-    });
+   this.setState({
+     searchText: text
+   });
   }, 300);
 
   render() {
+    const { clients } = this.props.personal;
     return (
       <LinearGradient
         colors={GRADIENT_COLORS}
@@ -116,7 +106,7 @@ class PersonalPanel extends PureComponent {
          </Title>
           </Body>
           <Right>
-            <Button onPress={this.openQRCodeScanner} transparent
+            <Button onPress={this.changeQRState} transparent
             style={styles.qrScanRightHeader}>
               <MaterialIcons name={"qrcode-scan"} size={25} solid />
             </Button>
@@ -126,13 +116,16 @@ class PersonalPanel extends PureComponent {
           </Right>
         </Header>
         <KeyboardAvoidingView style={styles.container} behavior="padding">
-          <FlatList
-            data={this.state.clients}
+        <FlatList
+            data={_.filter(clients, client => contains(client, this.state.searchText.toLowerCase()))}
             keyExtractor={this._keyExtractor}
             renderItem={(client, index) => (
-              <View style={styles.listItem}>
-                <Text style={styles.listText}>{client.item.firstName}</Text>
-              </View>
+              <TouchableOpacity onPress={ () => this.goToUserPreview(client.item)}>
+                <View style={styles.listItem}>
+                  <Text style={styles.listText}>{`${client.item.firstName} ${client.item.lastName}`}</Text>
+                  <Text style={styles.listText}>{`${client.item.email}`}</Text>
+                </View>
+              </TouchableOpacity>
             )}
           />
           <Modal
@@ -151,7 +144,7 @@ class PersonalPanel extends PureComponent {
                 bottomContent={
                   <TouchableOpacity
                     style={styles.button}
-                    onPress={this.closeQRCodeScanner}
+                    onPress={this.changeQRState}
                   >
                     <Text style={styles.buttonText}>Close QR-scan</Text>
                   </TouchableOpacity>
@@ -170,14 +163,18 @@ class PersonalPanel extends PureComponent {
   }
 }
 const mapStateToProps = state => ({
-  personal: state.personal
+  personal: state.personal,
+  user: state.user,
 });
 
 const  mapDispatchToProps = dispatch => {
   return {
-    getMyClients: () => dispatch(getClients()),
+    getMyClients: () => dispatch(getMyClients()),
+    getAllClients: () => dispatch(getAllClients()),
     getUser: id => dispatch(getUserById(id)),
-    onLogOut: () => dispatch(userLogOut())
+    onLogOut: () => dispatch(userLogOut()),
+    markUserVisit: subscriptionId => dispatch(processSubscriptionVisit(subscriptionId)),
+    tokenTest: (auth) => dispatch(tokenTest(auth)),
   };
 };
 

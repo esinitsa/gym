@@ -6,20 +6,18 @@
       "create": "Create"
     },
     "placeholders": {
-      "emailOrUsername": "Email or Username",
+      "login": "Email or Username",
       "password": "Password",
       "email": "Email",
       "firstName": "First Name",
       "lastName": "Last Name",
-      "locale": "Address",
+      "locale": "Locale",
       "dateBirth": "Date Of Birth"
     },
     "messages": {
       "invalidLoginData": "Enter Valid Username & Password!",
       "signUpSuccess": "Successfully sign up",
       "invalidSignUpData": "Enter Valid Info",
-      "unacceptedTermOfUse": "Please read and accept term of use",
-      "termOfUse": "I have read and agree to the [Terms of Use](%{termOfUseURL}) and [Privacy Policy](%{privacyPolicyURL})",
       "required": "Required",
       "maxLength": "Must be %{max} characters or less",
       "minLength": "Must be %{min} characters or more",
@@ -38,5 +36,10 @@
       "cancelButtonCaption": "No, cancel",
       "confirmButtonCaption": "Yes, log out"
     }
+  },
+  "profile": {
+    "numberOfVisits" : "Number of visits",
+    "startDate" : "Start Date",
+    "validTill" : "End Date"
   }
 }

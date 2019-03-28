@@ -1,5 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "./../constants/index";
+import { store } from "../boot/configureStore";
+import { refreshToken } from "../components/login/actions";
 import { FORCE_LOGOUT } from "./../constants/stateConstants";
 
 const api = axios.create({
@@ -23,22 +25,21 @@ api.interceptors.response.use(
         return Promise.reject(response.data.messages ?
           response.data.messages : "Please active account");
       }
-      // eslint-disable-next-line no-console
-      console.log(response.data);
       return response.data;
   },
   (error) => {
       if (error && error.response && error.response.status === 401) {
-          return Promise.reject(FORCE_LOGOUT);
-      }
-      // eslint-disable-next-line no-console
-      console.log(error);
+        // throw store.dispatch(refreshToken(store.getState().user.auth))
+        //   .then( () =>  {
+        //     store.dispatch(store.getState().personal.lastRequest);
+        //   })
+        //   .catch( () => FORCE_LOGOUT);
+        return Promise.reject(FORCE_LOGOUT);
+        }
       return Promise.reject(error);
   });
 
   const authorizeApi = (token = null) => {
-    // eslint-disable-next-line no-console
-    console.log(token);
     api.defaults.headers.common["FCB-Api-Token"] = token ? token : null;
 };
 

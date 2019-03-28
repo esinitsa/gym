@@ -8,6 +8,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
   },
+  item: {
+    marginTop: 10
+  },
+  label: {
+    color: "white",
+    fontWeight: "200"
+  },
   logo: {
     width: 150,
     height: 150,
@@ -29,14 +36,17 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
     marginRight: 10,
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: "TrebuchetMS",
   },
   inputText: {
     color: "#ffffff",
+    fontFamily: "TrebuchetMS",
   },
   signUpText: {
     fontSize: 20,
      color: "#BF8330",
+    fontFamily: "TrebuchetMS",
   }
 });
 

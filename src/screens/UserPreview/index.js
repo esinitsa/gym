@@ -1,13 +1,12 @@
+import { Body, Button, Header, Left, Right, Title } from "native-base";
 import React from "react";
-import {
-  SafeAreaView
-} from "react-native";
-import { NavigationType } from "../../constants/navigationTypes";
-import { Header, Button, Title, Text, Left, Body, Right} from "native-base";
+import { SafeAreaView } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { GRADIENT_COLORS } from "../../constants/cssConstants";
-import LinearGradient from "react-native-linear-gradient";
+import { NavigationType } from "../../constants/navigationTypes";
 import ProfileCards from "../common/profileCards";
+import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 
 class UserPreview extends React.PureComponent {
@@ -28,9 +27,7 @@ class UserPreview extends React.PureComponent {
           </Left>
          <Body>
          <Title>
-           <Text>
-             User Preview
-           </Text>
+          <CustomText text={"User Preview"}/>
          </Title>
           </Body>
           <Right/>
