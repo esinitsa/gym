@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { api, authorizeApi } from "../../api/api";
 import {
   USER_SIGNUP_REQUEST,

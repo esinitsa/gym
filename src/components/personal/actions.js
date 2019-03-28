@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { api } from "../../api/api";
 import {
   GET_MY_CLIENTS_REQUEST,
@@ -89,7 +90,7 @@ export const addInternalRecord = internalRecord => dispatch => {
       return data;
     })
     .catch(error => console.log(error));
-}
+};
 
 export const getUserById = id => dispatch => {
   dispatch(getUserRequest());

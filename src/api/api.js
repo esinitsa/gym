@@ -1,7 +1,5 @@
 import axios from "axios";
 import { BASE_URL } from "./../constants/index";
-import { store } from "../boot/configureStore";
-import { refreshToken } from "../components/login/actions";
 import { FORCE_LOGOUT } from "./../constants/stateConstants";
 
 const api = axios.create({
