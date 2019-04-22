@@ -1,17 +1,39 @@
-import { Body, Button, Header, Left, Right, Title, View } from "native-base";
+import {
+  Body,
+  Button,
+  Header,
+  Left,
+  Right,
+  Title,
+  View,
+  Container,
+  Card,
+  CardItem
+} from "native-base";
 import React from "react";
-import { Alert, Modal, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import {
+  Alert,
+  Modal,
+  SafeAreaView,
+  TouchableOpacity,
+  TouchableWithoutFeedback
+} from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import QRCode from "react-native-qrcode-svg";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Foundation from "react-native-vector-icons/Foundation";
 import { connect } from "react-redux";
+import {
+  COUNT,
+  DATE_TYPE,
+  DEFAULT_COUNT,
+  EMPTY_RESPONSE,
+  TERM
+} from "../../constants/profileConstants";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
 import { GRADIENT_COLORS } from "../../constants/cssConstants";
 import { NavigationType } from "../../constants/navigationTypes";
-import ProfileCards from "../common/profileCards/index";
 import { CustomText } from "../common/text/customText";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import _ from "lodash";
 import styles from "./styles";
 
 class Profile extends React.PureComponent {
@@ -22,15 +44,9 @@ class Profile extends React.PureComponent {
     };
   }
 
+  goToHome = () => this.props.navigation.navigate(NavigationType.Home);
+  
   goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
-
-  goToSignUp = () => this.props.navigation.navigate(NavigationType.SignUp);
-
-  visibleMyQRCode = () => {
-    this.setState({
-      qrcodeVisible: !this.state.qrcodeVisible
-    });
-  };
 
   onLogOut = () => {
     const performLogout = () => {
@@ -41,54 +57,108 @@ class Profile extends React.PureComponent {
       I18n.t("settings.logout.header"),
       I18n.t("settings.logout.description"),
       [
-        { text: I18n.t("settings.logout.cancelButtonCaption"), style: "cancel" },
-        { text: I18n.t("settings.logout.confirmButtonCaption"), onPress: performLogout },
+        { text: I18n.t("settings.logout.cancel"), style: "cancel" },
+        { text: I18n.t("settings.logout.confirm"), onPress: performLogout }
       ],
       { cancelable: true }
     );
-  }
+  };
+  renderCardItem = (user, prop, iconName) => (
+    <CardItem style={styles.cardItem}>
+      <MaterialCommunityIcons
+        name={iconName}
+        style={{ color: "#DCDCDC", marginRight: 10 }}
+        size={20}
+        solid
+      />
+      <CustomText
+        style={styles.cardText}
+        text={_.get(user, `${prop}`, I18n.t(`login.placeholders.${prop}`))}
+      />
+    </CardItem>
+  );
+
+  checkSubscriptionVisits = (user, prop) => {
+    const type = _.get(user, `${prop}`, EMPTY_RESPONSE);
+    if (type === COUNT) {
+      const countInitial = _.get(
+        user,
+        `subscriptions[${this.state.subscriptionNumber}].countInitial`,
+        EMPTY_RESPONSE
+      );
+      const countLeft = _.get(
+        user,
+        `subscriptions[${this.state.subscriptionNumber}].countLeft`,
+        countInitial
+      );
+      return `${countLeft}/${countInitial}`;
+    } else if (type === TERM) {
+      return this.checkDate(
+        user,
+        `subscriptions[${this.state.subscriptionNumber}].validTill`
+      );
+    }
+    return DEFAULT_COUNT;
+  };
+
+  checkSubscriptionType = (user, prop) => {
+    const type = _.get(user, `${prop}`, EMPTY_RESPONSE);
+    if (type === COUNT) {
+      return I18n.t("profile.numberOfVisits");
+    } else if (type === TERM) {
+      return I18n.t("profile.validTill");
+    }
+    return I18n.t("profile.numberOfVisits");
+  };
+
+  checkDate = (user, prop) => {
+    const date = _.get(user, prop, EMPTY_RESPONSE);
+    if (date === EMPTY_RESPONSE) {
+      return EMPTY_RESPONSE;
+    } else {
+      return new Date(date).toLocaleDateString(DATE_TYPE);
+    }
+  };
 
   render() {
     const { userProfile } = this.props.user;
     return (
-      <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
-        <Header >
-          <Left>
-            <Button onPress={this.onLogOut} transparent style={styles.leftIcon}>
-              <Foundation name={"clipboard-notes"} size={30} solid />
-            </Button>
-          </Left>
+      <Container>
+        <Header>
+          <Left />
           <Body>
-            <Title><CustomText text={"Profile"}/></Title>
+            <Title>
+              <CustomText text={"Account"} />
+            </Title>
           </Body>
           <Right>
-            <Button onPress={this.onLogOut} transparent>
-              <FontAwesome5 name={"sign-out-alt"} size={25} solid />
+            <Button onPress={this.goToHome} transparent>
+              <CustomText style={styles.rightHeaderText} text={"Done"} />
             </Button>
           </Right>
         </Header>
-        <SafeAreaView style={styles.container}>
-          <ProfileCards user={userProfile} />
-          <Modal
-            animationType={"fade"}
-            transparent={true}
-            visible={this.state.qrcodeVisible}>
-            <TouchableWithoutFeedback onPress={this.visibleMyQRCode} >
-              <View style={styles.touchableView}>
-                <View style={styles.modalView}>
-                  <QRCode
-                    value={userProfile !== null ? userProfile.id : "200"}
-                    size={250}
-                  />
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-          <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
-            <CustomText style={styles.buttonText} text={"My QR-code"}/>
-          </TouchableOpacity>
+        <SafeAreaView style={{ backgroundColor: "#f5f4f5", flex: 1 }}>
+          <View style={styles.infoView}>
+            <CustomText
+              style={styles.userInfoText}
+              text={`${_.get(userProfile, "firstName", EMPTY_RESPONSE)} `
+              + `${_.get(userProfile, "lastName", EMPTY_RESPONSE)}`}
+            />
+            <CustomText style={styles.emailText} text={_.get(userProfile, "email", EMPTY_RESPONSE)} />
+          </View>
+          <View style={styles.infoView}>
+            <CustomText style={styles.userInfoText} text={_.get(userProfile, "locale", EMPTY_RESPONSE)} />
+          </View>
+          <View style={styles.infoView}>
+            <CustomText style={styles.userInfoText} text={"Settings"} />
+          </View>
+          <View style={styles.infoView}>
+            <TouchableOpacity onPress={this.onLogOut}>
+              <CustomText style={styles.signOutText} text={"Sign Out"} />
+            </TouchableOpacity>
+          </View>
         </SafeAreaView>
-      </LinearGradient>
+      </Container>
     );
   }
 }
@@ -97,10 +167,13 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-const  mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     onLogOut: () => dispatch(userLogOut())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);

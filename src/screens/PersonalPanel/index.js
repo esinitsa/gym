@@ -1,25 +1,21 @@
 import _ from "lodash";
-import { Body, Button, Footer, FooterTab, Header, Left, Right, Title } from "native-base";
+import { Button, Container, Footer, FooterTab, Header, Left, Right } from "native-base";
 import React, { PureComponent } from "react";
-import { Alert, FlatList, KeyboardAvoidingView, Modal, Text, TouchableOpacity, View } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import { Alert, FlatList, KeyboardAvoidingView, Modal, TouchableOpacity, View } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
-import { userLogOut } from "../../components/login/actions";
-import { getAllClients,
-  getMyClients,
-  getUserById,
-  processSubscriptionVisit,
-  tokenTest
- } from "../../components/personal/actions";
-import { GRADIENT_COLORS } from "../../constants/cssConstants";
+import { refreshToken, userLogOut } from "../../components/login/actions";
+import { getAllClients, getMyClients, getUserById,
+   processSubscriptionVisit, addInternalRecord } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { contains } from "../../services/search";
 import ScanMarker from "../common/scanMarker/index";
 import SearchBar from "../common/searchBar/index";
+import { CustomText } from "../common/text/customText";
+import UsersListItem from "../common/usersListItem";
 import styles from "./styles";
 
 class PersonalPanel extends PureComponent {
@@ -28,27 +24,16 @@ class PersonalPanel extends PureComponent {
     this.state = {
       qrcodeVisible: false,
       clients: [],
-      personalClients: [{firstName: "Pasha"},{firstName: "Pablo"},{firstName: "Emilio"},{firstName: "Escobar"}],
       searchText: "",
     };
   }
 
-  componentDidMount () {
-    this.props.getAllClients()
-    .catch( () => {
-      //this.props.getAllClients();
-      //this.onLogOut();
+  componentDidMount() {
+    this.props.getAllClients().catch( error => console.log(error));
     }
-      );
-  }
 
-  onSuccess = scanData => {
-    this.props.getUser(scanData.data).then( data => {
-      this.props.markUserVisit(data.subscriptions[0].id).then( (res) =>
-        this.goToUserPreview(res.user)
-      );
-    });
-  };
+  onSuccess = scanData => this.props.getUser(scanData.data)
+    .then(data => this.goToSubscriptionList(data));
 
   changeQRState = () => {
     this.setState({
@@ -65,8 +50,28 @@ class PersonalPanel extends PureComponent {
       I18n.t("settings.logout.header"),
       I18n.t("settings.logout.description"),
       [
-        { text: I18n.t("settings.logout.cancelButtonCaption"), style: "cancel" },
-        { text: I18n.t("settings.logout.confirmButtonCaption"), onPress: performLogout },
+        { text: I18n.t("settings.logout.cancel"), style: "cancel" },
+        { text: I18n.t("settings.logout.confirm"), onPress: performLogout },
+      ],
+      { cancelable: true }
+    );
+  }
+
+  addInternal = (recordBody, targetUserId) => {
+    const internalRecord = {
+      authorRole: "DOCTOR",
+      recordBody,
+      targetUserId
+    };
+    const performLogout = () => {
+      this.props.addInternalRecord(internalRecord);
+    };
+    Alert.alert(
+      I18n.t("settings.logout.header"),
+      I18n.t("settings.logout.description"),
+      [
+        { text: I18n.t("settings.logout.cancel"), style: "cancel" },
+        { text: I18n.t("settings.logout.confirm"), onPress: performLogout },
       ],
       { cancelable: true }
     );
@@ -74,10 +79,17 @@ class PersonalPanel extends PureComponent {
 
   goToLogin = () => this.props.navigation.navigate(NavigationType.Login)
 
+  goToSubscriptionList = user => {
+    const { navigation } = this.props;
+    navigation.navigate(NavigationType.SubscriptionList, {
+      user
+    });
+  };
+
   goToUserPreview = user => {
     const { navigation } = this.props;
     navigation.navigate(NavigationType.UserPreview, {
-      user: user,
+      user
     });
   };
 
@@ -92,26 +104,18 @@ class PersonalPanel extends PureComponent {
   render() {
     const { clients } = this.props.personal;
     return (
-      <LinearGradient
-        colors={GRADIENT_COLORS}
-        style={styles.linearGradient}
-      >
-        <Header >
-          <Left/>
-         <Body>
-         <Title>
-           <Text>
-             Admin
-           </Text>
-         </Title>
-          </Body>
+      <Container style={styles.linearGradient}>
+        <Header style={styles.header}>
+          <Left style={styles.leftHeader}>
+          <CustomText style={styles.leftHeaderText} text={"Admin"} />
+          </Left>
           <Right>
             <Button onPress={this.changeQRState} transparent
             style={styles.qrScanRightHeader}>
-              <MaterialIcons name={"qrcode-scan"} size={25} solid />
+              <MaterialIcons name={"qrcode-scan"} color="#007bff" size={25} solid />
             </Button>
             <Button onPress={this.onLogOut} transparent style={styles.signOutRightHeader}>
-              <FontAwesome5 name={"sign-out-alt"} size={25} solid />
+              <FontAwesome5 name={"sign-out-alt"} color="#007bff" size={25} solid />
             </Button>
           </Right>
         </Header>
@@ -120,12 +124,25 @@ class PersonalPanel extends PureComponent {
             data={_.filter(clients, client => contains(client, this.state.searchText.toLowerCase()))}
             keyExtractor={this._keyExtractor}
             renderItem={(client, index) => (
-              <TouchableOpacity onPress={ () => this.goToUserPreview(client.item)}>
-                <View style={styles.listItem}>
-                  <Text style={styles.listText}>{`${client.item.firstName} ${client.item.lastName}`}</Text>
-                  <Text style={styles.listText}>{`${client.item.email}`}</Text>
-                </View>
-              </TouchableOpacity>
+              <View style={styles.listItem}>
+                <UsersListItem user={client.item} />
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    this.goToUserPreview(client.item)
+                  }
+                >
+                  <CustomText style={styles.buttonText} text={"Open"} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    this.addInternal("SECONDATTEMP",client.item.id)
+                  }
+                >
+                  <CustomText style={styles.buttonText} text={"Record"} />
+                </TouchableOpacity>
+              </View>
             )}
           />
           <Modal
@@ -141,13 +158,17 @@ class PersonalPanel extends PureComponent {
                 customMarker={
                   <ScanMarker />
                 }
+                topContent={
+                  <TouchableOpacity
+                    style={styles.qrScannerContent}
+                    onPress={this.changeQRState}
+                  />
+                }
                 bottomContent={
                   <TouchableOpacity
-                    style={styles.button}
+                    style={styles.qrScannerContent}
                     onPress={this.changeQRState}
-                  >
-                    <Text style={styles.buttonText}>Close QR-scan</Text>
-                  </TouchableOpacity>
+                  />
                 }
               />
             </View>
@@ -158,7 +179,7 @@ class PersonalPanel extends PureComponent {
               </FooterTab>
           </Footer>
         </KeyboardAvoidingView>
-      </LinearGradient>
+      </Container>
     );
   }
 }
@@ -174,7 +195,8 @@ const  mapDispatchToProps = dispatch => {
     getUser: id => dispatch(getUserById(id)),
     onLogOut: () => dispatch(userLogOut()),
     markUserVisit: subscriptionId => dispatch(processSubscriptionVisit(subscriptionId)),
-    tokenTest: (auth) => dispatch(tokenTest(auth)),
+    refreshToken: auth => dispatch(refreshToken(auth)),
+    addInternalRecord: internalRecord => dispatch(addInternalRecord(internalRecord))
   };
 };
 

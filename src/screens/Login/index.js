@@ -15,9 +15,9 @@ import { CustomText } from "../common/text/customText";
 const logo = require("../../../assets/images/logo.png");
 
 class LoginForm extends React.Component {
-  componentDidMount() {
-    this.props.refreshToken(this.props.user.auth);
-    this.props.token &&
+  componentWillMount() {
+  /*   this.props.refreshToken(this.props.user.auth); */
+      this.props.user.isTokenValid &&
       this.checkAdminAndRedirect(this.props.user.userProfile);
   }
 
@@ -50,7 +50,7 @@ class LoginForm extends React.Component {
 
   goToPersonalPanel = () => this.props.navigation.navigate(NavigationType.Personal);
 
-  goToProfile = () => this.props.navigation.navigate(NavigationType.Client);
+  goToProfile = () => this.props.navigation.navigate(NavigationType.Home);
 
   goToSignUp = () => this.props.navigation.navigate(NavigationType.SignUp);
 

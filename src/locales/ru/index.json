@@ -33,9 +33,15 @@
     "logout": {
       "header": "Выход",
       "description": "Вы хотите выйти?",
-      "cancelButtonCaption": "Нет, отменить",
-      "confirmButtonCaption": "Да, выйти"
+      "cancel": "Нет, отменить",
+      "confirm": "Да, выйти"
     }
+  },
+  "mark": {
+    "header": "Посещение",
+    "description": "Вы хотите подтвердить посещение?",
+    "cancel": "Нет, отменить",
+    "confirm": "Да, подтвердить посещение"
   },
   "profile": {
     "numberOfVisits" : "Количество занятий",

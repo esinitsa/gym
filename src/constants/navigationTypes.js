@@ -5,7 +5,9 @@ export const NavigationType = {
   PersonalPanel: "PersonalPanel",
   UserPreview: "UserPreview",
   Home: "Home",
+  UserSubscriptionList: "UserSubscriptionList",
   SignUp: "SignUp",
   Login: "Login",
   Profile: "Profile",
+  SubscriptionList: "SubscriptionList"
 };

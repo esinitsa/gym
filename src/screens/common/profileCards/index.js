@@ -66,8 +66,6 @@ export default class ProfileCards extends React.Component {
     }
   };
 
-  checkSt;
-
   render() {
     const { user } = this.props;
     return (

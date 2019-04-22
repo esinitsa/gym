@@ -7,12 +7,16 @@ import {
   GET_USER_BY_ID_SUCCESS,
   SUBSCRIPTION_VISIT_REQUEST,
   SUBSCRIPTION_VISIT_SUCCESS,
+  ADD_INTERNAL_RECORD_REQUEST,
+  ADD_INTERNAL_RECORD_SUCCESS
 } from "./constants";
 
 const initialState = {
   isDataLoading: false,
   clients: null,
   trainers: null,
+  lastRequestType: null,
+  lastSuccessType: null,
 };
 
 export const personalReducer = (state = initialState, action) => {
@@ -20,18 +24,22 @@ export const personalReducer = (state = initialState, action) => {
     case GET_MY_CLIENTS_REQUEST:
       return {
         ...state,
-        isDataLoading: true
+        isDataLoading: true,
+        lastRequestType: GET_MY_CLIENTS_REQUEST,
+        lastSuccessType: GET_MY_CLIENTS_SUCCESS,
       };
     case GET_MY_CLIENTS_SUCCESS:
       return {
         ...state,
         clients: action.clients,
-        isDataLoading: false
+        isDataLoading: false,
       };
     case GET_ALL_CLIENTS_REQUEST:
       return {
         ...state,
-        isDataLoading: true
+        isDataLoading: true,
+        lastRequestType: GET_ALL_CLIENTS_REQUEST,
+        lastSuccessType: GET_ALL_CLIENTS_SUCCESS,
       };
     case GET_ALL_CLIENTS_SUCCESS:
       return {
@@ -42,7 +50,9 @@ export const personalReducer = (state = initialState, action) => {
     case GET_USER_BY_ID_REQUEST:
       return {
         ...state,
-        isDataLoading: true
+        isDataLoading: true,
+        lastRequestType: GET_USER_BY_ID_REQUEST,
+        lastSuccessType: GET_USER_BY_ID_SUCCESS,
       };
     case GET_USER_BY_ID_SUCCESS:
       return {
@@ -53,7 +63,9 @@ export const personalReducer = (state = initialState, action) => {
     case SUBSCRIPTION_VISIT_REQUEST:
       return {
         ...state,
-        isDataLoading: true
+        isDataLoading: true,
+        lastRequestType: SUBSCRIPTION_VISIT_REQUEST,
+        lastSuccessType: SUBSCRIPTION_VISIT_SUCCESS,
       };
     case SUBSCRIPTION_VISIT_SUCCESS:
       return {
@@ -61,11 +73,17 @@ export const personalReducer = (state = initialState, action) => {
         user: action.user,
         isDataLoading: false
       };
-    case "FAIL":
+      case ADD_INTERNAL_RECORD_REQUEST:
       return {
         ...state,
-        isDataLoading: false,
-        lastRequest: action.func
+        isDataLoading: true,
+        lastRequestType: ADD_INTERNAL_RECORD_REQUEST,
+        lastSuccessType: ADD_INTERNAL_RECORD_SUCCESS,
+      };
+    case ADD_INTERNAL_RECORD_SUCCESS:
+      return {
+        ...state,
+        isDataLoading: false
       };
     default:
       return state;

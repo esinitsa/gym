@@ -5,7 +5,6 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.reactnative.camera.RNCameraPackage;
-import com.reactnative.photoview.PhotoViewPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.horcrux.svg.SvgPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -32,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new VectorIconsPackage(),
             new RNCameraPackage(),
-            new PhotoViewPackage(),
             new LinearGradientPackage(),
             new SvgPackage(),
             new SplashScreenReactPackage(),

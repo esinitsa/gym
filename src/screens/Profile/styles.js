@@ -1,92 +1,31 @@
-import { StyleSheet, Dimensions } from "react-native";
-
-const DEVICE_WIDTH = Dimensions.get("window").width;
+import { StyleSheet } from "react-native";
+import { CARD_WIDTH } from "../../constants/cssConstants";
 
 const styles = StyleSheet.create({
-    linearGradient: {
-      flex: 1
-    },
-    container:{
-      flex: 1,
-      justifyContent: "space-around"
-    },
-    card: {
-       //backgroundColor: "#093145",
-      backgroundColor: "rgba(9,49,69, 0.6)",
-      paddingTop: 5,
-      paddingBottom: 5,
-      marginLeft: 20,
-      marginRight: 20,
-      marginBottom: 20
-    },
-    cardItem: {
-       //backgroundColor: "#093145",
-       backgroundColor: "rgba(9,49,69, 0.4)",
-    },
-    cardText: {
-      fontSize: 20, color: "#ffffff",
-    },
-    cardRow: {
-      height: 175,
-      flexDirection: "row",
-      marginBottom: 40
-    },
-    leftCard: {
-      // backgroundColor: "#093145",
-      backgroundColor: "rgba(9,49,69, 0.6)",
-      width: DEVICE_WIDTH / 2 - 30,
-      alignItems: "center",
-      marginRight: 10,
-      marginLeft: 20,
-    },
-    rightCard: {
-      //backgroundColor: "#093145",
-      backgroundColor: "rgba(9,49,69, 0.6)",
-      width: DEVICE_WIDTH / 2 - 30,
-      alignItems: "center",
-      paddingTop: 5,
-      paddingBottom: 5,
-      marginLeft: 10,
-      marginRight: 20,
-    },
-    buttonText: {
-      fontSize: 20,
-      color: "#ffffff",
-      fontWeight: "bold"
-    },
-    touchableView: {
-      backgroundColor: "rgba(0,0,0,0.6)",
-      alignItems: "center",
-      flex: 1,
-      justifyContent: "center",
-      position: "relative",
-      right: 0,
-      top: 0,
-    },
-    modalView: {
-      borderColor: "white",
-      borderWidth: 20,
-    },
-    button: {
-      alignItems: "center",
-      //backgroundColor: "#007aa3",
-      backgroundColor: "#086ab2",
-      //backgroundColor: "rgb(0, 122, 163)",
-      //backgroundColor: "rgba(58, 118, 168, 0.9)",
-      //backgroundColor: "rgba(65, 146, 168, 0.7)",
-      //backgroundColor: "#435977",
-      borderRadius: 20,
-      justifyContent: "center",
-      marginLeft: 15,
-      marginRight: 15,
-      height: 50,
+  infoView: {
+    backgroundColor: "#ffffff",
+    padding: 10,
+    marginTop: 30
   },
-  text: {
-      color: "white",
-      backgroundColor: "transparent",
+  userInfoText: {
+    paddingHorizontal: 20,
+    paddingVertical: 5
   },
-  leftIcon: {
-    marginLeft: 5,
+  signOutText: {
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    fontWeight: "700",
+    color: "#52a5ff"
+  },
+  rightHeaderText: {
+    paddingHorizontal: 10,
+    color: "#52a5ff"
+  },
+  emailText: {
+    paddingHorizontal: 20,
+    paddingBottom: 5,
+    fontSize: 12,
+    color: "#95959a"
   }
 });
 

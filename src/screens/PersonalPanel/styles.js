@@ -8,6 +8,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#ffffff"
+  },
+  header: {
+    borderBottomColor: "#f5f4f5",
+    borderBottomWidth: 0,
+    backgroundColor: "transparent"
   },
   modalView: {
     backgroundColor: "rgba(0,0,0,0.6)",
@@ -28,11 +35,13 @@ const styles = StyleSheet.create({
     paddingRight: 15
   },
   listItem: {
-    borderWidth: 0.3,
+    marginHorizontal: 10,
     paddingVertical: 20,
-    borderRadius: 3,
-    borderColor: "white",
-    backgroundColor: "rgba(9,49,69, 0.8)"
+    borderTopWidth: 1,
+    borderTopColor: "#ededef",
+    backgroundColor: "#ffffff",
+    paddingLeft: 10,
+    flexDirection: "row",
   },
   listText: {
     paddingLeft: 20,
@@ -40,22 +49,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   buttonText: {
-    fontSize: 20,
-    color: "#ffffff",
-    fontWeight: "bold"
+    color: "#007bff",
+    fontSize: 18,
+    fontWeight: "700"
+  },
+  leftHeader: {
+    paddingLeft: 15
+  },
+  leftHeaderText: {
+    fontSize: 25,
+    fontWeight: "700"
+  },
+  qrScannerContent: {
+    flex: 1,
+    width: DEVICE_WIDTH
   },
   footer: {
     backgroundColor: "rgba(0, 0 ,0 ,0)"
   },
   button: {
-    alignItems: "center",
-    // backgroundColor: "#007aa3",rgb(0, 122, 163)
-    //backgroundColor: "rgba(58, 118, 168, 0.9)",
-    backgroundColor: "rgba(65, 146, 168, 0.7)",
+    backgroundColor: "#f0f0f7",
     borderRadius: 20,
+    height: 35,
+    width: 110,
+    alignItems: "center",
     justifyContent: "center",
-    height: 50,
-    width: DEVICE_WIDTH - 30,
 },
 });
 

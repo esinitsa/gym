@@ -3,7 +3,7 @@ import Profile from "../screens/Profile";
 
 export default createSwitchNavigator(
     {
-        Profile: { screen: Profile },
+        Profile: { screen: Profile }
     },
     {
         initialRouteName: "Profile",

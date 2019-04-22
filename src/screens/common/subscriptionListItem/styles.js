@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     flexDirection: "row",
   },
-  rightHeaderText: {
-    paddingHorizontal: 10,
-    color: "#52a5ff"
-  },
   listText: {
     padding: 5,
     color: "black",

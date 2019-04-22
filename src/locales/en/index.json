@@ -33,9 +33,15 @@
     "logout": {
       "header": "Log Out",
       "description": "Do you want to log out?",
-      "cancelButtonCaption": "No, cancel",
-      "confirmButtonCaption": "Yes, log out"
+      "cancel": "No, cancel",
+      "confirm": "Yes, log out"
     }
+  },
+  "mark": {
+    "header": "Visit",
+    "description": "You want to confirm visit?",
+    "cancel": "No, cancel",
+    "confirm": "Yes, confirm visit"
   },
   "profile": {
     "numberOfVisits" : "Number of visits",

@@ -8,7 +8,9 @@ import {
   GET_USER_BY_ID_REQUEST,
   GET_USER_BY_ID_SUCCESS,
   SUBSCRIPTION_VISIT_REQUEST,
-  SUBSCRIPTION_VISIT_SUCCESS
+  SUBSCRIPTION_VISIT_SUCCESS,
+  ADD_INTERNAL_RECORD_REQUEST,
+  ADD_INTERNAL_RECORD_SUCCESS
 } from "./constants";
 import {
   GET_MY_CLIENTS_REQUEST_STRING,
@@ -17,28 +19,34 @@ import {
   PROCESS_SUBSCRIPTION_VISIT,
   ADD_INTERNAL_RECORD
 } from "../../api/apiConstants";
+import { KEYS } from "../../constants/reducerTypeKeys";
 
 const getMyClientsRequest = () => ({ type: GET_MY_CLIENTS_REQUEST });
-const getMyClientsSuccess = clients => ({ type: GET_MY_CLIENTS_SUCCESS, clients });
+const getMyClientsSuccess = clients => ({
+  type: GET_MY_CLIENTS_SUCCESS,
+  [KEYS[GET_MY_CLIENTS_SUCCESS]]: clients
+});
 
 const getAllClientsRequest = () => ({ type: GET_ALL_CLIENTS_REQUEST });
-const getAllClientsSuccess = clients => ({ type: GET_ALL_CLIENTS_SUCCESS, clients });
+const getAllClientsSuccess = clients => ({
+  type: GET_ALL_CLIENTS_SUCCESS,
+  [KEYS[GET_ALL_CLIENTS_SUCCESS]]: clients
+});
 
 const getUserRequest = () => ({ type: GET_USER_BY_ID_REQUEST });
-const getUserSuccess = user => ({ type: GET_USER_BY_ID_SUCCESS, user });
+const getUserSuccess = user => ({
+  type: GET_USER_BY_ID_SUCCESS,
+  [KEYS[GET_USER_BY_ID_SUCCESS]]: user
+});
 
 const subscriptionVisitRequest = () => ({ type: SUBSCRIPTION_VISIT_REQUEST });
 const subscriptionVisitSuccess = user => ({
   type: SUBSCRIPTION_VISIT_SUCCESS,
-  user
+  [KEYS[SUBSCRIPTION_VISIT_SUCCESS]]: user
 });
 
-const addInternalRecordRequest = () => ({ type: SUBSCRIPTION_VISIT_REQUEST });
-const addInternalRecordSuccess = internalRecord => ({
-  type: SUBSCRIPTION_VISIT_SUCCESS,
-  internalRecord
-});
-
+const addInternalRecordRequest = () => ({ type: ADD_INTERNAL_RECORD_REQUEST });
+const addInternalRecordSuccess = () => ({ type: ADD_INTERNAL_RECORD_SUCCESS });
 
 export const getMyClients = () => dispatch => {
   dispatch(getMyClientsRequest());
@@ -62,10 +70,6 @@ export const getAllClients = () => dispatch => {
       return data;
     })
     .catch( error => {
-    /*   dispatch({
-        type: "FAIL",
-        func: getAllClients()
-      }); */
       throw error;
     });
 };
@@ -82,11 +86,12 @@ export const processSubscriptionVisit = subscriptionId => dispatch => {
 };
 
 export const addInternalRecord = internalRecord => dispatch => {
+  console.log(internalRecord);
   dispatch(addInternalRecordRequest());
   return api
     .post(ADD_INTERNAL_RECORD, internalRecord)
     .then(data => {
-      dispatch(addInternalRecordSuccess(data));
+      dispatch(addInternalRecordSuccess());
       return data;
     })
     .catch(error => console.log(error));
@@ -97,7 +102,7 @@ export const getUserById = id => dispatch => {
   return api
     .get(GET_USER_BY_ID_REQUEST_STRING, {
       params: {
-        id: id
+        id
       }
     })
     .then(data => {

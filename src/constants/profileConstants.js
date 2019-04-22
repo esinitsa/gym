@@ -1,5 +1,6 @@
-export const DEFAULT_COUNT = "0/0";
+export const DEFAULT_COUNT = "0";
 export const COUNT = "COUNT";
 export const TERM = "TERM";
-export const DATE_TYPE = "en-GB";
+export const DATE_FORMAT = "DD MMM YYYY";
 export const EMPTY_RESPONSE = "-";
+

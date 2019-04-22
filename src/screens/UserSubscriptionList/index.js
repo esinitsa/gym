@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Button, Container, Header, Left, Right } from "native-base";
-import React, { PureComponent } from "react";
+import React from "react";
 import {
   Alert,
   FlatList,
@@ -32,7 +32,7 @@ import styles from "./styles";
 import moment from "moment";
 import SubscriptionListItem from "../common/subscriptionListItem";
 
-class SubscriptionList extends PureComponent {
+class UserSubscriptionList extends React.Component {
   onLogOut = () => {
     const performLogout = () => {
       this.props.onLogOut();
@@ -42,17 +42,20 @@ class SubscriptionList extends PureComponent {
       I18n.t("settings.logout.header"),
       I18n.t("settings.logout.description"),
       [
-        { text: I18n.t("settings.logout.cancel"), style: "cancel" },
-        { text: I18n.t("settings.logout.confirm"), onPress: performLogout }
+        {
+          text: I18n.t("settings.logout.cancel"),
+          style: "cancel"
+        },
+        {
+          text: I18n.t("settings.logout.confirm"),
+          onPress: performLogout
+        }
       ],
       { cancelable: true }
     );
   };
 
-  goToPersonalPanel = () => this.props.navigation.navigate(NavigationType.PersonalPanel);
-
-
-
+  goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
 
   goToUserPreview = user => {
     const { navigation } = this.props;
@@ -61,23 +64,50 @@ class SubscriptionList extends PureComponent {
     });
   };
 
+
+  acceptMarkVisit = (subscriptionId, user) => {
+    const performMarkVisit = () => {
+      this.props.markUserVisit(subscriptionId);
+    };
+    Alert.alert(
+      I18n.t("mark.header"),
+      I18n.t("mark.description"),
+      [
+        {
+          text: I18n.t("mark.cancel"),
+          style: "cancel"
+        },
+        {
+          text: I18n.t("mark.confirm"),
+          onPress: performMarkVisit
+        }
+      ],
+      { cancelable: true }
+    );
+  };
+
+  goToProfile = () => this.props.navigation.navigate(NavigationType.Profile);
+
   _keyExtractor = (item, index) => `${index}${item.id}`;
 
   render() {
-    const user = this.props.navigation.state.params.user;
-    const subscriptions = user.subscriptions;
+    const { userProfile } = this.props.user;
+    const subscriptions = userProfile.subscriptions;
     return (
       <Container style={styles.container}>
         <Header style={styles.header}>
           <Left style={styles.leftHeader}>
             <Transition appear="flip" disappear="flip" shared="card">
-              <CustomText text={`${_.get(user,"firstName", EMPTY_RESPONSE)}`
-              + ` ${_.get(user,"lastName", EMPTY_RESPONSE)}`} style={styles.leftHeaderText} />
+              <CustomText text={"Подписки"} style={styles.leftHeaderText} />
             </Transition>
           </Left>
           <Right>
-            <Button onPress={this.goToPersonalPanel} transparent>
-              <CustomText style={styles.rightHeaderText} text={"Done"} />
+            <Button
+              onPress={this.goToProfile}
+              transparent
+              style={styles.profileIconHeader}
+            >
+              <FontAwesome5 name={"user"} color="#007bff" size={40} solid />
             </Button>
           </Right>
         </Header>
@@ -88,16 +118,16 @@ class SubscriptionList extends PureComponent {
             keyExtractor={this._keyExtractor}
             renderItem={(subscription, index) => (
               <View style={styles.listItem}>
-                <SubscriptionListItem userProfile={user} subscription={subscription.item} />
-                <TouchableOpacity
+              <SubscriptionListItem userProfile={userProfile} subscription={subscription.item}/>
+                     <TouchableOpacity
                   style={styles.button}
                   onPress={() =>
-                    this.acceptMarkVisit(subscription.item.id, user)
+                    this.acceptMarkVisit(subscription.item.id, userProfile)
                   }
                 >
-                  <CustomText style={styles.buttonText} text={"Mark"} />
+                  <CustomText style={styles.buttonText} text={"Open"} />
                 </TouchableOpacity>
-              </View>
+                </View>
             )}
           />
         </SafeAreaView>
@@ -122,4 +152,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SubscriptionList);
+)(UserSubscriptionList);

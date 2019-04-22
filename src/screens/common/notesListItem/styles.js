@@ -37,19 +37,13 @@ const styles = StyleSheet.create({
     paddingRight: 15
   },
   listItem: {
-    borderTopWidth: 1,
     marginHorizontal: 10,
     paddingVertical: 20,
+    borderTopWidth: 1,
     borderTopColor: "#ededef",
     backgroundColor: "#ffffff",
-    justifyContent: "space-between",
-    alignContent: "space-between",
     paddingLeft: 10,
     flexDirection: "row",
-  },
-  rightHeaderText: {
-    paddingHorizontal: 10,
-    color: "#52a5ff"
   },
   listText: {
     padding: 5,
@@ -99,12 +93,37 @@ const styles = StyleSheet.create({
     height: 35,
     width: 110,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
 },
   buttonText: {
     color: "#007bff",
     fontSize: 18,
     fontWeight: "700"
+  },
+  infoView: {
+    backgroundColor: "#ffffff",
+    padding: 10,
+    marginTop: 50
+  },
+  userInfoText: {
+    paddingHorizontal: 20,
+    paddingVertical: 5
+  },
+  signOutText: {
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    fontWeight: "700",
+    color: "#52a5ff"
+  },
+  rightHeaderText: {
+    paddingHorizontal: 10,
+    color: "#52a5ff"
+  },
+  emailText: {
+    paddingHorizontal: 20,
+    paddingBottom: 5,
+    fontSize: 12,
+    color: "#95959a"
   }
 });
 
