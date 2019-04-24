@@ -4,7 +4,7 @@ const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1,
+    flex: 1
   },
   container: {
     flex: 1,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "relative",
     right: 0,
-    top: 0,
+    top: 0
   },
   header: {
     borderBottomColor: "#f5f4f5",
@@ -43,19 +43,19 @@ const styles = StyleSheet.create({
     borderTopColor: "#ededef",
     backgroundColor: "#ffffff",
     paddingLeft: 10,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   listText: {
     padding: 5,
     color: "black",
-    fontSize: 15,
+    fontSize: 15
   },
   activeText: {
     color: "green",
     paddingHorizontal: 5
   },
   inactiveText: {
-    color: "red", 
+    color: "red",
     paddingHorizontal: 5
   },
   activeTermView: {
@@ -68,8 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#17a2f3",
     alignItems: "center",
     justifyContent: "center"
-  }
-  ,
+  },
   subscriptionTypeView: {
     padding: 3,
     color: "#fefefc",
@@ -93,8 +92,8 @@ const styles = StyleSheet.create({
     height: 35,
     width: 110,
     alignItems: "center",
-    justifyContent: "center",
-},
+    justifyContent: "center"
+  },
   buttonText: {
     color: "#007bff",
     fontSize: 18,

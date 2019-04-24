@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import _ from "lodash";
 import { Button, Container, Footer, FooterTab, Header, Left, Right } from "native-base";
 import React, { PureComponent } from "react";
@@ -29,7 +30,7 @@ class PersonalPanel extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getAllClients().catch( error => console.log(error));
+    this.props.getAllClients().catch( error => console.log(error));  
     }
 
   onSuccess = scanData => this.props.getUser(scanData.data)

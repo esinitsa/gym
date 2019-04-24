@@ -1,36 +1,16 @@
-import _ from "lodash";
 import { Button, Container, Header, Left, Right } from "native-base";
 import React from "react";
-import {
-  Alert,
-  FlatList,
-  SafeAreaView,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { Alert, FlatList, SafeAreaView, TouchableOpacity, View } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/EvilIcons";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import Octicons from "react-native-vector-icons/Octicons";
 import { Transition } from "react-navigation-fluid-transitions";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
-import {
-  getUserById,
-  processSubscriptionVisit
-} from "../../components/personal/actions";
+import { getUserById, processSubscriptionVisit } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
-import {
-  COUNT,
-  DATE_TYPE,
-  DEFAULT_COUNT,
-  EMPTY_RESPONSE,
-  TERM
-} from "../../constants/profileConstants";
+import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
-import moment from "moment";
-import SubscriptionListItem from "../common/subscriptionListItem";
 
 class UserSubscriptionList extends React.Component {
   onLogOut = () => {
@@ -63,7 +43,6 @@ class UserSubscriptionList extends React.Component {
       user: user
     });
   };
-
 
   acceptMarkVisit = (subscriptionId, user) => {
     const performMarkVisit = () => {
@@ -118,8 +97,11 @@ class UserSubscriptionList extends React.Component {
             keyExtractor={this._keyExtractor}
             renderItem={(subscription, index) => (
               <View style={styles.listItem}>
-              <SubscriptionListItem userProfile={userProfile} subscription={subscription.item}/>
-                     <TouchableOpacity
+                <SubscriptionListItem
+                  userProfile={userProfile}
+                  subscription={subscription.item}
+                />
+                <TouchableOpacity
                   style={styles.button}
                   onPress={() =>
                     this.acceptMarkVisit(subscription.item.id, userProfile)
@@ -127,7 +109,7 @@ class UserSubscriptionList extends React.Component {
                 >
                   <CustomText style={styles.buttonText} text={"Open"} />
                 </TouchableOpacity>
-                </View>
+              </View>
             )}
           />
         </SafeAreaView>

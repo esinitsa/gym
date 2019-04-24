@@ -84,7 +84,7 @@ export default class SubscriptionListItem extends React.Component {
     );
   };
   render() {
-    const { userProfile } = this.props;
+    //const { userProfile } = this.props;
     const { subscription } = this.props;
     return (
       <View style={{flexDirection: "row"}}>

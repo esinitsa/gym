@@ -1,11 +1,8 @@
 import _ from "lodash";
-import moment from "moment";
 import React from "react";
-import { Alert, TouchableOpacity, View } from "react-native";
+import {  View } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { I18n } from "react-redux-i18n";
-import { NavigationType } from "../../../constants/navigationTypes";
-import { COUNT, DEFAULT_COUNT, EMPTY_RESPONSE, DATE_FORMAT } from "../../../constants/profileConstants";
+import {   EMPTY_RESPONSE } from "../../../constants/profileConstants";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 

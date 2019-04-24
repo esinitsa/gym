@@ -8,9 +8,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-import FontAwesome5 from "react-native-vector-icons/EvilIcons";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import Octicons from "react-native-vector-icons/Octicons";
 import { Transition } from "react-navigation-fluid-transitions";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
@@ -20,17 +17,10 @@ import {
   processSubscriptionVisit
 } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
-import {
-  COUNT,
-  DATE_TYPE,
-  DEFAULT_COUNT,
-  EMPTY_RESPONSE,
-  TERM
-} from "../../constants/profileConstants";
+import { EMPTY_RESPONSE } from "../../constants/profileConstants";
+import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
-import moment from "moment";
-import SubscriptionListItem from "../common/subscriptionListItem";
 
 class SubscriptionList extends PureComponent {
   onLogOut = () => {
@@ -49,10 +39,8 @@ class SubscriptionList extends PureComponent {
     );
   };
 
-  goToPersonalPanel = () => this.props.navigation.navigate(NavigationType.PersonalPanel);
-
-
-
+  goToPersonalPanel = () =>
+    this.props.navigation.navigate(NavigationType.PersonalPanel);
 
   goToUserPreview = user => {
     const { navigation } = this.props;
@@ -71,8 +59,13 @@ class SubscriptionList extends PureComponent {
         <Header style={styles.header}>
           <Left style={styles.leftHeader}>
             <Transition appear="flip" disappear="flip" shared="card">
-              <CustomText text={`${_.get(user,"firstName", EMPTY_RESPONSE)}`
-              + ` ${_.get(user,"lastName", EMPTY_RESPONSE)}`} style={styles.leftHeaderText} />
+              <CustomText
+                text={
+                  `${_.get(user, "firstName", EMPTY_RESPONSE)}` +
+                  ` ${_.get(user, "lastName", EMPTY_RESPONSE)}`
+                }
+                style={styles.leftHeaderText}
+              />
             </Transition>
           </Left>
           <Right>
@@ -88,7 +81,10 @@ class SubscriptionList extends PureComponent {
             keyExtractor={this._keyExtractor}
             renderItem={(subscription, index) => (
               <View style={styles.listItem}>
-                <SubscriptionListItem userProfile={user} subscription={subscription.item} />
+                <SubscriptionListItem
+                  userProfile={user}
+                  subscription={subscription.item}
+                />
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() =>

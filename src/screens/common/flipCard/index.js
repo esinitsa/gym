@@ -11,7 +11,6 @@ import styles from "./styles";
 
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const DEVICE_WIDTH = Dimensions.get("window").width;
-const MARGIN = 40;
 
 export default class CardFlip extends React.Component {
   constructor(props) {
@@ -137,10 +136,10 @@ export default class CardFlip extends React.Component {
     //   outputRange: [1, 50]
     // });
 
-    const changeWidth = this.animatedValueWidth.interpolate({
-      inputRange: [0, 1],
-      outputRange: [2, 1 ]
-    });
+    // const changeWidth = this.animatedValueWidth.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [2, 1 ]
+    // });
 
     return (
       <TouchableOpacity

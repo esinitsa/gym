@@ -1,7 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const MARGIN = 40;
-
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({

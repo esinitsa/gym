@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { CARD_WIDTH } from "../../constants/cssConstants";
 
 const styles = StyleSheet.create({
   infoView: {

@@ -128,6 +128,7 @@
       "no-sequences": 1, 
       "no-unused-expressions": 0, 
       "no-void": 1,  
+      "no-warning-comments": 0,
       "no-with": 1,
       "radix": 1, 
       "semi-spacing": 1,

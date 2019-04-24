@@ -1,35 +1,19 @@
-import {
-  Body,
-  Button,
-  Card,
-  Container,
-  Header,
-  Left,
-  Right,
-  Title,
-  Text
-} from "native-base";
+import { Card } from "native-base";
 import React from "react";
 import {
-  Alert,
   Modal,
   SafeAreaView,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
-  Dimensions
+  View
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import Foundation from "react-native-vector-icons/Foundation";
 import { Transition } from "react-navigation-fluid-transitions";
 import { connect } from "react-redux";
-import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { CustomText } from "../common/text/customText";
 import SubscriptionListItem from "../common/subscriptionListItem";
-import CardFlip from "../common/flipCard";
 import _ from "lodash";
 import styles from "./styles";
 
@@ -87,18 +71,18 @@ class Home extends React.PureComponent {
   renderNotesCard = () => (
     <View style={styles.touchableCard}>
       {this.state.isClickSubscription ? (
+        <Card style={styles.card}>
+          <CustomText text={"Заметки"} style={{ fontSize: 30 }} />
+        </Card>
+      ) : (
+        <View style={styles.transitionView}>
+          <Transition appear="flip" disappear="flip">
             <Card style={styles.card}>
               <CustomText text={"Заметки"} style={{ fontSize: 30 }} />
             </Card>
-      ) : (
-              <View style={styles.transitionView}>
-                <Transition appear="flip" disappear="flip">
-                  <Card style={styles.card}>
-                    <CustomText text={"Заметки"} style={{ fontSize: 30 }} />
-                  </Card>
-                </Transition>
-              </View>
-        )}
+          </Transition>
+        </View>
+      )}
     </View>
   );
 
@@ -106,7 +90,7 @@ class Home extends React.PureComponent {
     this.props.navigation.navigate(NavigationType.UserSubscriptionList);
     this.setState({ isClickSubscription: true });
   };
-s
+  s;
   goToUserNotes = () => {
     this.props.navigation.navigate(NavigationType.UserSubscriptionList);
     this.setState({ isClickSubscription: false });
@@ -115,41 +99,38 @@ s
   render() {
     const { userProfile } = this.props.user;
     return (
-        <SafeAreaView style={styles.container}>
-          <View>
-            <TouchableWithoutFeedback onPress={this.goToUserSubscriptionList}>
-              {this.renderSubscriptionCard(
-                userProfile.subscriptions,
-                userProfile
-              )}
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={this.goToUserNotes}>
-              {this.renderNotesCard()}
-            </TouchableWithoutFeedback>
-          </View>
-          <Modal
-            animationType="fade"
-            transparent
-            visible={this.state.qrcodeVisible}
-          >
-            <TouchableWithoutFeedback onPress={this.visibleMyQRCode}>
-              <View style={styles.touchableView}>
-                <View style={styles.modalView}>
-                  <QRCode
-                    value={userProfile !== null ? userProfile.id : "200"}
-                    size={250}
-                  />
-                </View>
+      <SafeAreaView style={styles.container}>
+        <View>
+          <TouchableWithoutFeedback onPress={this.goToUserSubscriptionList}>
+            {this.renderSubscriptionCard(
+              userProfile.subscriptions,
+              userProfile
+            )}
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this.goToUserNotes}>
+            {this.renderNotesCard()}
+          </TouchableWithoutFeedback>
+        </View>
+        <Modal
+          animationType="fade"
+          transparent
+          visible={this.state.qrcodeVisible}
+        >
+          <TouchableWithoutFeedback onPress={this.visibleMyQRCode}>
+            <View style={styles.touchableView}>
+              <View style={styles.modalView}>
+                <QRCode
+                  value={userProfile !== null ? userProfile.id : "200"}
+                  size={250}
+                />
               </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.visibleMyQRCode}
-          >
-            <CustomText style={styles.buttonText} text={"My QR-code"} />
-          </TouchableOpacity>
-        </SafeAreaView>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+        <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
+          <CustomText style={styles.buttonText} text={"My QR-code"} />
+        </TouchableOpacity>
+      </SafeAreaView>
     );
   }
 }

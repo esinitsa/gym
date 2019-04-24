@@ -1,25 +1,22 @@
+import _ from "lodash";
 import {
   Body,
   Button,
+  CardItem,
+  Container,
   Header,
   Left,
   Right,
   Title,
-  View,
-  Container,
-  Card,
-  CardItem
+  View
 } from "native-base";
 import React from "react";
-import {
-  Alert,
-  Modal,
-  SafeAreaView,
-  TouchableOpacity,
-  TouchableWithoutFeedback
-} from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import { Alert, SafeAreaView, TouchableOpacity } from "react-native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
+import { I18n } from "react-redux-i18n";
+import { userLogOut } from "../../components/login/actions";
+import { NavigationType } from "../../constants/navigationTypes";
 import {
   COUNT,
   DATE_TYPE,
@@ -27,13 +24,7 @@ import {
   EMPTY_RESPONSE,
   TERM
 } from "../../constants/profileConstants";
-import { I18n } from "react-redux-i18n";
-import { userLogOut } from "../../components/login/actions";
-import { GRADIENT_COLORS } from "../../constants/cssConstants";
-import { NavigationType } from "../../constants/navigationTypes";
 import { CustomText } from "../common/text/customText";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import _ from "lodash";
 import styles from "./styles";
 
 class Profile extends React.PureComponent {
@@ -45,7 +36,7 @@ class Profile extends React.PureComponent {
   }
 
   goToHome = () => this.props.navigation.navigate(NavigationType.Home);
-  
+
   goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
 
   onLogOut = () => {
@@ -141,13 +132,21 @@ class Profile extends React.PureComponent {
           <View style={styles.infoView}>
             <CustomText
               style={styles.userInfoText}
-              text={`${_.get(userProfile, "firstName", EMPTY_RESPONSE)} `
-              + `${_.get(userProfile, "lastName", EMPTY_RESPONSE)}`}
+              text={
+                `${_.get(userProfile, "firstName", EMPTY_RESPONSE)} ` +
+                `${_.get(userProfile, "lastName", EMPTY_RESPONSE)}`
+              }
             />
-            <CustomText style={styles.emailText} text={_.get(userProfile, "email", EMPTY_RESPONSE)} />
+            <CustomText
+              style={styles.emailText}
+              text={_.get(userProfile, "email", EMPTY_RESPONSE)}
+            />
           </View>
           <View style={styles.infoView}>
-            <CustomText style={styles.userInfoText} text={_.get(userProfile, "locale", EMPTY_RESPONSE)} />
+            <CustomText
+              style={styles.userInfoText}
+              text={_.get(userProfile, "locale", EMPTY_RESPONSE)}
+            />
           </View>
           <View style={styles.infoView}>
             <CustomText style={styles.userInfoText} text={"Settings"} />

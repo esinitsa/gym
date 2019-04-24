@@ -84,7 +84,7 @@ export default class NotesListItem extends React.Component {
     );
   };
   render() {
-    const { userProfile } = this.props;
+    //const { userProfile } = this.props;
     const { subscription } = this.props;
     return (
       <View style={{flexDirection: "row"}}>
