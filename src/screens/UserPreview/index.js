@@ -1,13 +1,12 @@
+import _ from "lodash";
 import { Button, Container, Header, Left, Right, View } from "native-base";
 import React from "react";
 import { SafeAreaView } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { NavigationType } from "../../constants/navigationTypes";
 import { EMPTY_RESPONSE } from "../../constants/profileConstants";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import ProfileCards from "../common/profileCards";
-import { CustomText } from "../common/text/customText";
 import SubscriptionListItem from "../common/subscriptionListItem";
-import _ from "lodash";
+import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 
 class UserPreview extends React.PureComponent {
@@ -56,9 +55,19 @@ class UserPreview extends React.PureComponent {
           </View>
           <View style={styles.infoView}>
             <View style={styles.cardView}>
-              <SubscriptionListItem subscription={_.head(userProfile.subscriptions)} />
-              <Button onPress={() => this.goToSubscriptionList(userProfile)} transparent>
-                <Ionicons name={"ios-arrow-forward"} color="#007bff" size={25} solid/>
+              <SubscriptionListItem
+                subscription={_.head(userProfile.subscriptions)}
+              />
+              <Button
+                onPress={() => this.goToSubscriptionList(userProfile)}
+                transparent
+              >
+                <Ionicons
+                  name={"ios-arrow-forward"}
+                  color="#007bff"
+                  size={25}
+                  solid
+                />
               </Button>
             </View>
           </View>
