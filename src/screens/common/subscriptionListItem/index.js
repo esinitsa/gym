@@ -1,20 +1,22 @@
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
 import { COUNT, DATE_FORMAT, DEFAULT_COUNT, EMPTY_RESPONSE } from "../../../constants/profileConstants";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 
-export default class SubscriptionListItem extends React.Component {
-  lastVisitDate = previouslyValidated => {
-    if (!_.isArray(previouslyValidated)) {
-      return EMPTY_RESPONSE;
-    } else {
-      return moment(_.last(previouslyValidated)).format(DATE_FORMAT);
-    }
+export default class SubscriptionListItem extends React.PureComponent {
+  state = {
+    isExpanded: false,
   };
+
+  lastVisitDate = previouslyValidated => _.isArray(previouslyValidated)
+    ? moment(_.last(previouslyValidated)).format(DATE_FORMAT)
+    : EMPTY_RESPONSE;
+
 
   checkDate = (subscription, prop) => {
     const date = _.get(subscription, prop, EMPTY_RESPONSE);
@@ -41,8 +43,8 @@ export default class SubscriptionListItem extends React.Component {
             text={this.checkCountVisits(subscription)}
           />
         ) : (
-          <Octicons name={"calendar"} color="white" size={40} />
-        )}
+            <Octicons name={"calendar"} color="white" size={35} />
+          )}
       </View>
     );
   };
@@ -59,10 +61,14 @@ export default class SubscriptionListItem extends React.Component {
     return (
       <View>
         {isActive ? (
-          <CustomText style={styles.activeText} text={"active"} />
+          <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+            <CustomText style={{ ...styles.listText, color: 'grey', fontWeight: 'bold' }} text={"Остаток"} />
+            <CustomText style={{ ...styles.listText, color: 'green', fontWeight: 'bold' }} text={subscription.countLeft} />
+          </View>
+
         ) : (
-          <CustomText style={styles.inactiveText} text={"inactive"} />
-        )}
+            <CustomText style={styles.inactiveText} text={"inactive"} />
+          )}
       </View>
     );
   };
@@ -73,40 +79,82 @@ export default class SubscriptionListItem extends React.Component {
     return (
       <View>
         {isActive ? (
-          <View style={{flexDirection: "row"}}>
-            <CustomText style={styles.activeText} text={"active:"} />
-            <CustomText text={endDate} />
+          <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
+            <CustomText style={{ ...styles.listText, color: 'grey', fontWeight: 'bold' }} text={"Активен по:"} />
+            <CustomText style={{ ...styles.listText, color: 'green', fontWeight: 'bold' }} text={endDate} />
           </View>
         ) : (
-          <CustomText style={styles.inactiveText} text={"inactive"} />
-        )}
+            <CustomText style={styles.inactiveText} text={"Истек"} />
+          )}
       </View>
     );
   };
-  render() {
-    //const { userProfile } = this.props;
-    const { subscription } = this.props;
+  handleExpand = () => {
+    this.setState(state => ({ isExpanded: !state.isExpanded }));
+  }
+
+  renderInfoRow = (label, value, color) => {
     return (
-      <View style={{flexDirection: "row"}}>
-        <View style={styles.typeIcon}>
-          {this.renderSubscriptionType(
-            subscription,
-            "subscriptionType"
-          )}
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
+        <View >
+          <CustomText style={{ fontWeight: 'bold', color: 'grey' }} text={label} />
         </View>
         <View>
-          <CustomText
-            style={styles.listText}
-            text={`Last Visit: ${this.lastVisitDate(
-              _.get(subscription,"previouslyValidated", EMPTY_RESPONSE)
-            )}`}
-          />
-          {this.checkSubscriptionType(
-            subscription,
-            "subscriptionType"
-          )}
+          <CustomText style={{ fontWeight: 'bold', color: color ? color : '#086ab2' }} text={value} />
         </View>
-    </View>
+      </View>
+    );
+  }
+  render() {
+    const { subscription, withExtension } = this.props;
+    const { isExpanded } = this.state;
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row", justifyContent: 'space-between', flex: 1 }}>
+          <View style={{ flexDirection: "row", flex: 1 }}>
+            <View style={styles.typeIcon}>
+              {this.renderSubscriptionType(subscription, "subscriptionType")}
+            </View>
+            <View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <CustomText
+                  style={{ ...styles.listText, color: 'grey', fontWeight: 'bold' }}
+                  text={`Последнее визит:`}
+                />
+                <CustomText
+                  style={{ ...styles.listText, color: 'black', fontWeight: 'bold' }}
+                  text={`${this.lastVisitDate(
+                    _.get(subscription, "previouslyValidated", EMPTY_RESPONSE)
+                  )}`}
+                />
+              </View>
+              {this.checkSubscriptionType(subscription, "subscriptionType")}
+            </View>
+          </View>
+          {withExtension &&
+            <View style={{ alignContent: 'center', alignItems: 'flex-end', alignSelf: 'center' }}>
+              <TouchableOpacity onPress={this.handleExpand}>
+                <Icon name={isExpanded ? "up" : "down"} color="#007bff" size={25} solid />
+              </TouchableOpacity>
+            </View>
+          }
+        </View>
+        {withExtension && isExpanded &&
+          <View style={{ marginTop: 10 }}>
+            {!!subscription.active && this.renderInfoRow('Активен', subscription.active ? 'Да' : 'Нет', subscription.active ? "green" : 'red')}
+            {!!subscription.subscriptionType && this.renderInfoRow('Тип', subscription.subscriptionType === 'TERM' ? 'Период' : 'Количество посещений')}
+            {!!subscription.startDate && this.renderInfoRow('Дата начала', moment(subscription.startDate).format(DATE_FORMAT))}
+            {!!subscription.validTill && this.renderInfoRow('Дата окончания', moment(subscription.validTill).format(DATE_FORMAT))}
+            {!!subscription.countInitial && this.renderInfoRow('Кол-во посещений', subscription.countInitial)}
+            {!!subscription.countLeft && this.renderInfoRow('Остаток', subscription.countLeft, subscription.countLeft > 0 ? "green" : 'red')}
+            {!!subscription.additionalInfo ?
+              this.renderInfoRow('Доп. информация', subscription.additionalInfo, 'black')
+              : null
+            }
+          </View>
+        }
+      </View>
+
     );
   }
 }

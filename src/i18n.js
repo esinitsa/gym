@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { syncTranslationWithStore, loadTranslations, setLocale } from "react-redux-i18n";
 import translations from "./locales";
 

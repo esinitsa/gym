@@ -12,7 +12,7 @@ import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 
-class UserSubscriptionList extends React.Component {
+class UserSubscriptionList extends React.PureComponent {
   onLogOut = () => {
     const performLogout = () => {
       this.props.onLogOut();
@@ -68,50 +68,57 @@ class UserSubscriptionList extends React.Component {
   goToProfile = () => this.props.navigation.navigate(NavigationType.Profile);
 
   _keyExtractor = (item, index) => `${index}${item.id}`;
+  renderHeader = () => (
+    <Header style={styles.header}>
+      <Left style={styles.leftHeader}>
+        <Transition appear="flip" disappear="flip" shared="card">
+          <CustomText text={"Абонементы"} style={styles.leftHeaderText} />
+        </Transition>
+      </Left>
+      <Right>
+        <Button
+          onPress={this.goToProfile}
+          transparent
+          style={styles.profileIconHeader}
+        >
+          <FontAwesome5 name={"user"} color="#007bff" size={40} solid />
+        </Button>
+      </Right>
+    </Header>
+  );
+  renderListItem = (subscription) => {
+    const { userProfile } = this.props.user;
 
-  render() {
+    return (
+      <View style={styles.listItem}>
+        <SubscriptionListItem
+          userProfile={userProfile}
+          subscription={subscription.item}
+          withExtension
+        />
+      </View>
+    );
+  };
+
+  renderContent = () => {
     const { userProfile } = this.props.user;
     const subscriptions = userProfile.subscriptions;
+
+    return (
+      <FlatList
+        data={subscriptions}
+        keyExtractor={this._keyExtractor}
+        renderItem={(subscription) => this.renderListItem(subscription)}
+      />
+    );
+  }
+
+  render() {
     return (
       <Container style={styles.container}>
-        <Header style={styles.header}>
-          <Left style={styles.leftHeader}>
-            <Transition appear="flip" disappear="flip" shared="card">
-              <CustomText text={"Подписки"} style={styles.leftHeaderText} />
-            </Transition>
-          </Left>
-          <Right>
-            <Button
-              onPress={this.goToProfile}
-              transparent
-              style={styles.profileIconHeader}
-            >
-              <FontAwesome5 name={"user"} color="#007bff" size={40} solid />
-            </Button>
-          </Right>
-        </Header>
-
+        {this.renderHeader()}
         <SafeAreaView style={styles.container} behavior="padding">
-          <FlatList
-            data={subscriptions}
-            keyExtractor={this._keyExtractor}
-            renderItem={(subscription, index) => (
-              <View style={styles.listItem}>
-                <SubscriptionListItem
-                  userProfile={userProfile}
-                  subscription={subscription.item}
-                />
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() =>
-                    this.acceptMarkVisit(subscription.item.id, userProfile)
-                  }
-                >
-                  <CustomText style={styles.buttonText} text={"Open"} />
-                </TouchableOpacity>
-              </View>
-            )}
-          />
+          {this.renderContent()}
         </SafeAreaView>
       </Container>
     );

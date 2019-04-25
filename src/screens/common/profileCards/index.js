@@ -7,7 +7,7 @@ import { CustomText } from "../text/customText";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./styles";
 
-export default class ProfileCards extends React.Component {
+export default class ProfileCards extends React.PureComponent {
   constructor(props) {
     super(props);
     const subscriptionNumber =

@@ -2,7 +2,7 @@ import React from "react";
 import { Input, Icon, View, Item } from "native-base";
 import styles from "./styles";
 
-export default class SearchBar extends React.Component {
+export default class SearchBar extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>

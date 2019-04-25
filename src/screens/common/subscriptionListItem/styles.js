@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   listText: {
-    padding: 5,
+    padding: 4,
     color: "black",
     fontSize: 15
   },
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   typeIcon: {
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
     borderRadius: 5,
     backgroundColor: "#17a2f3",
     alignItems: "center",

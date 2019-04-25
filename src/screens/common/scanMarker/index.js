@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "native-base";
 import styles from "./styles";
 
-export default class ScanMarker extends React.Component {
+export default class ScanMarker extends React.PureComponent {
   render() {
     return (
       <View style={styles.container}>

@@ -6,7 +6,7 @@ import styles from "./styles";
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const MARGIN = 40;
 
-export default class ButtonSubmit extends React.Component {
+export default class ButtonSubmit extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { isLoading: false };

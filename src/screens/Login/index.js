@@ -14,10 +14,10 @@ import { GRADIENT_COLORS } from "../../constants/cssConstants";
 import { CustomText } from "../common/text/customText";
 const logo = require("../../../assets/images/logo.png");
 
-class LoginForm extends React.Component {
+class LoginForm extends React.PureComponent {
   componentWillMount() {
-  /*   this.props.refreshToken(this.props.user.auth); */
-      this.props.user.isTokenValid &&
+    /*   this.props.refreshToken(this.props.user.auth); */
+    this.props.user.isTokenValid &&
       this.checkAdminAndRedirect(this.props.user.userProfile);
   }
 
@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
         return this.checkAdminAndRedirect(res.user);
       })
       .catch(error => {
-        showToast(I18n.t("login.messages.invalidLoginData"));
+        showToast(error);
         throw error;
       });
   };
@@ -93,7 +93,7 @@ class LoginForm extends React.Component {
           <View style={styles.signUpView}>
             <Text style={styles.text}>{I18n.t("login.hint.or")}</Text>
             <TouchableOpacity onPress={this.goToSignUp} activeOpacity={1}>
-              <CustomText style={styles.signUpText} text={I18n.t("login.buttons.signup")}/>
+              <CustomText style={styles.signUpText} text={I18n.t("login.buttons.signup")} />
             </TouchableOpacity>
           </View>
         </SafeAreaView>

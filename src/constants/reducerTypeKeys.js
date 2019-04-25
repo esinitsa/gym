@@ -6,7 +6,7 @@ import {
 } from "../components/personal/constants";
 
 export const KEYS = {
-  [SUBSCRIPTION_VISIT_SUCCESS] : "clients",
+  [SUBSCRIPTION_VISIT_SUCCESS]: "clients",
   [GET_ALL_CLIENTS_SUCCESS]: "clients",
   [GET_MY_CLIENTS_SUCCESS]: "clients",
   [GET_USER_BY_ID_SUCCESS]: "user",

@@ -1,20 +1,15 @@
-import { Card } from "native-base";
-import React from "react";
-import {
-  Modal,
-  SafeAreaView,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View
-} from "react-native";
-import QRCode from "react-native-qrcode-svg";
-import { Transition } from "react-navigation-fluid-transitions";
-import { connect } from "react-redux";
-import { userLogOut } from "../../components/login/actions";
-import { NavigationType } from "../../constants/navigationTypes";
-import { CustomText } from "../common/text/customText";
-import SubscriptionListItem from "../common/subscriptionListItem";
 import _ from "lodash";
+import { Button, Card, CardItem, Container, Header, Left, Right } from "native-base";
+import React from "react";
+import { Modal, SafeAreaView, ScrollView, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import QRCode from "react-native-qrcode-svg";
+import FontAwesome5 from "react-native-vector-icons/EvilIcons";
+import { connect } from "react-redux";
+import { getCurrentUser } from "../../components/personal/actions";
+import { NavigationType } from "../../constants/navigationTypes";
+import NoteItem from '../common/notes/listItem';
+import SubscriptionListItem from "../common/subscriptionListItem";
+import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 
 class Home extends React.PureComponent {
@@ -23,136 +18,153 @@ class Home extends React.PureComponent {
     qrcodeVisible: false
   };
 
+  componentDidMount() {
+    this.props.getUserInfo();
+  }
+
   visibleMyQRCode = () => {
-    this.setState({
-      qrcodeVisible: !this.state.qrcodeVisible
-    });
+    this.setState({ qrcodeVisible: !this.state.qrcodeVisible });
   };
 
   checkLastVisitSubscription = (subscriptions, userProfile) => {
     const lastVisitSubscription = _.head(subscriptions);
     if (_.isNil(lastVisitSubscription)) {
-      return <CustomText style={{ fontSize: 30 }} text={"EMPTY"} />;
-    } else {
       return (
-        <View style={styles.listItem}>
-          <SubscriptionListItem
-            userProfile={userProfile}
-            subscription={lastVisitSubscription}
-          />
-        </View>
+        <CustomText
+          style={{ fontSize: 20, color: 'grey', textAlign: 'center', paddingHorizontal: 15, paddingVertical: 20 }}
+          text={"На данный момент у вас нет абонементов"} />
       );
     }
+    return (
+      <View style={styles.listItem}>
+        <SubscriptionListItem
+          userProfile={userProfile}
+          subscription={lastVisitSubscription}
+        />
+      </View>
+    );
+  };
+
+  checkLastVisitNote = notes => {
+    const preview = notes ? _.slice(notes, 0, 3) : [];
+    if (!preview.length) {
+      return (
+        <CustomText
+          style={{ fontSize: 20, color: 'grey', textAlign: 'center', paddingHorizontal: 15, paddingVertical: 20 }}
+          text={"На данный момент у вас нет заметок"} />
+      );
+    }
+
+    return preview.map((it, index) => (
+      <CardItem bordered={index !== preview.length - 1} key={index} style={{ width: '100%', }}>
+        <NoteItem note={it} />
+      </CardItem>
+    ));
   };
 
   renderSubscriptionCard = (subscriptions, userProfile) => (
     <View style={styles.touchableCard}>
-      {this.state.isClickSubscription ? (
-        <View style={styles.transitionView}>
-          <Transition
-            appear={myCustomTransitionFunction}
-            disappear={myCustomTransitionFunction}
-          >
-            <Card style={styles.card}>
-              <CustomText text={"Подписки"} style={styles.subscriptionText} />
-              {this.checkLastVisitSubscription(subscriptions, userProfile)}
-            </Card>
-          </Transition>
-        </View>
-      ) : (
+      <View style={styles.transitionView}>
         <Card style={styles.card}>
-          <CustomText text={"Подписки"} style={styles.subscriptionText} />
-          {this.checkLastVisitSubscription(subscriptions, userProfile)}
+          <CardItem header bordered style={{ width: '100%' }}>
+            <CustomText text={"Текущий абонемент"} style={styles.subscriptionText} />
+          </CardItem>
+          <CardItem style={{ width: '100%' }}>
+            {this.checkLastVisitSubscription(subscriptions, userProfile)}
+          </CardItem>
         </Card>
-      )}
+      </View>
     </View>
   );
 
-  renderNotesCard = () => (
-    <View style={styles.touchableCard}>
-      {this.state.isClickSubscription ? (
-        <Card style={styles.card}>
-          <CustomText text={"Заметки"} style={{ fontSize: 30 }} />
+  renderNotesCard = userProfile => {
+    const notes = userProfile.internalRecords;
+    return (
+      <View style={styles.touchableCard}>
+        <Card style={{ ...styles.card }}>
+          <CardItem header bordered style={{ width: '100%' }}>
+            <CustomText text={"Последние заметки"} style={{ fontSize: 26 }} />
+          </CardItem>
+          {this.checkLastVisitNote(notes, userProfile)}
         </Card>
-      ) : (
-        <View style={styles.transitionView}>
-          <Transition appear="flip" disappear="flip">
-            <Card style={styles.card}>
-              <CustomText text={"Заметки"} style={{ fontSize: 30 }} />
-            </Card>
-          </Transition>
-        </View>
-      )}
-    </View>
-  );
+      </View >
+    );
+  }
 
   goToUserSubscriptionList = () => {
     this.props.navigation.navigate(NavigationType.UserSubscriptionList);
     this.setState({ isClickSubscription: true });
   };
-  s;
+
   goToUserNotes = () => {
-    this.props.navigation.navigate(NavigationType.UserSubscriptionList);
+    this.props.navigation.navigate(NavigationType.UserNotes, { user: this.props.user });
     this.setState({ isClickSubscription: false });
   };
+
+  goToProfile = () => this.props.navigation.navigate(NavigationType.Profile);
 
   render() {
     const { userProfile } = this.props.user;
     return (
-      <SafeAreaView style={styles.container}>
-        <View>
-          <TouchableWithoutFeedback onPress={this.goToUserSubscriptionList}>
-            {this.renderSubscriptionCard(
-              userProfile.subscriptions,
-              userProfile
-            )}
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.goToUserNotes}>
-            {this.renderNotesCard()}
-          </TouchableWithoutFeedback>
-        </View>
-        <Modal
-          animationType="fade"
-          transparent
-          visible={this.state.qrcodeVisible}
-        >
-          <TouchableWithoutFeedback onPress={this.visibleMyQRCode}>
-            <View style={styles.touchableView}>
-              <View style={styles.modalView}>
-                <QRCode
-                  value={userProfile !== null ? userProfile.id : "200"}
-                  size={250}
-                />
+      <Container>
+        <Header style={styles.header}>
+          <Left style={styles.leftHeader}>
+            <CustomText text={`${userProfile.firstName} ${userProfile.lastName}`} style={styles.leftHeaderText} />
+          </Left>
+          <Right>
+            <Button
+              onPress={this.goToProfile}
+              transparent
+              style={styles.profileIconHeader}
+            >
+              <FontAwesome5 name={"user"} color="#007bff" size={40} solid />
+            </Button>
+          </Right>
+        </Header>
+        <SafeAreaView style={styles.container}>
+          <ScrollView>
+            <TouchableWithoutFeedback onPress={this.goToUserSubscriptionList}>
+              {this.renderSubscriptionCard(
+                userProfile.subscriptions,
+                userProfile
+              )}
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={this.goToUserNotes}>
+              {this.renderNotesCard(userProfile)}
+            </TouchableWithoutFeedback>
+          </ScrollView>
+          <Modal
+            animationType="fade"
+            transparent
+            visible={this.state.qrcodeVisible}
+          >
+            <TouchableWithoutFeedback onPress={this.visibleMyQRCode}>
+              <View style={styles.touchableView}>
+                <View style={styles.modalView}>
+                  <QRCode
+                    value={userProfile !== null ? userProfile.id : "200"}
+                    size={250}
+                  />
+                </View>
               </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-        <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
-          <CustomText style={styles.buttonText} text={"My QR-code"} />
-        </TouchableOpacity>
-      </SafeAreaView>
+            </TouchableWithoutFeedback>
+          </Modal>
+          <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
+            <CustomText style={styles.buttonText} text={"QR code"} />
+          </TouchableOpacity>
+        </SafeAreaView>
+      </Container>
     );
   }
 }
 
-const myCustomTransitionFunction = transitionInfo => {
-  const { progress, start, end } = transitionInfo;
-  const scaleInterpolation = progress.interpolate({
-    inputRange: [0, start, end, 1],
-    outputRange: [2, 2, 1, 1]
-  });
-  return { transform: [{ scale: scaleInterpolation }] };
-};
-
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogOut: () => dispatch(userLogOut())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getUserInfo: () => dispatch(getCurrentUser()),
+});
 
 export default connect(
   mapStateToProps,

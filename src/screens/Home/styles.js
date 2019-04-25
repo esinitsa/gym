@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
 import { ANIMATED_CARD_PADDING } from "../../constants/cssConstants";
+
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
@@ -23,42 +23,52 @@ const styles = StyleSheet.create({
     paddingRight: 15
   },
   card: {
-    height: 200,
+    paddingVertical: 15,
     width: DEVICE_WIDTH - 30,
     borderRadius: 10,
-    justifyContent:"space-evenly",
-    alignItems: "center",
   },
   subscriptionText: {
-    fontSize: 30,
+    fontSize: 25,
   },
   transitionView: {
     padding: ANIMATED_CARD_PADDING,
   },
   listItem: {
-    borderTopWidth: 1,
-    marginHorizontal: 10,
-    paddingVertical: 20,
+    width: '100%',
+    borderTopWidth: 0,
+    marginHorizontal: 0,
+    paddingVertical: 10,
     borderTopColor: "#ededef",
     backgroundColor: "#ffffff",
     justifyContent: "space-between",
     alignContent: "space-between",
-    paddingLeft: 10,
     flexDirection: "row",
   },
   touchableCard: {
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 15,
+    marginVertical: 10,
     shadowColor: "#000",
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 6,
- },
+  },
   buttonText: {
     fontSize: 20,
     color: "#ffffff",
     fontWeight: "bold"
+  },
+  header: {
+    borderBottomColor: "#f5f4f5",
+    borderBottomWidth: 0,
+    backgroundColor: "#f5f4f5",
+  },
+  leftHeader: {
+    paddingLeft: 15
+  },
+  leftHeaderText: {
+    fontSize: 25,
+    fontWeight: "700"
   },
   touchableView: {
     backgroundColor: "rgba(0,0,0,0.6)",
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: 15,
     height: 50,
-},
+  },
 });
 
 export default styles;

@@ -6,7 +6,7 @@ import {   EMPTY_RESPONSE } from "../../../constants/profileConstants";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 
-export default class UsersListItem extends React.Component {
+export default class UsersListItem extends React.PureComponent {
 
   render() {
     const userProfile = this.props.user;

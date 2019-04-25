@@ -17,6 +17,7 @@ import {
   CHECK_EMAIL_REQUEST_STRING,
   CHECK_ACTIVE_REQUEST_STRING
 } from "../../api/apiConstants";
+import { I18n } from "react-redux-i18n";
 
 
 const signUpUserRequest = () => ({ type: USER_SIGNUP_REQUEST });
@@ -50,7 +51,7 @@ const signUpUserValidData = (user, dispatch) => {
 export const signUpUser = user => dispatch => {
   dispatch(signUpUserRequest());
   return api
-    .post(CHECK_EMAIL_REQUEST_STRING, { email :user.email })
+    .post(CHECK_EMAIL_REQUEST_STRING, { email: user.email })
     .then(() =>
       signUpUserValidData(
         user,
@@ -66,7 +67,7 @@ const loginActiveUser = (token, auth, dispatch) => {
   return api
     .get(GET_PROFILE_REQUEST_STRING, {})
     .then(userData => {
-      return dispatch(loginUserSuccess(token, auth , userData));
+      return dispatch(loginUserSuccess(token, auth, userData));
     })
     .catch(error => {
       throw error;
@@ -74,15 +75,15 @@ const loginActiveUser = (token, auth, dispatch) => {
 };
 
 const getToken = (email, password, dispatch) => {
-    const BASIC_AUTH = {
-      username: email,
-      password: password
-    };
+  const BASIC_AUTH = {
+    username: email,
+    password: password
+  };
   return api
-    .get(TOKEN_REQUEST_STRING, {auth : BASIC_AUTH})
+    .get(TOKEN_REQUEST_STRING, { auth: BASIC_AUTH })
     .then(data => {
       authorizeApi(data.token);
-      return loginActiveUser(data.token, BASIC_AUTH , dispatch);
+      return loginActiveUser(data.token, BASIC_AUTH, dispatch);
     })
     .catch(error => {
       throw error;
@@ -93,23 +94,29 @@ export const loginUser = (email, password) => dispatch => {
   dispatch(loginUserRequest());
   return api
     .post(CHECK_ACTIVE_REQUEST_STRING, { email })
-    .then(() => getToken(email, password, dispatch))
-    .catch(error => {
-      throw error;
+    .then((data) => {
+      if (data.statusString !== 'TRUE') {
+        throw 'Your account is not activated, try again later'; // TODO move to i18n
+      } else {
+        return getToken(email, password, dispatch);
+      }
+    })
+    .catch((error) => {
+      throw error ? error : I18n.t("login.messages.invalidLoginData");
     });
 };
 
 export const refreshToken = auth => dispatch => {
   dispatch(refreshTokenRequest());
   return api
-  .get(TOKEN_REQUEST_STRING, { auth })
-  .then( data => {
-    authorizeApi(data.token);
-    dispatch(refreshTokenSuccess(data.token));
-  })
-  .catch( error => {
-    console.log(error);
-  });
+    .get(TOKEN_REQUEST_STRING, { auth })
+    .then(data => {
+      authorizeApi(data.token);
+      dispatch(refreshTokenSuccess(data.token));
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 export const userLogOut = () => dispatch => {

@@ -7,7 +7,7 @@ import { COUNT, DATE_FORMAT, DEFAULT_COUNT, EMPTY_RESPONSE } from "../../../cons
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 
-export default class NotesListItem extends React.Component {
+export default class NotesListItem extends React.PureComponent {
   lastVisitDate = previouslyValidated => {
     if (!_.isArray(previouslyValidated)) {
       return EMPTY_RESPONSE;

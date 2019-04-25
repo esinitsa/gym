@@ -12,7 +12,7 @@ import styles from "./styles";
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
-export default class CardFlip extends React.Component {
+export default class CardFlip extends React.PureComponent {
   constructor(props) {
     super(props);
     this.animatedValue = new Animated.Value(0);

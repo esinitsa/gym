@@ -6,7 +6,7 @@ import { NativeModules, Platform } from "react-native";
 import { initializeI18n } from "../i18n";
 import App from "../App";
 
-export default class Setup extends React.Component {
+export default class Setup extends React.PureComponent {
   state = { store, persistor };
 
   getLanguageCode = () => {

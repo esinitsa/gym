@@ -34,24 +34,28 @@ api.interceptors.response.use(
       return Promise.reject(
         response.data.messages
           ? response.data.messages
-          : "Please active account"
+          : "This email address doesn't exist" // TODO move to i18n
       );
     }
     return response.data;
   },
   error => {
     if (error && error.response && error.response.status === 401) {
-      const lastSuccessType = store.getState().personal.lastSuccessType;
+      const state = store.getState();
+      const lastSuccessType = state.personal.lastSuccessType;
+      if (!state.user.auth) {
+        return Promise.reject('Invalid email or password')
+      }
       return store
-        .dispatch(refreshToken(store.getState().user.auth))
+        .dispatch(refreshToken(state.user.auth))
         .then(() => {
           store.dispatch({
-            type: store.getState().personal.lastRequestType
+            type: state.personal.lastRequestType
           });
           axios.request(error.config).then(response => {
             Promise.resolve(store.dispatch({
               type: lastSuccessType,
-              [KEYS[lastSuccessType]] : response.data
+              [KEYS[lastSuccessType]]: response.data
             }));
           });
         })

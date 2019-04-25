@@ -69,7 +69,7 @@ export const getAllClients = () => dispatch => {
       dispatch(getAllClientsSuccess(data));
       return data;
     })
-    .catch( error => {
+    .catch(error => {
       throw error;
     });
 };
@@ -96,6 +96,11 @@ export const addInternalRecord = internalRecord => dispatch => {
     })
     .catch(error => console.log(error));
 };
+
+export const getCurrentUser = () => (dispatch, getState) => {
+  const id = getState().user.userProfile.id;
+  dispatch(getUserById(id));
+}
 
 export const getUserById = id => dispatch => {
   dispatch(getUserRequest());
