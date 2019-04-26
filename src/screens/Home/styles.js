@@ -53,6 +53,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 6,
   },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#086ab2",
+    borderRadius: 15,
+    justifyContent: "center",
+    marginHorizontal: 15,
+    height: 50,
+  },
   buttonText: {
     fontSize: 20,
     color: "#ffffff",
@@ -83,14 +91,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 20,
   },
-  button: {
-    alignItems: "center",
-    backgroundColor: "#086ab2",
-    borderRadius: 15,
-    justifyContent: "center",
-    marginHorizontal: 15,
-    height: 50,
-  },
+
 });
 
 export default styles;

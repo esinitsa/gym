@@ -56,7 +56,7 @@ class Home extends React.PureComponent {
     }
 
     return preview.map((it, index) => (
-      <CardItem bordered={index !== preview.length - 1} key={index} style={{ width: '100%', }}>
+      <CardItem bordered={index !== preview.length - 1} key={index} style={{ width: '100%' }}>
         <NoteItem note={it} />
       </CardItem>
     ));

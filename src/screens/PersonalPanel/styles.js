@@ -48,6 +48,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
   },
+  button: {
+    backgroundColor: "#f0f0f7",
+    borderRadius: 20,
+    height: 35,
+    width: 110,
+    alignItems: "center",
+    justifyContent: "center",
+},
   buttonText: {
     color: "#007bff",
     fontSize: 18,
@@ -67,14 +75,6 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: "rgba(0, 0 ,0 ,0)"
   },
-  button: {
-    backgroundColor: "#f0f0f7",
-    borderRadius: 20,
-    height: 35,
-    width: 110,
-    alignItems: "center",
-    justifyContent: "center",
-},
 });
 
 export default styles;

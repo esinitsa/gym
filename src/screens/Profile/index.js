@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { Alert, SafeAreaView, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { Transition } from "react-navigation-fluid-transitions";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
@@ -38,6 +39,14 @@ class Profile extends React.PureComponent {
   goToHome = () => this.props.navigation.navigate(NavigationType.Home);
 
   goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
+
+  goToUserSubscriptionList = () =>
+    this.props.navigation.navigate(NavigationType.UserSubscriptionList);
+
+  goToUserNotes = () =>
+    this.props.navigation.navigate(NavigationType.UserNotes, {
+      user: this.props.user
+    });
 
   onLogOut = () => {
     const performLogout = () => {
@@ -147,6 +156,16 @@ class Profile extends React.PureComponent {
               style={styles.userInfoText}
               text={_.get(userProfile, "locale", EMPTY_RESPONSE)}
             />
+          </View>
+          <View style={styles.infoView}>
+            <TouchableOpacity onPress={this.goToUserSubscriptionList}>
+              <CustomText style={styles.signOutText} text={"Абонементы"} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.infoView}>
+            <TouchableOpacity onPress={this.goToUserNotes}>
+              <CustomText style={styles.signOutText} text={"Заметки"} />
+            </TouchableOpacity>
           </View>
           <View style={styles.infoView}>
             <CustomText style={styles.userInfoText} text={"Settings"} />

@@ -39,4 +39,19 @@ export default StyleSheet.create({
         width: DEVICE_WIDTH - 30,
         borderRadius: 10,
     },
+    button: {
+      backgroundColor: "#f0f0f7",
+      marginTop: 15,
+      borderRadius: 20,
+      height: 35,
+      width: 80,
+      alignItems: "center",
+      alignSelf: "flex-end",
+      justifyContent: "center",
+  },
+    buttonText: {
+      color: "#086ab2",
+      fontSize: 12,
+      fontWeight: "700"
+    },
 })
