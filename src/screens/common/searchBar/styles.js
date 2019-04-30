@@ -3,19 +3,18 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     borderRadius: 3,
-    borderWidth: 0.3,
-    borderColor: "white",
-    flex: 1,
-    backgroundColor: "rgba(9,49,69, 0.4)"
+    paddingHorizontal: 10,
+    height: 50,
+    backgroundColor: "#ffffff"
   },
   item: {
     paddingHorizontal: 10
   },
   icon: {
-    color: "white",
+    color: "black",
   },
   searchInput: {
-    color: "white"
+    color: "black"
   }
 });
 

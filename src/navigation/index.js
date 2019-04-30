@@ -8,5 +8,4 @@ export default createSwitchNavigator({
     Auth: { screen: AuthNavigation },
     Client: { screen: ClientNavigation },
     Personal: { screen: PersonalNavigation },
-    Card: { screen: CardNavigator }
 });

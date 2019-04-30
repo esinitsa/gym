@@ -44,7 +44,7 @@ api.interceptors.response.use(
       const state = store.getState();
       const lastSuccessType = state.personal.lastSuccessType;
       if (!state.user.auth) {
-        return Promise.reject('Invalid email or password')
+        return Promise.reject("Invalid email or password");
       }
       return store
         .dispatch(refreshToken(state.user.auth))
@@ -53,10 +53,12 @@ api.interceptors.response.use(
             type: state.personal.lastRequestType
           });
           axios.request(error.config).then(response => {
-            Promise.resolve(store.dispatch({
-              type: lastSuccessType,
-              [KEYS[lastSuccessType]]: response.data
-            }));
+            Promise.resolve(
+              store.dispatch({
+                type: lastSuccessType,
+                [KEYS[lastSuccessType]]: response.data
+              })
+            );
           });
         })
         .catch(() => Promise.reject(FORCE_LOGOUT));

@@ -40,7 +40,7 @@ const getUserSuccess = user => ({
 });
 
 const subscriptionVisitRequest = () => ({ type: SUBSCRIPTION_VISIT_REQUEST });
-const subscriptionVisitSuccess = user => ({
+const subscriptionVisitSuccess = ({ user }) => ({
   type: SUBSCRIPTION_VISIT_SUCCESS,
   [KEYS[SUBSCRIPTION_VISIT_SUCCESS]]: user
 });
@@ -100,7 +100,7 @@ export const addInternalRecord = internalRecord => dispatch => {
 export const getCurrentUser = () => (dispatch, getState) => {
   const id = getState().user.userProfile.id;
   dispatch(getUserById(id));
-}
+};
 
 export const getUserById = id => dispatch => {
   dispatch(getUserRequest());
@@ -116,4 +116,3 @@ export const getUserById = id => dispatch => {
     })
     .catch(error => console.log(error));
 };
-

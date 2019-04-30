@@ -9,7 +9,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#f5f4f5",
+  },
+  card: {
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    width: DEVICE_WIDTH - 30,
+    marginTop: 10,
+    borderRadius: 10,
+    alignSelf: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6
   },
   modalView: {
     backgroundColor: "rgba(0,0,0,0.6)",
@@ -23,28 +35,24 @@ const styles = StyleSheet.create({
   header: {
     borderBottomColor: "#f5f4f5",
     borderBottomWidth: 0,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   leftHeader: {
-    paddingLeft: 15
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
   },
-  leftHeaderText: {
-    fontSize: 25,
+  bodyHeader: {
+    paddingLeft: 5
+  },
+  bodyHeaderText: {
+    fontSize: 18,
     fontWeight: "700"
   },
-  profileIconHeader: {
-    paddingLeft: 15,
-    paddingRight: 15
-  },
   listItem: {
-    borderTopWidth: 1,
-    marginHorizontal: 10,
-    paddingVertical: 20,
     borderTopColor: "#ededef",
     backgroundColor: "#ffffff",
     justifyContent: "space-between",
     alignContent: "space-between",
-    paddingLeft: 10,
     flexDirection: "row"
   },
   listText: {
@@ -79,14 +87,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     backgroundColor: "rgba(0, 0 ,0 ,0)"
-  },
-  card: {
-    height: 100,
-    width: DEVICE_WIDTH - 30,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center"
   },
   button: {
     backgroundColor: "#f0f0f7",

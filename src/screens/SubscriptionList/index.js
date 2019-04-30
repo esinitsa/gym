@@ -58,7 +58,6 @@ class SubscriptionList extends PureComponent {
       <Container style={styles.container}>
         <Header style={styles.header}>
           <Left style={styles.leftHeader}>
-            <Transition appear="flip" disappear="flip" shared="card">
               <CustomText
                 text={
                   `${_.get(user, "firstName", EMPTY_RESPONSE)}` +
@@ -66,7 +65,6 @@ class SubscriptionList extends PureComponent {
                 }
                 style={styles.leftHeaderText}
               />
-            </Transition>
           </Left>
           <Right>
             <Button onPress={this.goToPersonalPanel} transparent>

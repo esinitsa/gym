@@ -1,22 +1,14 @@
 import _ from "lodash";
-import {
-  Body,
-  Button,
-  CardItem,
-  Container,
-  Header,
-  Left,
-  Right,
-  Title,
-  View
-} from "native-base";
+import { CardItem, Container, Content, View } from "native-base";
 import React from "react";
+import Icon from "react-native-vector-icons/AntDesign";
 import { Alert, SafeAreaView, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Transition } from "react-navigation-fluid-transitions";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
+import { renderHeader } from "./components/header";
+import { getUserById } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import {
   COUNT,
@@ -29,23 +21,36 @@ import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 
 class Profile extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      qrcodeVisible: false
-    };
+  componentDidMount() {
+    this.getData();
   }
 
-  goToHome = () => this.props.navigation.navigate(NavigationType.Home);
+  getData = () => {
+    const { getUserInfo, navigation } = this.props;
+    const id = navigation.getParam("id");
+    if (!id) {
+      navigation.goBack();
+    }
+    getUserInfo(id);
+  };
+
+  goToHome = () => {
+    _.get(this.props.userInfo, "id", 0) ===
+    _.get(this.props.currentUser, "id", 1)
+      ? this.props.navigation.navigate(NavigationType.Home)
+      : this.props.navigation.navigate(NavigationType.PersonalPanel);
+  };
 
   goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
 
   goToUserSubscriptionList = () =>
-    this.props.navigation.navigate(NavigationType.UserSubscriptionList);
+    this.props.navigation.navigate(NavigationType.UserSubscriptionList, {
+      id: this.props.userInfo.id
+    });
 
   goToUserNotes = () =>
     this.props.navigation.navigate(NavigationType.UserNotes, {
-      user: this.props.user
+      id: this.props.userInfo.id
     });
 
   onLogOut = () => {
@@ -63,6 +68,7 @@ class Profile extends React.PureComponent {
       { cancelable: true }
     );
   };
+
   renderCardItem = (user, prop, iconName) => (
     <CardItem style={styles.cardItem}>
       <MaterialCommunityIcons
@@ -120,61 +126,92 @@ class Profile extends React.PureComponent {
     }
   };
 
-  render() {
-    const { userProfile } = this.props.user;
+  renderContent = () => {
+    const { userInfo } = this.props;
+    const { currentUser } = this.props;
     return (
-      <Container>
-        <Header>
-          <Left />
-          <Body>
-            <Title>
-              <CustomText text={"Account"} />
-            </Title>
-          </Body>
-          <Right>
-            <Button onPress={this.goToHome} transparent>
-              <CustomText style={styles.rightHeaderText} text={"Done"} />
-            </Button>
-          </Right>
-        </Header>
-        <SafeAreaView style={{ backgroundColor: "#f5f4f5", flex: 1 }}>
-          <View style={styles.infoView}>
+      <Content style={{ flex: 1 }}>
+        <View style={styles.userInfoView}>
+          <CustomText
+            style={styles.userName}
+            text={
+              `${_.get(userInfo, "firstName", EMPTY_RESPONSE)} ` +
+              `${_.get(userInfo, "lastName", EMPTY_RESPONSE)}`
+            }
+          />
+          <CustomText
+            style={styles.emailText}
+            text={_.get(userInfo, "email", EMPTY_RESPONSE)}
+          />
+          <View style={{ flexDirection: "row" }}>
+            <CustomText style={styles.infoPlaceholder} text={"адрес:"} />
             <CustomText
-              style={styles.userInfoText}
-              text={
-                `${_.get(userProfile, "firstName", EMPTY_RESPONSE)} ` +
-                `${_.get(userProfile, "lastName", EMPTY_RESPONSE)}`
-              }
-            />
-            <CustomText
-              style={styles.emailText}
-              text={_.get(userProfile, "email", EMPTY_RESPONSE)}
+              style={styles.streetInfo}
+              text={_.get(userInfo, "locale", EMPTY_RESPONSE)}
             />
           </View>
-          <View style={styles.infoView}>
-            <CustomText
-              style={styles.userInfoText}
-              text={_.get(userProfile, "locale", EMPTY_RESPONSE)}
-            />
-          </View>
-          <View style={styles.infoView}>
+        </View>
+
+        <View style={[styles.infoView, { flexDirection: "row" }]}>
+          <CustomText style={styles.notesText} text={"Абонементы"} />
+          <View
+            style={{
+              flex: 1,
+              alignContent: "center",
+              alignItems: "flex-end",
+              alignSelf: "center",
+              marginRight: 10
+            }}
+          >
             <TouchableOpacity onPress={this.goToUserSubscriptionList}>
-              <CustomText style={styles.signOutText} text={"Абонементы"} />
+              <Icon
+                name={"right"}
+                color="#007bff"
+                size={25}
+                solid
+                style={{ alignSelf: "flex-end" }}
+              />
             </TouchableOpacity>
           </View>
-          <View style={styles.infoView}>
+        </View>
+        <View style={[styles.infoView, { flexDirection: "row" }]}>
+          <CustomText style={styles.notesText} text={"Заметки"} />
+          <View
+            style={{
+              flex: 1,
+              alignContent: "center",
+              alignItems: "flex-end",
+              alignSelf: "center"
+            }}
+          >
             <TouchableOpacity onPress={this.goToUserNotes}>
-              <CustomText style={styles.signOutText} text={"Заметки"} />
+              <Icon
+                name={"right"}
+                color="#007bff"
+                size={25}
+                solid
+                style={{ alignSelf: "flex-end", marginRight: 10 }}
+              />
             </TouchableOpacity>
           </View>
-          <View style={styles.infoView}>
-            <CustomText style={styles.userInfoText} text={"Settings"} />
-          </View>
-          <View style={styles.infoView}>
+        </View>
+        {_.get(userInfo, "id", 0) === _.get(currentUser, "id", 1) && (
+          <View style={styles.signOutView}>
             <TouchableOpacity onPress={this.onLogOut}>
               <CustomText style={styles.signOutText} text={"Sign Out"} />
             </TouchableOpacity>
           </View>
+        )}
+      </Content>
+    );
+  };
+
+  render() {
+    return (
+      <Container>
+        {renderHeader(this.props)}
+        <SafeAreaView style={{ backgroundColor: "#f5f4f5", flex: 1 }}>
+          {this.renderContent()}
         </SafeAreaView>
       </Container>
     );
@@ -182,12 +219,15 @@ class Profile extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  currentUser: state.user.userProfile,
+  userInfo: state.personal.user
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogOut: () => dispatch(userLogOut())
+    onLogOut: () => dispatch(userLogOut()),
+    getUserInfo: id => dispatch(getUserById(id))
   };
 };
 

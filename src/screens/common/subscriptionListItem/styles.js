@@ -90,11 +90,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#f0f0f7",
+    marginTop: 10,
     borderRadius: 20,
     height: 35,
     width: 110,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignSelf: "flex-end"
   },
   buttonText: {
     color: "#007bff",

@@ -7,7 +7,7 @@ export const NavigationType = {
   Home: "Home",
   UserSubscriptionList: "UserSubscriptionList",
   SignUp: "SignUp",
-  UserNotes: 'UserNotes',
+  UserNotes: "UserNotes",
   Login: "Login",
   Profile: "Profile",
   SubscriptionList: "SubscriptionList"

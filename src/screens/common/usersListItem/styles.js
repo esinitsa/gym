@@ -67,7 +67,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#17a2f3",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+        shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 6
   },
   subscriptionTypeView: {
     padding: 3,

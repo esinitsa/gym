@@ -36,7 +36,7 @@ class SignUpForm extends React.PureComponent {
         </Label>
         <Input
           autoCapitalize="none"
-          style={{ color: 'white', padding: 0, margin: 0 }} // TODO move to styles.js
+          style={{ color: "white", padding: 0, margin: 0 }} // TODO move to styles.js
           autoCorrect={false}
           keyboardType={input.name === "login" ? "email-address" : "default"}
           secureTextEntry={input.name === "password" ? true : false}

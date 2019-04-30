@@ -3,8 +3,6 @@ import _ from "lodash";
 import {
   Button,
   Container,
-  Footer,
-  FooterTab,
   Header,
   Left,
   Right
@@ -16,7 +14,8 @@ import {
   KeyboardAvoidingView,
   Modal,
   TouchableOpacity,
-  View
+  View,
+  SafeAreaView
 } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -56,7 +55,7 @@ class PersonalPanel extends PureComponent {
   onSuccess = scanData =>
     this.props
       .getUser(scanData.data)
-      .then(data => this.goToSubscriptionList(data));
+      .then(data => this.goToUserProfile(data));
 
   changeQRState = () => {
     this.setState({
@@ -109,10 +108,10 @@ class PersonalPanel extends PureComponent {
     });
   };
 
-  goToUserPreview = user => {
+  goToUserProfile = user => {
     const { navigation } = this.props;
-    navigation.navigate(NavigationType.UserPreview, {
-      user
+    navigation.navigate(NavigationType.Profile, {
+      id: user.id
     });
   };
 
@@ -122,7 +121,7 @@ class PersonalPanel extends PureComponent {
     this.setState({
       searchText: text
     });
-  }, 300);
+  }, 1000);
 
   render() {
     const { clients } = this.props.personal;
@@ -159,64 +158,50 @@ class PersonalPanel extends PureComponent {
             </Button>
           </Right>
         </Header>
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
-          <FlatList
-            data={_.filter(clients, client =>
-              contains(client, this.state.searchText.toLowerCase())
-            )}
-            keyExtractor={this._keyExtractor}
-            renderItem={(client, index) => (
-              <View style={styles.listItem}>
-                <UsersListItem user={client.item} />
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => this.goToUserPreview(client.item)}
-                >
-                  <CustomText style={styles.buttonText} text={"Open"} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() =>
-                    this.addInternal("SECONDATTEMP", client.item.id)
+        <SafeAreaView style={{flex: 1}}>
+          <KeyboardAvoidingView style={styles.container} behavior="padding">
+          <SearchBar handleInput={this.handleInput} />
+            <FlatList
+              data={_.filter(clients, client =>
+                contains(client, this.state.searchText.toLowerCase())
+              )}
+              keyExtractor={this._keyExtractor}
+              renderItem={(client, index) => (
+                <View style={styles.listItem}>
+                <TouchableOpacity onPress={() => this.goToUserProfile(client.item)}>
+                    <UsersListItem user={client.item} />
+                  </TouchableOpacity>
+                </View>
+              )}
+            />
+            <Modal
+              animationType={"fade"}
+              transparent={true}
+              visible={this.state.qrcodeVisible}
+            >
+              <View style={styles.modalView}>
+                <QRCodeScanner
+                  onRead={this.onSuccess}
+                  cameraProps={{ captureAudio: false }}
+                  showMarker={true}
+                  customMarker={<ScanMarker />}
+                  topContent={
+                    <TouchableOpacity
+                      style={styles.qrScannerContent}
+                      onPress={this.changeQRState}
+                    />
                   }
-                >
-                  <CustomText style={styles.buttonText} text={"Record"} />
-                </TouchableOpacity>
+                  bottomContent={
+                    <TouchableOpacity
+                      style={styles.qrScannerContent}
+                      onPress={this.changeQRState}
+                    />
+                  }
+                />
               </View>
-            )}
-          />
-          <Modal
-            animationType={"fade"}
-            transparent={true}
-            visible={this.state.qrcodeVisible}
-          >
-            <View style={styles.modalView}>
-              <QRCodeScanner
-                onRead={this.onSuccess}
-                cameraProps={{ captureAudio: false }}
-                showMarker={true}
-                customMarker={<ScanMarker />}
-                topContent={
-                  <TouchableOpacity
-                    style={styles.qrScannerContent}
-                    onPress={this.changeQRState}
-                  />
-                }
-                bottomContent={
-                  <TouchableOpacity
-                    style={styles.qrScannerContent}
-                    onPress={this.changeQRState}
-                  />
-                }
-              />
-            </View>
-          </Modal>
-          <Footer style={styles.footer}>
-            <FooterTab>
-              <SearchBar handleInput={this.handleInput} />
-            </FooterTab>
-          </Footer>
-        </KeyboardAvoidingView>
+            </Modal>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
       </Container>
     );
   }

@@ -3,7 +3,12 @@ import moment from "moment";
 import React from "react";
 import { View } from "react-native";
 import Octicons from "react-native-vector-icons/Octicons";
-import { COUNT, DATE_FORMAT, DEFAULT_COUNT, EMPTY_RESPONSE } from "../../../constants/profileConstants";
+import {
+  COUNT,
+  DATE_FORMAT,
+  DEFAULT_COUNT,
+  EMPTY_RESPONSE
+} from "../../../constants/profileConstants";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 
@@ -73,7 +78,7 @@ export default class NotesListItem extends React.PureComponent {
     return (
       <View>
         {isActive ? (
-          <View style={{flexDirection: "row"}}>
+          <View style={{ flexDirection: "row" }}>
             <CustomText style={styles.activeText} text={"active:"} />
             <CustomText text={endDate} />
           </View>
@@ -87,26 +92,20 @@ export default class NotesListItem extends React.PureComponent {
     //const { userProfile } = this.props;
     const { subscription } = this.props;
     return (
-      <View style={{flexDirection: "row"}}>
+      <View style={{ flexDirection: "row" }}>
         <View style={styles.typeIcon}>
-          {this.renderSubscriptionType(
-            subscription,
-            "subscriptionType"
-          )}
+          {this.renderSubscriptionType(subscription, "subscriptionType")}
         </View>
         <View>
           <CustomText
             style={styles.listText}
             text={`Last Visit: ${this.lastVisitDate(
-              _.get(subscription,"previouslyValidated", EMPTY_RESPONSE)
+              _.get(subscription, "previouslyValidated", EMPTY_RESPONSE)
             )}`}
           />
-          {this.checkSubscriptionType(
-            subscription,
-            "subscriptionType"
-          )}
+          {this.checkSubscriptionType(subscription, "subscriptionType")}
         </View>
-    </View>
+      </View>
     );
   }
 }
