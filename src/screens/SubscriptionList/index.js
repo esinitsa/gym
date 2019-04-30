@@ -1,21 +1,11 @@
 import _ from "lodash";
 import { Button, Container, Header, Left, Right } from "native-base";
 import React, { PureComponent } from "react";
-import {
-  Alert,
-  FlatList,
-  SafeAreaView,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { Transition } from "react-navigation-fluid-transitions";
+import { Alert, FlatList, SafeAreaView, TouchableOpacity, View } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
-import {
-  getUserById,
-  processSubscriptionVisit
-} from "../../components/personal/actions";
+import { getUserById, processSubscriptionVisit } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { EMPTY_RESPONSE } from "../../constants/profileConstants";
 import SubscriptionListItem from "../common/subscriptionListItem";

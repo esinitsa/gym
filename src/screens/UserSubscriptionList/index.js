@@ -1,27 +1,15 @@
-import {
-  Button,
-  Container,
-  Header,
-  Left,
-  Right,
-  Card,
-  Body
-} from "native-base";
+import _ from "lodash";
+import { Body, Button, Card, Container, Header, Left, Right } from "native-base";
 import React from "react";
 import { Alert, FlatList, SafeAreaView, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import { Transition } from "react-navigation-fluid-transitions";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
-import {
-  getUserById,
-  processSubscriptionVisit
-} from "../../components/personal/actions";
+import { getUserById, processSubscriptionVisit } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
-import _ from "lodash";
 import styles from "./styles";
 
 class UserSubscriptionList extends React.PureComponent {
