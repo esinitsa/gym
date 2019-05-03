@@ -1,7 +1,5 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import theme from "../../../styles";
-
-const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {

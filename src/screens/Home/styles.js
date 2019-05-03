@@ -1,8 +1,7 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ANIMATED_CARD_PADDING } from "../../constants/cssConstants";
 import theme from "../../styles/index";
 
-const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   linearGradient: {

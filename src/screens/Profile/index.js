@@ -1,9 +1,8 @@
 import _ from "lodash";
-import { CardItem, Container, Content, View } from "native-base";
+import { Container, Content, View } from "native-base";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Alert, SafeAreaView, TouchableOpacity } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
