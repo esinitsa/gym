@@ -13,7 +13,8 @@ import { showToast } from "../../services/UIActions";
 import NoteItem from "../common/notes/listItem";
 import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
-import styles, { DEVICE_HEIGHT } from "./styles";
+import styles from "./styles";
+import theme from "../../styles";
 
 class UserNotes extends React.PureComponent {
   state = {
@@ -38,15 +39,7 @@ class UserNotes extends React.PureComponent {
       <Item>
         <Input
           autoCapitalize="none"
-          style={{
-            color: "black",
-            borderWidth: 1,
-            height: 120,
-            fontSize: 16,
-            borderColor: "#dcdbdc",
-            padding: 0,
-            margin: 0
-          }} // TODO move to styles.js
+          style={styles.input} // TODO move to styles.js
           autoCorrect={false}
           multiline={true}
           keyboardType={input.name === "login" ? "email-address" : "default"}
@@ -82,89 +75,58 @@ class UserNotes extends React.PureComponent {
     }
     const { isExpanded } = this.state;
     return (
-      <Content style={{ flex: 1 }}>
-        <View
-          style={{
-            ...styles.touchableCard,
-            marginVertical: 10,
-            shadowColor: "#e7f2ff",
-            zIndex: 200
-          }}
-        >
-        { (_.get(userInfo, "id", 0) !== _.get(currentUser, "id", 1)) &&
-          <Card style={{ ...styles.card, paddingVertical: 10 }}>
-          <TouchableOpacity onPress={this.handleExpand}>
-            <CardItem
-              header
-              bordered={isExpanded}
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingLeft: 0,
-                paddingRight: 0
-              }}
-            >
-              <CustomText text="Добавить заметку" style={styles.noteTitle} />
-              <View
-                style={{
-                  alignContent: "center",
-                  alignItems: "flex-end",
-                  alignSelf: "center"
-                }}
-              >
-                <Icon name="edit" color="#007bff" size={25} solid />
-              </View>
-            </CardItem>
-            </TouchableOpacity>
-            {isExpanded && (
-              <CardItem
-                style={{
-                  flex: 1,
-                  flexDirection: "column",
-                  paddingLeft: 0,
-                  paddingRight: 0
-                }}
-              >
-                <Field name="notes" component={this.renderInput} type="notes" />
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.addInternal}
+      <Content style={styles.content}>
+        <View style={styles.touchableCard}>
+          {_.get(userInfo, "id", 0) !== _.get(currentUser, "id", 1) && (
+            <Card style={styles.topCard}>
+              <TouchableOpacity onPress={this.handleExpand}>
+                <CardItem
+                  header
+                  bordered={isExpanded}
+                  style={styles.addNoteCardItem}
                 >
-                  <CustomText style={styles.buttonText} text={"Сохранить"} />
-                </TouchableOpacity>
-              </CardItem>
-            )}
-          </Card>
-          }
+                  <CustomText
+                    text="Добавить заметку"
+                    style={styles.noteTitle}
+                  />
+                  <View style={styles.editIconView}>
+                    <Icon name="edit" color={theme.colors.actionComponent} size={25} solid />
+                  </View>
+                </CardItem>
+              </TouchableOpacity>
+              {isExpanded && (
+                <CardItem style={styles.noteCardItem}>
+                  <Field
+                    name="notes"
+                    component={this.renderInput}
+                    type="notes"
+                  />
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={this.addInternal}
+                  >
+                    <CustomText style={styles.buttonText} text={"Сохранить"} />
+                  </TouchableOpacity>
+                </CardItem>
+              )}
+            </Card>
+          )}
         </View>
         {!!userInfo.internalRecords &&
-          [...userInfo.internalRecords].map((it,index) => (
-            <View style={styles.touchableCard} key={`${it.authorUserId}${index}`}>
+          [...userInfo.internalRecords].map((it, index) => (
+            <View
+              style={styles.touchableCard}
+              key={`${it.authorUserId}${index}`}
+            >
               <Card style={styles.card}>
                 <NoteItem note={it} />
               </Card>
             </View>
           ))}
         {!userInfo.internalRecords || !userInfo.internalRecords.length ? (
-          <View
-            style={{
-              position: "absolute",
-              alignContent: "center",
-              alignItems: "center",
-              alignSelf: "center",
-              marginTop: DEVICE_HEIGHT / 2.4
-            }}
-          >
+          <View style={styles.emptyNotesView}>
             <CustomText
-              style={{
-                fontSize: 20,
-                color: "grey",
-                textAlign: "center",
-                paddingHorizontal: 15,
-                paddingVertical: 20,
-                zIndex: 100
-              }}
+              style={styles.emptyNotesInfo}
               text={"На данный момент нет заметок"}
             />
           </View>
@@ -177,7 +139,9 @@ class UserNotes extends React.PureComponent {
     return (
       <Container>
         {renderHeader(this.props)}
-        <SafeAreaView style={{ backgroundColor: "#f5f4f5", flex: 1 }}>{this.renderContent()}</SafeAreaView>
+        <SafeAreaView style={styles.container}>
+          {this.renderContent()}
+        </SafeAreaView>
       </Container>
     );
   }

@@ -19,6 +19,7 @@ import {
 } from "../../constants/profileConstants";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
+import theme from "../../styles";
 
 class Profile extends React.PureComponent {
   componentDidMount() {
@@ -69,21 +70,6 @@ class Profile extends React.PureComponent {
     );
   };
 
-  renderCardItem = (user, prop, iconName) => (
-    <CardItem style={styles.cardItem}>
-      <MaterialCommunityIcons
-        name={iconName}
-        style={{ color: "#DCDCDC", marginRight: 10 }}
-        size={20}
-        solid
-      />
-      <CustomText
-        style={styles.cardText}
-        text={_.get(user, `${prop}`, I18n.t(`login.placeholders.${prop}`))}
-      />
-    </CardItem>
-  );
-
   checkSubscriptionVisits = (user, prop) => {
     const type = _.get(user, `${prop}`, EMPTY_RESPONSE);
     if (type === COUNT) {
@@ -128,9 +114,8 @@ class Profile extends React.PureComponent {
 
   renderContent = () => {
     const { userInfo } = this.props;
-    const { currentUser } = this.props;
     return (
-      <Content style={{ flex: 1 }}>
+      <Content style={styles.content}>
         <View style={styles.userInfoView}>
           <CustomText
             style={styles.userName}
@@ -143,7 +128,7 @@ class Profile extends React.PureComponent {
             style={styles.emailText}
             text={_.get(userInfo, "email", EMPTY_RESPONSE)}
           />
-          <View style={{ flexDirection: "row" }}>
+          <View style={styles.addressRowView}>
             <CustomText style={styles.infoPlaceholder} text={"адрес:"} />
             <CustomText
               style={styles.streetInfo}
@@ -152,56 +137,34 @@ class Profile extends React.PureComponent {
           </View>
         </View>
 
-        <View style={[styles.infoView, { flexDirection: "row" }]}>
+        <View style={styles.infoView}>
           <CustomText style={styles.notesText} text={"Абонементы"} />
-          <View
-            style={{
-              flex: 1,
-              alignContent: "center",
-              alignItems: "flex-end",
-              alignSelf: "center",
-              marginRight: 10
-            }}
-          >
+          <View style={styles.rightArrowView}>
             <TouchableOpacity onPress={this.goToUserSubscriptionList}>
               <Icon
                 name={"right"}
-                color="#007bff"
+                color={theme.colors.actionComponent}
                 size={25}
                 solid
-                style={{ alignSelf: "flex-end" }}
+                style={styles.rightArrowIcon}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={[styles.infoView, { flexDirection: "row" }]}>
+        <View style={styles.infoView}>
           <CustomText style={styles.notesText} text={"Заметки"} />
-          <View
-            style={{
-              flex: 1,
-              alignContent: "center",
-              alignItems: "flex-end",
-              alignSelf: "center"
-            }}
-          >
+          <View style={styles.rightArrowView}>
             <TouchableOpacity onPress={this.goToUserNotes}>
               <Icon
                 name={"right"}
-                color="#007bff"
+                color={theme.colors.actionComponent}
                 size={25}
                 solid
-                style={{ alignSelf: "flex-end", marginRight: 10 }}
+                style={styles.rightArrowIcon}
               />
             </TouchableOpacity>
           </View>
         </View>
-        {_.get(userInfo, "id", 0) === _.get(currentUser, "id", 1) && (
-          <View style={styles.signOutView}>
-            <TouchableOpacity onPress={this.onLogOut}>
-              <CustomText style={styles.signOutText} text={"Sign Out"} />
-            </TouchableOpacity>
-          </View>
-        )}
       </Content>
     );
   };
@@ -210,7 +173,7 @@ class Profile extends React.PureComponent {
     return (
       <Container>
         {renderHeader(this.props)}
-        <SafeAreaView style={{ backgroundColor: "#f5f4f5", flex: 1 }}>
+        <SafeAreaView style={styles.container}>
           {this.renderContent()}
         </SafeAreaView>
       </Container>

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../styles";
 
 const styles = StyleSheet.create({
   linearGradient: {
@@ -9,24 +10,36 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   formContainer: {
-    padding: 20,
+    padding: 20
   },
   signInView: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "center",
-    marginTop: 30,
+    marginTop: 30
   },
   text: {
     color: "#ffffff",
-    marginRight: 10,
-    fontSize: 20,
-    fontFamily: "TrebuchetMS",
+    marginRight: theme.size.margin.standard,
+    fontSize: theme.size.font.topicText,
+    fontFamily: "TrebuchetMS"
+  },
+  inputItem: {
+    marginTop: theme.size.margin.standard
+  },
+  input: {
+    color: "white",
+    padding: theme.size.padding.empty,
+    margin: theme.size.margin.empty
+  },
+  label: {
+    color: "white",
+    fontWeight: "200"
   },
   signInText: {
-    fontSize: 20,
+    fontSize: theme.size.font.topicText,
     color: "#BF8330",
-    fontFamily: "TrebuchetMS",
+    fontFamily: "TrebuchetMS"
   }
 });
 

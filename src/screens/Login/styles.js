@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../styles";
 
 const styles = StyleSheet.create({
   linearGradient: {
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   item: {
-    marginTop: 10
+    marginTop: theme.size.margin.standard
   },
   label: {
     color: "white",
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    marginRight: 10,
-    fontSize: 20,
+    marginRight: theme.size.margin.standard,
+    fontSize: theme.size.font.topicText,
     fontFamily: "TrebuchetMS",
   },
   inputText: {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     fontFamily: "TrebuchetMS",
   },
   signUpText: {
-    fontSize: 20,
+    fontSize: theme.size.font.topicText,
      color: "#BF8330",
     fontFamily: "TrebuchetMS",
   }

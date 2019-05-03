@@ -30,13 +30,13 @@ const minLength4 = minLength(4);
 class SignUpForm extends React.PureComponent {
   renderInput({ input }) {
     return (
-      <Item floatingLabel style={{ marginTop: 10 }}>
-        <Label style={{ color: "white", fontWeight: "200" }}>
+      <Item floatingLabel style={styles.inputItem}>
+        <Label style={styles.label}>
           {I18n.t(`login.placeholders.${input.name}`)}
         </Label>
         <Input
           autoCapitalize="none"
-          style={{ color: "white", padding: 0, margin: 0 }} // TODO move to styles.js
+          style={styles.input}
           autoCorrect={false}
           keyboardType={input.name === "login" ? "email-address" : "default"}
           secureTextEntry={input.name === "password" ? true : false}

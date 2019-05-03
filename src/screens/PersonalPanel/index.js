@@ -37,6 +37,7 @@ import SearchBar from "../common/searchBar/index";
 import { CustomText } from "../common/text/customText";
 import UsersListItem from "../common/usersListItem";
 import styles from "./styles";
+import theme from "../../styles";
 
 class PersonalPanel extends PureComponent {
   constructor(props) {
@@ -139,7 +140,7 @@ class PersonalPanel extends PureComponent {
             >
               <MaterialIcons
                 name={"qrcode-scan"}
-                color="#007bff"
+                color={theme.colors.actionComponent}
                 size={25}
                 solid
               />
@@ -151,15 +152,15 @@ class PersonalPanel extends PureComponent {
             >
               <FontAwesome5
                 name={"sign-out-alt"}
-                color="#007bff"
+                color={theme.colors.actionComponent}
                 size={25}
                 solid
               />
             </Button>
           </Right>
         </Header>
-        <SafeAreaView style={{flex: 1}}>
-          <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <SafeAreaView style={styles.container}>
+          <KeyboardAvoidingView style={styles.keyboardView} behavior="padding">
           <SearchBar handleInput={this.handleInput} />
             <FlatList
               data={_.filter(clients, client =>

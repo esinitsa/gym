@@ -1,15 +1,16 @@
-import ViewMoreText from "react-native-view-more-text";
-import { CustomText } from "../text/customText";
 import React from "react";
 import { Text } from "native-base";
+import { CustomText } from "../text/customText";
+import ViewMoreText from "react-native-view-more-text";
+import styles from "./styles";
 
 export default class ViewMoreCustomText extends React.PureComponent {
   renderViewMore(onPress) {
-    return <Text style={{fontSize: 13, color: "#52a5ff"}} onPress={onPress}>подробнее</Text>;
+    return <Text style={styles.viewMoreText} onPress={onPress}>подробнее</Text>;
   }
 
   renderViewLess(onPress) {
-    return <Text style={{fontSize: 13, color: "#52a5ff"}} onPress={onPress}>скрыть</Text>;
+    return <Text style={styles.viewMoreText} onPress={onPress}>скрыть</Text>;
   }
 
   render() {

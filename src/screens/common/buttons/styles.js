@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../../styles";
 
 const MARGIN = 40;
 
@@ -6,7 +7,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     backgroundColor: "#BF8330",
-    borderRadius: 20,
+    borderRadius: theme.size.border.buttonBorderRadius,
     justifyContent: "center",
     height: MARGIN,
     zIndex: 100
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     width: MARGIN,
     borderWidth: 1,
     borderColor: "#BF8330",
-    borderRadius: 100,
+    borderRadius: theme.size.border.circleBorderRadius,
     alignSelf: "center",
     zIndex: 99,
     backgroundColor: "#BF8330"
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: theme.size.font.buttonText,
     backgroundColor: "transparent"
   }
 });

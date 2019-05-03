@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { getUserById } from "../../../components/personal/actions";
 import { DATE_FORMAT } from "../../../constants/profileConstants";
 import { CustomText } from "../text/customText";
+import styles from "./styles";
 // TODO move to i18n
 export const ROLES = {
   ["DOCTOR"]: "Доктор"
@@ -20,65 +21,30 @@ class NoteItem extends React.PureComponent {
     }
 
     return (
-      <View
-        style={{
-          paddingLeft: 0,
-          paddingBottom: 0,
-          paddingRight: 0,
-          paddingTop: 0,
-          width: "100%"
-        }}
-      >
-        <ListItem
-          style={{
-            width: "100%",
-            flexDirection: "row",
-            paddingLeft: 0,
-            paddingBottom: 0,
-            paddingRight: 0,
-            paddingTop: 0,
-            marginLeft: 0,
-            marginBottom: 10,
-            borderBottomWidth: 0
-          }}
-        >
-          <Left
-            style={{ flex: 1, alignContent: "center", alignItems: "center" }}
-          >
-            <CustomText
-              text={"Escobar E."}
-              style={{ fontSize: 16, fontWeight: "bold" }}
-            />
+      <View style={styles.container}>
+        <ListItem style={styles.listItem}>
+          <Left style={styles.leftView}>
+            <CustomText text={"Escobar E."} style={styles.notesAuthor} />
           </Left>
-          <Body
-            style={{
-              flex: 1,
-              alignSelf: "center",
-              alignContent: "center",
-              alignItems: "center"
-            }}
-          >
+          <Body style={styles.bodyView}>
             <CustomText
               text={moment(note.createdAt).format(DATE_FORMAT)}
-              style={{ color: "grey", fontSize: 13, fontWeight: "400" }}
+              style={styles.date}
             />
           </Body>
-          <Right style={{ flex: 1 }}>
-            <View style={{ alignContent: "center", alignItems: "center" }}>
-              {/* <FontAwesome5 name="user" color="#007bff" size={30} solid /> */}
+          <Right style={styles.rightView}>
+            <View style={styles.rightContentView}>
               <CustomText
                 text={ROLES[note.authorRoleId]}
-                style={{ color: "#007bff", fontSize: 16, fontWeight: "bold" }}
+                style={styles.authorRole}
               />
             </View>
           </Right>
         </ListItem>
-        <ViewMoreCustomText text={note.internalCommentText} style={{fontSize: 13, color: "grey", fontWeight: "400"}} />
-       {/*  <CustomText
-          numberOfLines={2}
+        <ViewMoreCustomText
           text={note.internalCommentText}
-          style={{ fontSize: 13, color: "grey", fontWeight: "200" }}
-        /> */}
+          style={styles.notesText}
+        />
       </View>
     );
   }

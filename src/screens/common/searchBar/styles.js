@@ -1,20 +1,21 @@
 import { StyleSheet } from "react-native";
+import theme from "../../../styles";
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 3,
-    paddingHorizontal: 10,
-    height: 50,
-    backgroundColor: "#ffffff"
+    borderRadius: theme.size.border.searchBarBorderRadius,
+    paddingHorizontal: theme.size.padding.searchBar,
+    height: theme.size.parameters.searchBar.height,
+    backgroundColor: theme.colors.searchBarContainer
   },
   item: {
-    paddingHorizontal: 10
+    paddingHorizontal: theme.size.padding.searchBar
   },
   icon: {
-    color: "black",
+    color: theme.colors.inputColor,
   },
   searchInput: {
-    color: "black"
+    color: theme.colors.inputColor
   }
 });
 

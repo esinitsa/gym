@@ -1,15 +1,23 @@
 import { StyleSheet, Dimensions } from "react-native";
+import theme from "../../../styles";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
-  linearGradient: {
+  container: {
     flex: 1
   },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#ffffff"
+  subscriptionInfoView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flex: 1
+  },
+  rowView: {
+    flexDirection: "row",
+    flex: 1
+  },
+  textInfoView: {
+    paddingLeft: theme.size.padding.subscriptionListItem.textInfo
   },
   modalView: {
     backgroundColor: "rgba(0,0,0,0.6)",
@@ -21,86 +29,111 @@ const styles = StyleSheet.create({
     top: 0
   },
   header: {
-    borderBottomColor: "#f5f4f5",
-    borderBottomWidth: 0,
+    borderBottomColor: theme.colors.containerBackground,
+    borderBottomWidth: theme.size.border.emptyBorderWidth,
     backgroundColor: "transparent"
   },
   leftHeader: {
-    paddingLeft: 15
-  },
-  leftHeaderText: {
-    fontSize: 25,
-    fontWeight: "700"
-  },
-  profileIconHeader: {
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: theme.size.padding.header
   },
   listItem: {
-    borderTopWidth: 1,
-    marginHorizontal: 10,
-    paddingVertical: 20,
-    borderTopColor: "#ededef",
-    backgroundColor: "#ffffff",
+    borderTopWidth: theme.size.border.listItemBorderWidth,
+    marginHorizontal: theme.size.margin.standard,
+    paddingVertical: theme.size.padding.subscriptionListItem.listItem,
+    borderTopColor: theme.colors.listItemBorderTop,
+    backgroundColor: theme.colors.listItemBackground,
     justifyContent: "space-between",
     alignContent: "space-between",
-    paddingLeft: 10,
+    paddingLeft: theme.size.padding.listItem,
     flexDirection: "row"
   },
   listText: {
-    padding: 4,
-    color: "black",
-    fontSize: 15
+    padding: theme.size.padding.subscriptionListItem.listText,
+    fontSize: theme.size.font.standardText,
+    color: "#C0C0C0",
+    fontWeight: "400"
+  },
+  additionalInfoView: {
+    marginTop: theme.size.margin.standard
+  },
+  lastVisitView: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  infoView: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: theme.size.padding.infoTextVertical
+  },
+  infoViewLabelText: {
+    fontWeight: "bold",
+    color: theme.colors.infoText
+  },
+  infoViewText: {
+    fontWeight: "bold"
+  },
+  clickableArrow: {
+    alignContent: "center",
+    alignItems: "flex-end",
+    alignSelf: "center"
+  },
+  activeLabel: {
+    color: theme.colors.infoText,
+    fontWeight: "bold"
   },
   activeText: {
+    padding: theme.size.padding.subscriptionListItem.listText,
+    fontSize: theme.size.font.standardText,
     color: "green",
-    paddingHorizontal: 5
+    fontWeight: "bold"
   },
   inactiveText: {
     color: "red",
-    paddingHorizontal: 5
+    paddingHorizontal: theme.size.padding.subscriptionListItem.inactiveText
   },
-  activeTermView: {
-    flexDirection: "row"
+  activeView: {
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   typeIcon: {
-    height: 50,
-    width: 50,
-    borderRadius: 5,
-    backgroundColor: "#17a2f3",
+    height: theme.size.parameters.subscriptionListItem.typeIcon,
+    width: theme.size.parameters.subscriptionListItem.typeIcon,
+    borderRadius: theme.size.border.typeIconBorderRadius,
+    backgroundColor: theme.colors.typeIcon,
     alignItems: "center",
     justifyContent: "center"
   },
   subscriptionTypeView: {
-    padding: 3,
+    padding: theme.size.padding.subscriptionListItem.subscriptionType,
     color: "#fefefc",
-    fontSize: 17,
+    fontSize: theme.size.font.subscriptionCountText,
     fontWeight: "700"
   },
   footer: {
     backgroundColor: "rgba(0, 0 ,0 ,0)"
   },
   card: {
-    height: 100,
-    width: DEVICE_WIDTH - 30,
-    borderRadius: 10,
+    height: theme.size.parameters.subscriptionListItem.cardHeight,
+    width: theme.size.parameters.cardWidth,
+    borderRadius: theme.size.border.cardBorderRadius,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center"
   },
   button: {
-    backgroundColor: "#f0f0f7",
-    marginTop: 10,
-    borderRadius: 20,
-    height: 35,
-    width: 110,
+    backgroundColor: theme.colors.standardButton,
+    marginTop: theme.size.margin.standard,
+    borderRadius: theme.size.border.buttonBorderRadius,
+    height: theme.size.parameters.buttonHeight,
+    width: theme.size.parameters.buttonWidth,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end"
   },
   buttonText: {
-    color: "#007bff",
-    fontSize: 18,
+    color: theme.colors.actionComponent,
+    fontSize: theme.size.font.buttonText,
     fontWeight: "700"
   }
 });

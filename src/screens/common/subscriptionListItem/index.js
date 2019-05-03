@@ -1,7 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 import React from "react";
-import { TouchableOpacity, View, Alert} from "react-native";
+import { TouchableOpacity, View, Alert } from "react-native";
 import { I18n } from "react-redux-i18n";
 import Icon from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
@@ -14,16 +14,18 @@ import {
 } from "../../../constants/profileConstants";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
+import theme from "../../../styles";
 
 export default class SubscriptionListItem extends React.PureComponent {
   state = {
     isExpanded: false
   };
 
-
   acceptMarkVisit = subscriptionId => {
     const performMarkVisit = () => {
-      this.props.markUserVisit(subscriptionId).then( res =>  showToast("Посещение отмечено"));
+      this.props
+        .markUserVisit(subscriptionId)
+        .then(res => showToast("Посещение отмечено"));
     };
     Alert.alert(
       I18n.t("mark.header"),
@@ -44,7 +46,9 @@ export default class SubscriptionListItem extends React.PureComponent {
 
   lastVisitDate = previouslyValidated =>
     _.isArray(previouslyValidated)
-      ? moment(_.last(previouslyValidated)).locale("ru").format(DATE_FORMAT)
+      ? moment(_.last(previouslyValidated))
+          .locale("ru")
+          .format(DATE_FORMAT)
       : EMPTY_RESPONSE;
 
   checkDate = (subscription, prop) => {
@@ -52,13 +56,14 @@ export default class SubscriptionListItem extends React.PureComponent {
     if (date === EMPTY_RESPONSE) {
       return EMPTY_RESPONSE;
     } else {
-      return moment(date).locale("ru").format(DATE_FORMAT);
+      return moment(date)
+        .locale("ru")
+        .format(DATE_FORMAT);
     }
   };
 
-
-  checkCountVisits = subscription => _.get(subscription, "countInitial", DEFAULT_COUNT);
-
+  checkCountVisits = subscription =>
+    _.get(subscription, "countInitial", DEFAULT_COUNT);
 
   renderSubscriptionType = (subscription, prop) => {
     const type = _.get(subscription, `${prop}`, EMPTY_RESPONSE);
@@ -76,7 +81,6 @@ export default class SubscriptionListItem extends React.PureComponent {
     );
   };
 
-
   checkSubscriptionType = (subscription, prop) => {
     const type = _.get(subscription, `${prop}`, EMPTY_RESPONSE);
     return type === COUNT
@@ -84,21 +88,15 @@ export default class SubscriptionListItem extends React.PureComponent {
       : this.checkTermActive(subscription);
   };
 
-
   checkCountActive = subscription => {
     const isActive = _.get(subscription, "active", EMPTY_RESPONSE);
     return (
       <View>
         {isActive ? (
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
+          <View style={styles.activeView}>
+            <CustomText style={styles.activeLabel} text={"Остаток"} />
             <CustomText
-              style={{ ...styles.listText, color: "grey", fontWeight: "bold" }}
-              text={"Остаток"}
-            />
-            <CustomText
-              style={{ ...styles.listText, color: "green", fontWeight: "bold" }}
+              style={styles.activeText}
               text={subscription.countLeft}
             />
           </View>
@@ -109,24 +107,15 @@ export default class SubscriptionListItem extends React.PureComponent {
     );
   };
 
-
   checkTermActive = subscription => {
     const isActive = _.get(subscription, "active", EMPTY_RESPONSE);
     const endDate = this.checkDate(subscription, "validTill");
     return (
       <View>
         {isActive ? (
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <CustomText
-              style={{ ...styles.listText, color: "grey", fontWeight: "bold" }}
-              text={"Активен по:"}
-            />
-            <CustomText
-              style={{ ...styles.listText, color: "green", fontWeight: "bold" }}
-              text={endDate}
-            />
+          <View style={styles.activeView}>
+            <CustomText style={styles.activeLabel} text={"Активен по:"} />
+            <CustomText style={styles.activeText} text={endDate} />
           </View>
         ) : (
           <CustomText style={styles.inactiveText} text={"Истек"} />
@@ -135,30 +124,22 @@ export default class SubscriptionListItem extends React.PureComponent {
     );
   };
 
-
   handleExpand = () => {
     this.setState(state => ({ isExpanded: !state.isExpanded }));
   };
 
   renderInfoRow = (label, value, color) => {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingVertical: 5
-        }}
-      >
+      <View style={styles.infoView}>
         <View>
-          <CustomText
-            style={{ fontWeight: "bold", color: "grey" }}
-            text={label}
-          />
+          <CustomText style={styles.infoViewLabelText} text={label} />
         </View>
         <View>
           <CustomText
-            style={{ fontWeight: "bold", color: color ? color : "#007bff" }}
+            style={[
+              styles.infoViewText,
+              { color: color ? color : theme.colors.actionComponent }
+            ]}
             text={value}
           />
         </View>
@@ -169,41 +150,18 @@ export default class SubscriptionListItem extends React.PureComponent {
     const { subscription, withExtension, isAdminPreview } = this.props;
     const { isExpanded } = this.state;
     return (
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            flex: 1
-          }}
-        >
-          <View style={{ flexDirection: "row", flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.subscriptionInfoView}>
+          <View style={styles.rowView}>
             <View style={styles.typeIcon}>
               {this.renderSubscriptionType(subscription, "subscriptionType")}
             </View>
-            <View style={{
-                  paddingLeft: 11,}}>
+            <View style={styles.textInfoView}>
               {this.checkSubscriptionType(subscription, "subscriptionType")}
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
+              <View style={styles.lastVisitView}>
+                <CustomText style={styles.listText} text={"Последний визит:"} />
                 <CustomText
-                  style={{
-                    ...styles.listText,
-                    color: "#C0C0C0",
-                    fontWeight: "400"
-                  }}
-                  text={"Последний визит:"}
-                />
-                <CustomText
-                  style={{
-                    ...styles.listText,
-                    color: "#C0C0C0",
-                    fontWeight: "400"
-                  }}
+                  style={styles.listText}
                   text={`${this.lastVisitDate(
                     _.get(subscription, "previouslyValidated", EMPTY_RESPONSE)
                   )}`}
@@ -212,17 +170,11 @@ export default class SubscriptionListItem extends React.PureComponent {
             </View>
           </View>
           {withExtension && (
-            <View
-              style={{
-                alignContent: "center",
-                alignItems: "flex-end",
-                alignSelf: "center"
-              }}
-            >
+            <View style={styles.clickableArrow}>
               <TouchableOpacity onPress={this.handleExpand}>
                 <Icon
                   name={isExpanded ? "up" : "down"}
-                  color="#007bff"
+                  color={theme.colors.actionComponent}
                   size={25}
                   solid
                 />
@@ -231,7 +183,7 @@ export default class SubscriptionListItem extends React.PureComponent {
           )}
         </View>
         {withExtension && isExpanded && (
-          <View style={{ marginTop: 10 }}>
+          <View style={styles.additionalInfoView}>
             {!!subscription.active &&
               this.renderInfoRow(
                 "Активен",
@@ -248,12 +200,16 @@ export default class SubscriptionListItem extends React.PureComponent {
             {!!subscription.startDate &&
               this.renderInfoRow(
                 "Дата начала",
-                moment(subscription.startDate).locale("ru").format(DATE_FORMAT)
+                moment(subscription.startDate)
+                  .locale("ru")
+                  .format(DATE_FORMAT)
               )}
             {!!subscription.validTill &&
               this.renderInfoRow(
                 "Дата окончания",
-                moment(subscription.validTill).locale("ru").format(DATE_FORMAT)
+                moment(subscription.validTill)
+                  .locale("ru")
+                  .format(DATE_FORMAT)
               )}
             {!!subscription.countInitial &&
               this.renderInfoRow("Кол-во посещений", subscription.countInitial)}
@@ -267,15 +223,15 @@ export default class SubscriptionListItem extends React.PureComponent {
               ? this.renderInfoRow(
                   "Доп. информация",
                   subscription.additionalInfo,
-                  "black"
+                  theme.colors.inputColor
                 )
               : null}
-            { isAdminPreview && (
+            {isAdminPreview && (
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => this.acceptMarkVisit(subscription.id)}
               >
-                <CustomText text={"Отметить"} style={styles.buttonText}/>
+                <CustomText text={"Отметить"} style={styles.buttonText} />
               </TouchableOpacity>
             )}
           </View>

@@ -30,6 +30,7 @@ import NoteItem from "../common/notes/listItem";
 import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
+import theme from "../../styles";
 
 class Home extends React.PureComponent {
   state = {
@@ -68,13 +69,7 @@ class Home extends React.PureComponent {
     if (_.isNil(lastVisitSubscription)) {
       return (
         <CustomText
-          style={{
-            fontSize: 20,
-            color: "grey",
-            textAlign: "center",
-            paddingHorizontal: 15,
-            paddingVertical: 20
-          }}
+          style={styles.emptyListItemInfo}
           text={"На данный момент у вас нет абонементов"}
         />
       );
@@ -94,13 +89,7 @@ class Home extends React.PureComponent {
     if (!preview.length) {
       return (
         <CustomText
-          style={{
-            fontSize: 20,
-            color: "grey",
-            textAlign: "center",
-            paddingHorizontal: 15,
-            paddingVertical: 20
-          }}
+          style={styles.emptyListItemInfo}
           text={"На данный момент у вас нет заметок"}
         />
       );
@@ -110,7 +99,7 @@ class Home extends React.PureComponent {
       <CardItem
         bordered={index !== preview.length - 1}
         key={index}
-        style={{ width: "100%" }}
+        style={styles.cardItem}
       >
         <NoteItem note={it} />
       </CardItem>
@@ -120,7 +109,7 @@ class Home extends React.PureComponent {
   renderUserInfoCard = userInfo => (
     <View style={styles.touchableCard}>
       <Card style={styles.card}>
-        <CardItem header bordered style={{ width: "100%" }}>
+        <CardItem header bordered style={styles.cardItem}>
           <CustomText
             style={styles.userName}
             text={
@@ -129,15 +118,15 @@ class Home extends React.PureComponent {
             }
           />
         </CardItem>
-        <CardItem style={{ flexDirection: "column", alignItems: "flex-start" }}>
-          <View style={{ flexDirection: "row" }}>
+        <CardItem style={styles.userInfoView}>
+          <View style={styles.userInfoRow}>
             <CustomText style={styles.infoPlaceholder} text={"email:"} />
             <CustomText
               style={styles.streetInfo}
               text={_.get(userInfo, "email", EMPTY_RESPONSE)}
             />
           </View>
-          <View style={{ flexDirection: "row" }}>
+          <View style={styles.userInfoRow}>
             <CustomText style={styles.infoPlaceholder} text={"адрес:"} />
             <CustomText
               style={styles.streetInfo}
@@ -152,13 +141,13 @@ class Home extends React.PureComponent {
   renderSubscriptionCard = (subscriptions, userProfile) => (
     <View style={styles.touchableCard}>
       <Card style={styles.card}>
-        <CardItem header bordered style={{ width: "100%" }}>
+        <CardItem header bordered style={styles.cardItem}>
           <CustomText
             text={"Текущий абонемент"}
-            style={styles.subscriptionText}
+            style={styles.headlineText}
           />
         </CardItem>
-        <CardItem style={{ width: "100%" }}>
+        <CardItem style={styles.cardItem}>
           {this.checkLastVisitSubscription(subscriptions, userProfile)}
         </CardItem>
       </Card>
@@ -169,9 +158,9 @@ class Home extends React.PureComponent {
     const notes = _.get(userProfile, "internalRecords", EMPTY_RESPONSE);
     return (
       <View style={styles.touchableCard}>
-        <Card style={{ ...styles.card }}>
-          <CardItem header bordered style={{ width: "100%" }}>
-            <CustomText text={"Последние заметки"} style={{ fontSize: 26 }} />
+        <Card style={styles.card}>
+          <CardItem header bordered style={styles.cardItem}>
+            <CustomText text={"Последние заметки"} style={styles.headlineText} />
           </CardItem>
           {this.checkLastVisitNote(notes, userProfile)}
         </Card>
@@ -221,7 +210,7 @@ class Home extends React.PureComponent {
             >
               <FontAwesome5
                 name={"sign-out-alt"}
-                color="#007bff"
+                color={theme.colors.actionComponent}
                 size={25}
                 solid
               />

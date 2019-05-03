@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { ANIMATED_CARD_PADDING } from "../../constants/cssConstants";
+import theme from "../../styles/index";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
@@ -9,56 +10,65 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "space-around"
-  },
-  qrScanRightHeader: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginHorizontal: 5
-  },
-  signOutRightHeader: {
-    paddingLeft: 15,
-    paddingRight: 15
+    justifyContent: "space-around",
+    backgroundColor: theme.colors.containerBackground
   },
   card: {
-    paddingVertical: 15,
-    width: DEVICE_WIDTH - 30,
-    borderRadius: 10
+    paddingVertical: theme.size.padding.cardVertical,
+    width: theme.size.parameters.cardWidth,
+    borderRadius: theme.size.border.cardBorderRadius
   },
-  subscriptionText: {
-    fontSize: 25
+  cardItem: {
+    width: "100%"
+  },
+  userInfoView: {
+    flexDirection: "column",
+    alignItems: "flex-start"
+  },
+  userInfoRow: {
+    flexDirection: "row"
+  },
+  emptyListItemInfo: {
+    fontSize: theme.size.font.topicText,
+    color: theme.colors.infoText,
+    textAlign: "center",
+    paddingHorizontal: theme.size.padding.emptyListItemInfoHorizontal,
+    paddingVertical: theme.size.padding.emptyListItemInfoVertical
+  },
+  headlineText: {
+    fontSize: theme.size.font.headlineText
   },
   transitionView: {
     padding: ANIMATED_CARD_PADDING
   },
   userName: {
-    fontSize: 25,
+    fontSize: theme.size.font.headlineText,
     fontWeight: "500"
   },
   emailText: {
-    paddingTop: 5,
-    fontSize: 15,
+    paddingTop: theme.size.padding.infoTextVertical,
+    fontSize: theme.size.font.standardText,
     justifyContent: "flex-start",
     color: "#95959a"
   },
   streetInfo: {
-    fontSize: 16,
-    paddingVertical: 5,
-    marginLeft: 5
+    fontSize: theme.size.font.standardText,
+    paddingVertical: theme.size.padding.infoTextVertical,
+    marginLeft: theme.size.margin.label
   },
   infoPlaceholder: {
     width: 60,
-    fontSize: 15,
-    color: "grey",
-    paddingVertical: 5,
+    fontSize: theme.size.font.standardText,
+    color: theme.colors.infoText,
+    paddingVertical: theme.size.padding.infoTextVertical
   },
   listItem: {
     width: "100%",
-    borderTopWidth: 0,
-    marginHorizontal: 0,
-    paddingVertical: 10,
-    borderTopColor: "#ededef",
-    backgroundColor: "#ffffff",
+    borderTopWidth: theme.size.border.emptyBorderWidth,
+    marginHorizontal: theme.size.margin.empty,
+    paddingVertical: theme.size.padding.listItem,
+    borderTopColor: theme.colors.listItemBorderTop,
+    backgroundColor: theme.colors.listItemBackground,
     justifyContent: "space-between",
     alignContent: "space-between",
     flexDirection: "row"
@@ -66,8 +76,8 @@ const styles = StyleSheet.create({
   touchableCard: {
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 5,
-    shadowColor: "#000",
+    marginVertical: theme.size.margin.label,
+    shadowColor: theme.colors.shadowColor,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 6
@@ -75,26 +85,25 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     backgroundColor: "#086ab2",
-    borderRadius: 15,
+    borderRadius: theme.size.border.qrCodeBtnBorderRadius,
     justifyContent: "center",
-    marginHorizontal: 15,
-    height: 50
+    marginHorizontal: theme.size.margin.button,
+    height: theme.size.parameters.qrCodeButtonHeight
   },
   buttonText: {
-    fontSize: 20,
-    color: "#ffffff",
+    fontSize: theme.size.font.topicText,
+    color: theme.colors.qrCodeButtonText,
     fontWeight: "bold"
   },
   header: {
-    borderBottomColor: "#f5f4f5",
-    borderBottomWidth: 0,
-    backgroundColor: "#ffffff",
+    borderBottomWidth: theme.size.border.headerBottom,
+    backgroundColor: theme.colors.headerBackground
   },
   leftHeader: {
-    paddingLeft: 15
+    paddingLeft: theme.size.padding.header
   },
   leftHeaderText: {
-    fontSize: 25,
+    fontSize: theme.size.font.headlineText,
     fontWeight: "700"
   },
   touchableView: {
@@ -108,7 +117,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     borderColor: "white",
-    borderWidth: 20
+    borderWidth: theme.size.border.modal
   }
 });
 

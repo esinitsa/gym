@@ -3,7 +3,6 @@ export const NavigationType = {
   Client: "Client",
   Personal: "Personal",
   PersonalPanel: "PersonalPanel",
-  UserPreview: "UserPreview",
   Home: "Home",
   UserSubscriptionList: "UserSubscriptionList",
   SignUp: "SignUp",

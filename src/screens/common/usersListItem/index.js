@@ -11,9 +11,9 @@ export default class UsersListItem extends React.PureComponent {
   render() {
     const userProfile = this.props.user;
     return (
-      <View style={{flexDirection: "row"}} >
+      <View style={styles.container} >
         <View style={styles.typeIcon}>
-          <FontAwesome5 name="user" style={{ color: "#ffffff" }} size={40} solid />
+          <FontAwesome5 name="user" style={styles.userIcon} size={40} solid />
         </View>
         <View >
           <CustomText

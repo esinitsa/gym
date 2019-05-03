@@ -11,6 +11,7 @@ import { NavigationType } from "../../constants/navigationTypes";
 import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
+import theme from "../../styles";
 
 class UserSubscriptionList extends React.PureComponent {
   componentDidMount() {
@@ -56,13 +57,6 @@ class UserSubscriptionList extends React.PureComponent {
     });
   }
 
-  goToUserPreview = user => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.UserPreview, {
-      user: user
-    });
-  };
-
   acceptMarkVisit = subscriptionId =>
     this.props.markUserVisit(subscriptionId).then(res => this.getData());
 
@@ -82,14 +76,10 @@ class UserSubscriptionList extends React.PureComponent {
             >
               <Icon
                 name={"left"}
-                color="#007bff"
+                color={theme.colors.actionComponent}
                 size={25}
                 solid
-                style={{
-                  justifyContent: "center",
-                  alignSelf: "center",
-                  marginLeft: 10
-                }}
+                style={styles.backArrowIcon}
               />
             </Button>
       </Left>
@@ -97,7 +87,7 @@ class UserSubscriptionList extends React.PureComponent {
         <CustomText text={"Абонементы"} style={styles.bodyHeaderText} />
         <CustomText
           text={`${this.props.userInfo.firstName} ${this.props.userInfo.lastName}`}
-          style={{ fontSize: 14, color: "grey" }}
+          style={styles.headerUsername}
         />
       </Body>
       <Right/>

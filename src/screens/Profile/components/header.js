@@ -5,9 +5,9 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { NavigationType } from "../../../constants/navigationTypes";
 import { CustomText } from "../../common/text/customText";
 import styles from "../styles";
+import theme from "../../../styles";
 
 export const renderHeader = props => {
-
   const goToPersonalPanel = () => {
     props.navigation.navigate(NavigationType.PersonalPanel);
   };
@@ -15,7 +15,7 @@ export const renderHeader = props => {
   return (
     <Header style={styles.header}>
       <Left style={styles.leftHeader}>
-        <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={styles.headerView}>
           <Button
             onPress={goToPersonalPanel}
             transparent
@@ -23,14 +23,10 @@ export const renderHeader = props => {
           >
             <Icon
               name={"left"}
-              color="#007bff"
+              color={theme.colors.actionComponent}
               size={25}
               solid
-              style={{
-                justifyContent: "center",
-                alignSelf: "center",
-                marginLeft: 10
-              }}
+              style={styles.backArrowIcon}
             />
           </Button>
         </View>

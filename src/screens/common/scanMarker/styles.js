@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import theme from "../../../styles";
 
 const styles = StyleSheet.create({
   container: {
@@ -6,52 +7,52 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   rectangle: {
-    height: 250,
-    width: 250
+    height: theme.size.parameters.scanMarker.rectangle,
+    width: theme.size.parameters.scanMarker.rectangle
   },
   topLeftCorner: {
     position: "absolute",
     top: 0,
     left: 0,
-    color: "white",
-    borderLeftWidth: 5,
-    borderTopWidth: 5,
-    borderColor: "white",
-    height: 25,
-    width: 25,
+    color: theme.colors.cameraCaptureView,
+    borderLeftWidth: theme.size.parameters.borderWidth,
+    borderTopWidth: theme.size.parameters.borderWidth,
+    borderColor: theme.colors.cameraCaptureView,
+    height: theme.size.parameters.scanMarker.corner,
+    width: theme.size.parameters.scanMarker.corner,
   },
   topRightCorner: {
     position: "absolute",
     top: 0,
     right: 0,
-    color: "white",
-    borderRightWidth: 5,
-    borderTopWidth: 5,
-    borderColor: "white",
-    height: 25,
-    width: 25,
+    color: theme.colors.cameraCaptureView,
+    borderRightWidth: theme.size.parameters.borderWidth,
+    borderTopWidth: theme.size.parameters.borderWidth,
+    borderColor: theme.colors.cameraCaptureView,
+    height: theme.size.parameters.scanMarker.corner,
+    width: theme.size.parameters.scanMarker.corner,
   },
   bottomLeftCorner: {
     position: "absolute",
     bottom: 0,
     left: 0,
-    color: "white",
-    borderLeftWidth: 5,
-    borderBottomWidth: 5,
-    borderColor: "white",
-    height: 25,
-    width: 25,
+    color: theme.colors.cameraCaptureView,
+    borderLeftWidth: theme.size.parameters.borderWidth,
+    borderBottomWidth: theme.size.parameters.borderWidth,
+    borderColor: theme.colors.cameraCaptureView,
+    height: theme.size.parameters.scanMarker.corner,
+    width: theme.size.parameters.scanMarker.corner,
   },
   bottomRightCorner: {
     position: "absolute",
     bottom: 0,
     right: 0,
-    color: "white",
-    borderRightWidth: 5,
-    borderBottomWidth: 5,
-    borderColor: "white",
-    height: 25,
-    width: 25,
+    color: theme.colors.cameraCaptureView,
+    borderRightWidth: theme.size.parameters.borderWidth,
+    borderBottomWidth: theme.size.parameters.borderWidth,
+    borderColor: theme.colors.cameraCaptureView,
+    height: theme.size.parameters.scanMarker.corner,
+    width: theme.size.parameters.scanMarker.corner,
   }
 });
 

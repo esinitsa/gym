@@ -1,85 +1,108 @@
 import { StyleSheet } from "react-native";
+import theme from "../../styles";
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.containerBackground
+  },
+  content: {
+    flex: 1
+  },
+  headerView: {
+    flex: 1,
+    flexDirection: "row"
+  },
   infoView: {
-    backgroundColor: "#ffffff",
-    height: 70,
-    padding: 10,
-    marginTop: 10,
-    justifyContent: "center"
+    backgroundColor: theme.colors.infoViewText,
+    height: theme.size.parameters.infoView,
+    padding: theme.size.padding.infoText,
+    marginTop: theme.size.margin.standard,
+    justifyContent: "center",
+    flexDirection: "row"
   },
   userInfoView: {
-    backgroundColor: "#ffffff",
-    height: 100,
-    padding: 10,
-    marginTop: 10,
+    backgroundColor: theme.colors.infoViewText,
+    height: theme.size.parameters.userInfoView,
+    padding: theme.size.padding.infoText,
+    marginTop: theme.size.margin.standard,
     justifyContent: "center"
   },
-  signOutView: {
-    backgroundColor: "#ffffff",
-    height: 70,
-    padding: 10,
-    marginTop: 300,
-    justifyContent: "center"
+  rightArrowView: {
+    flex: 1,
+    alignContent: "center",
+    alignItems: "flex-end",
+    alignSelf: "center"
+  },
+  rightArrowIcon: {
+    alignSelf: "flex-end",
+    marginRight: theme.size.margin.standard
   },
   userInfoText: {
-    paddingHorizontal: 10,
-    paddingVertical: 5
+    paddingHorizontal: theme.size.padding.infoText,
+    paddingVertical: theme.size.padding.infoTextVertical
   },
   userName: {
-    fontSize: 23,
-    paddingHorizontal: 10,
-    paddingTop: 5,
+    fontSize: theme.size.font.title,
+    paddingHorizontal: theme.size.padding.infoText,
+    paddingTop: theme.size.padding.infoTextVertical,
     fontWeight: "500"
   },
   emailText: {
-    paddingHorizontal: 10,
-    paddingTop: 5,
-    fontSize: 14,
-    color: "#95959a"
+    paddingHorizontal: theme.size.padding.infoText,
+    paddingTop: theme.size.padding.infoTextVertical,
+    fontSize: theme.size.font.personEmail,
+    color: theme.colors.profileList.userListEmail
+  },
+  addressRowView: {
+    flexDirection: "row"
   },
   streetInfo: {
-    fontSize: 15,
-    paddingVertical: 5
+    fontSize: theme.size.font.standardText,
+    paddingVertical: theme.size.padding.infoTextVertical
   },
   infoPlaceholder: {
-    fontSize: 15,
-    color: "grey",
-    paddingHorizontal: 10,
-    paddingVertical: 5
+    fontSize: theme.size.font.standardText,
+    color: theme.colors.infoText,
+    paddingHorizontal: theme.size.padding.infoText,
+    paddingVertical: theme.size.padding.infoTextVertical
   },
   subscriptionText: {
-    fontSize: 15,
-    paddingHorizontal: 10,
-    marginVertical: 10,
+    fontSize: theme.size.font.standardText,
+    paddingHorizontal: theme.size.padding.infoText,
+    marginVertical: theme.size.margin.standard,
     fontWeight: "500"
   },
   notesText: {
-    fontSize: 20,
-    paddingHorizontal: 10,
-    marginVertical: 10,
+    fontSize: theme.size.font.topicText,
+    paddingHorizontal: theme.size.padding.infoText,
+    marginVertical: theme.size.margin.standard,
     fontWeight: "500"
   },
   signOutText: {
-    fontSize: 15,
+    fontSize: theme.size.font.standardText,
     alignSelf: "center",
     fontWeight: "700",
     color: "#FF0000"
   },
   header: {
-    borderBottomColor: "#f5f4f5",
-    borderBottomWidth: 0,
+    borderBottomColor: theme.colors.containerBackground,
+    borderBottomWidth: theme.size.border.emptyBorderWidth,
     backgroundColor: "transparent"
   },
   rightHeaderText: {
-    paddingHorizontal: 10,
+    paddingHorizontal: theme.size.padding.infoText,
     color: "#52a5ff"
   },
-  headerBodyText: {
-    fontSize: 18,
-    fontWeight: "700"
+  backArrowIcon: {
+    justifyContent: "center",
+    alignSelf: "center",
+    marginLeft: theme.size.margin.standard
   },
-
+  headerBodyText: {
+    fontSize: theme.size.font.bodyHeaderText,
+    fontWeight: "700"
+  }
 });
 
 export default styles;

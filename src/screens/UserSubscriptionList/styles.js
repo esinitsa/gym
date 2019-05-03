@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import theme from "../../styles";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
@@ -9,22 +10,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#f5f4f5",
+    backgroundColor: theme.colors.containerBackground
   },
   card: {
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    width: DEVICE_WIDTH - 30,
-    marginTop: 10,
-    borderRadius: 10,
+    paddingVertical: theme.size.padding.cardVertical,
+    paddingHorizontal: theme.size.padding.cardHorizontal,
+    width: theme.size.parameters.cardWidth,
+    marginTop: theme.size.margin.standard,
+    borderRadius: theme.size.border.cardBorderRadius,
     alignSelf: "center",
-    shadowColor: "#000",
+    shadowColor: theme.colors.shadowColor,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 6
   },
   modalView: {
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: theme.colors.modalBackground,
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
@@ -33,72 +34,72 @@ const styles = StyleSheet.create({
     top: 0
   },
   header: {
-    borderBottomColor: "#f5f4f5",
-    borderBottomWidth: 0,
-    backgroundColor: "transparent",
+    borderBottomColor: theme.colors.containerBackground,
+    borderBottomWidth: theme.size.border.emptyBorderWidth,
+    backgroundColor: "transparent"
+  },
+  headerUsername: {
+    fontSize: theme.size.font.headerUsername,
+    color: theme.colors.infoText
   },
   leftHeader: {
     justifyContent: "flex-start",
-    alignSelf: "flex-start",
-  },
-  bodyHeader: {
-    paddingLeft: 5
+    alignSelf: "flex-start"
   },
   bodyHeaderText: {
-    fontSize: 18,
+    fontSize: theme.size.font.bodyHeaderText,
     fontWeight: "700"
   },
+  backArrowIcon: {
+    justifyContent: "center",
+    alignSelf: "center",
+    marginLeft: theme.size.margin.standard
+  },
   listItem: {
-    borderTopColor: "#ededef",
-    backgroundColor: "#ffffff",
+    borderTopColor: theme.colors.listItemBorderTop,
+    backgroundColor: theme.colors.listItemBackground,
     justifyContent: "space-between",
     alignContent: "space-between",
     flexDirection: "row"
   },
   listText: {
-    padding: 5,
-    color: "black",
-    fontSize: 15
+    padding: theme.size.padding.infoTextVertical,
+    color: theme.colors.inputColor,
+    fontSize: theme.size.font.standardText
   },
   activeText: {
     color: "green",
-    paddingHorizontal: 5
+    paddingHorizontal: theme.size.padding.activeTextHorizontal
   },
   inactiveText: {
     color: "red",
-    paddingHorizontal: 5
+    paddingHorizontal: theme.size.padding.activeTextHorizontal
   },
   activeTermView: {
     flexDirection: "row"
   },
   typeIcon: {
-    height: 60,
-    width: 60,
-    borderRadius: 5,
-    backgroundColor: "#17a2f3",
+    height: theme.size.parameters.userListItem.typeIcon,
+    width: theme.size.parameters.userListItem.typeIcon,
+    borderRadius: theme.size.border.typeIconBorderRadius,
+    backgroundColor: theme.colors.typeIcon,
     alignItems: "center",
     justifyContent: "center"
   },
-  subscriptionTypeView: {
-    padding: 3,
-    color: "#fefefc",
-    fontSize: 17,
-    fontWeight: "700"
-  },
   footer: {
-    backgroundColor: "rgba(0, 0 ,0 ,0)"
+    backgroundColor: theme.colors.footer
   },
   button: {
-    backgroundColor: "#f0f0f7",
-    borderRadius: 20,
-    height: 35,
-    width: 110,
+    backgroundColor: theme.colors.standardButton,
+    borderRadius: theme.size.border.buttonBorderRadius,
+    height: theme.size.parameters.buttonHeight,
+    width: theme.size.parameters.buttonWidth,
     alignItems: "center",
     justifyContent: "center"
   },
   buttonText: {
-    color: "#007bff",
-    fontSize: 18,
+    color: theme.colors.actionComponent,
+    fontSize: theme.size.font.buttonText,
     fontWeight: "700"
   }
 });

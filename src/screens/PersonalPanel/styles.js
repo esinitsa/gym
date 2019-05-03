@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import theme from "../../styles";
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
@@ -8,12 +9,15 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  keyboardView: {
+    flex: 1,
     justifyContent: "center",
-    backgroundColor: "#ffffff"
+    backgroundColor: theme.colors.keyboardAvoid
   },
   header: {
-    borderBottomColor: "#f5f4f5",
-    borderBottomWidth: 0,
+    borderBottomColor: theme.colors.containerBackground,
+    borderBottomWidth: theme.size.border.emptyBorderWidth,
     backgroundColor: "transparent"
   },
   modalView: {
@@ -26,46 +30,41 @@ const styles = StyleSheet.create({
     top: 0,
   },
   qrScanRightHeader: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    marginHorizontal: 5
+    paddingLeft: theme.size.padding.header,
+    paddingRight: theme.size.padding.header,
+    marginHorizontal: theme.size.margin.qrScannerIcon
   },
   signOutRightHeader: {
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: theme.size.padding.header,
+    paddingRight: theme.size.padding.header
   },
   listItem: {
-    marginHorizontal: 10,
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#ededef",
-    backgroundColor: "#ffffff",
-    paddingLeft: 10,
+    marginHorizontal: theme.size.margin.standard,
+    paddingVertical: theme.size.padding.listItem,
+    borderTopWidth: theme.size.border.listItemBorderWidth,
+    borderTopColor: theme.colors.listItemBorderTop,
+    backgroundColor: theme.colors.listItemBackground,
+    paddingLeft: theme.size.padding.listItem,
     flexDirection: "row",
   },
-  listText: {
-    paddingLeft: 20,
-    color: "white",
-    fontSize: 20,
-  },
   button: {
-    backgroundColor: "#f0f0f7",
-    borderRadius: 20,
-    height: 35,
-    width: 110,
+    backgroundColor: theme.colors.standardButton,
+    borderRadius: theme.size.border.buttonBorderRadius,
+    height: theme.size.parameters.buttonHeight,
+    width: theme.size.parameters.buttonWidth,
     alignItems: "center",
     justifyContent: "center",
 },
   buttonText: {
-    color: "#007bff",
-    fontSize: 18,
+    color: theme.colors.actionComponent,
+    fontSize: theme.size.font.buttonText,
     fontWeight: "700"
   },
   leftHeader: {
-    paddingLeft: 15
+    paddingLeft: theme.size.padding.header
   },
   leftHeaderText: {
-    fontSize: 25,
+    fontSize: theme.size.font.headlineText,
     fontWeight: "700"
   },
   qrScannerContent: {
