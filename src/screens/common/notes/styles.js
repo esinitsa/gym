@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     paddingBottom: theme.size.padding.empty,
     paddingRight: theme.size.padding.empty,
     paddingTop: theme.size.padding.empty,
-    width: "100%"
+    width: theme.size.parameters.FULL_WIDTH
   },
   listItem: {
-    width: "100%",
+    width: theme.size.parameters.FULL_WIDTH,
     flexDirection: "row",
     paddingLeft: theme.size.padding.empty,
     paddingBottom: theme.size.padding.empty,
@@ -40,22 +40,22 @@ const styles = StyleSheet.create({
   },
   date: {
     color: theme.colors.infoText,
-    fontSize: theme.size.font.notesText,
-    fontWeight: "400"
+    fontSize: theme.fonts.size.notesText,
+    fontWeight: theme.fonts.weight.normal
   },
   notesAuthor: {
-    fontSize: theme.size.font.notesAuthorText,
-    fontWeight: "bold"
+    fontSize: theme.fonts.size.notesAuthorText,
+    fontWeight: theme.fonts.weight.bold
   },
   authorRole: {
     color: theme.colors.actionComponent,
-    fontSize: theme.size.font.notesAuthorText,
-    fontWeight: "bold"
+    fontSize: theme.fonts.size.notesAuthorText,
+    fontWeight: theme.fonts.weight.bold
   },
   notesText: {
-    fontSize: theme.size.font.notesText,
+    fontSize: theme.fonts.size.notesText,
     color: theme.colors.infoText,
-    fontWeight: "400"
+    fontWeight: theme.fonts.weight.normal
   }
 });
 

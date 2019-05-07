@@ -1,43 +1,34 @@
-/* eslint-disable no-console */
 import _ from "lodash";
-import {
-  Button,
-  Container,
-  Header,
-  Left,
-  Right
-} from "native-base";
+import { Container } from "native-base";
 import React, { PureComponent } from "react";
 import {
   Alert,
   FlatList,
   KeyboardAvoidingView,
   Modal,
+  SafeAreaView,
   TouchableOpacity,
-  View,
-  SafeAreaView
+  View
 } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { refreshToken, userLogOut } from "../../components/login/actions";
 import {
+  addInternalRecord,
   getAllClients,
   getMyClients,
   getUserById,
-  processSubscriptionVisit,
-  addInternalRecord
+  processSubscriptionVisit
 } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { contains } from "../../services/search";
+import { showToast } from "../../services/UIActions";
 import ScanMarker from "../common/scanMarker/index";
 import SearchBar from "../common/searchBar/index";
-import { CustomText } from "../common/text/customText";
 import UsersListItem from "../common/usersListItem";
+import { renderHeader } from "./components/header";
 import styles from "./styles";
-import theme from "../../styles";
 
 class PersonalPanel extends PureComponent {
   constructor(props) {
@@ -56,7 +47,8 @@ class PersonalPanel extends PureComponent {
   onSuccess = scanData =>
     this.props
       .getUser(scanData.data)
-      .then(data => this.goToUserProfile(data));
+      .then(data => this.goToUserProfile(data))
+      .catch(() => showToast(I18n.t("general.noSuchUser")));
 
   changeQRState = () => {
     this.setState({
@@ -64,21 +56,6 @@ class PersonalPanel extends PureComponent {
     });
   };
 
-  onLogOut = () => {
-    const performLogout = () => {
-      this.props.onLogOut();
-      this.goToLogin();
-    };
-    Alert.alert(
-      I18n.t("settings.logout.header"),
-      I18n.t("settings.logout.description"),
-      [
-        { text: I18n.t("settings.logout.cancel"), style: "cancel" },
-        { text: I18n.t("settings.logout.confirm"), onPress: performLogout }
-      ],
-      { cancelable: true }
-    );
-  };
 
   addInternal = (recordBody, targetUserId) => {
     const internalRecord = {
@@ -86,9 +63,7 @@ class PersonalPanel extends PureComponent {
       recordBody,
       targetUserId
     };
-    const performLogout = () => {
-      this.props.addInternalRecord(internalRecord);
-    };
+    const performLogout = () => this.props.addInternalRecord(internalRecord);
     Alert.alert(
       I18n.t("settings.logout.header"),
       I18n.t("settings.logout.description"),
@@ -99,8 +74,6 @@ class PersonalPanel extends PureComponent {
       { cancelable: true }
     );
   };
-
-  goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
 
   goToSubscriptionList = user => {
     const { navigation } = this.props;
@@ -128,40 +101,10 @@ class PersonalPanel extends PureComponent {
     const { clients } = this.props.personal;
     return (
       <Container style={styles.linearGradient}>
-        <Header style={styles.header}>
-          <Left style={styles.leftHeader}>
-            <CustomText style={styles.leftHeaderText} text={"Admin"} />
-          </Left>
-          <Right>
-            <Button
-              onPress={this.changeQRState}
-              transparent
-              style={styles.qrScanRightHeader}
-            >
-              <MaterialIcons
-                name={"qrcode-scan"}
-                color={theme.colors.actionComponent}
-                size={25}
-                solid
-              />
-            </Button>
-            <Button
-              onPress={this.onLogOut}
-              transparent
-              style={styles.signOutRightHeader}
-            >
-              <FontAwesome5
-                name={"sign-out-alt"}
-                color={theme.colors.actionComponent}
-                size={25}
-                solid
-              />
-            </Button>
-          </Right>
-        </Header>
+        {renderHeader(this.props, this.changeQRState)}
         <SafeAreaView style={styles.container}>
           <KeyboardAvoidingView style={styles.keyboardView} behavior="padding">
-          <SearchBar handleInput={this.handleInput} />
+            <SearchBar handleInput={this.handleInput} />
             <FlatList
               data={_.filter(clients, client =>
                 contains(client, this.state.searchText.toLowerCase())
@@ -169,7 +112,9 @@ class PersonalPanel extends PureComponent {
               keyExtractor={this._keyExtractor}
               renderItem={(client, index) => (
                 <View style={styles.listItem}>
-                <TouchableOpacity onPress={() => this.goToUserProfile(client.item)}>
+                  <TouchableOpacity
+                    onPress={() => this.goToUserProfile(client.item)}
+                  >
                     <UsersListItem user={client.item} />
                   </TouchableOpacity>
                 </View>

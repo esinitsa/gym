@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     marginTop: theme.size.margin.standard,
     borderRadius: theme.size.border.cardBorderRadius,
     alignSelf: "center",
-    shadowColor: theme.colors.shadowColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6
+    shadowColor: theme.shadows.color,
+    shadowOffset: theme.shadows.offset,
+    shadowOpacity: theme.shadows.opacity,
+    shadowRadius: theme.shadows.radius
   },
   modalView: {
     backgroundColor: theme.colors.modalBackground,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   },
   headerUsername: {
-    fontSize: theme.size.font.headerUsername,
+    fontSize: theme.fonts.size.headerUsername,
     color: theme.colors.infoText
   },
   leftHeader: {
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start"
   },
   bodyHeaderText: {
-    fontSize: theme.size.font.bodyHeaderText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.bodyHeaderText,
+    fontWeight: theme.fonts.weight.bold
   },
   backArrowIcon: {
     justifyContent: "center",
@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
   listText: {
     padding: theme.size.padding.infoTextVertical,
     color: theme.colors.inputColor,
-    fontSize: theme.size.font.standardText
+    fontSize: theme.fonts.size.standardText
   },
   activeText: {
-    color: "green",
+    color: theme.colors.activeText,
     paddingHorizontal: theme.size.padding.activeTextHorizontal
   },
   inactiveText: {
-    color: "red",
+    color: theme.colors.inactiveText,
     paddingHorizontal: theme.size.padding.activeTextHorizontal
   },
   activeTermView: {
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: theme.colors.actionComponent,
-    fontSize: theme.size.font.buttonText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.buttonText,
+    fontWeight: theme.fonts.weight.bold
   }
 });
 

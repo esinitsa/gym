@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    fontSize: theme.size.font.buttonText,
+    fontSize: theme.fonts.size.buttonText,
     backgroundColor: "transparent"
   }
 });

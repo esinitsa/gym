@@ -45,7 +45,56 @@
   },
   "profile": {
     "numberOfVisits" : "Количество занятий",
+    "numberOfVisitsAbbreviated": "Кол-во посещений",
+    "additionalInformation": "Доп. информация",
+    "mark": "Отметить",
+    "emptySubscriptions": "На данный момент у вас нет абонементов",
+    "emptyNotes": "На данный момент у вас нет заметок",
+    "address": "адрес:",
+    "currentSubscription": "Текущий абонемент",
+    "addNote": "Добавить заметку",
+    "noteAdded": "Заметка добавлена",
+    "lastNotes": "Последние заметки",
     "startDate" : "Дата начала",
-    "validTill" : "Дата окончания"
+    "validTill" : "Дата окончания",
+    "email": "email:"
+  },
+  "types": {
+    "Admin": "Админ",
+    "Doctor": "Доктор",
+    "Trainer": "Тренер",
+    "Masseur": "Массажист"
+  },
+  "general": {
+    "search": "Поиск",
+    "markVisit": "Посещение отмечено",
+    "remainder": "Остаток",
+    "inactive": "не активен",
+    "activeBy": "Активен по:",
+    "expired": "Истек",
+    "lastVisit": "Последний визит:",
+    "yes": "Да",
+    "no": "Нет",
+    "type": "Тип",
+    "period": "Период",
+    "more": "подробнее",
+    "hint": "скрыть",
+    "save": "Сохранить",
+    "noSuchUser": "Такого пользователя нет\n Попробуйте еще раз",
+    "QRCode": "QR код"
+  },
+  "api": {
+    "incorrectResponse": "Неправильный ответ",
+    "alreadyExists": "Уже существует",
+    "emailNotExist": "Этот адрес электронной почты не существует",
+    "invalidEmailOrPassword": "Неправильный адрес электронной почты или пароль"
+  },
+  "exceptions": {
+    "accountNotActivated": "Ваш аккаунт не активирован, попробуйте позже"
+  },
+  "header": {
+    "notes": "Заметки",
+    "subscriptions": "Абонементы",
+    "profile": "Профиль"
   }
 }

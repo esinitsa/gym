@@ -128,7 +128,7 @@ class Profile extends React.PureComponent {
             text={_.get(userInfo, "email", EMPTY_RESPONSE)}
           />
           <View style={styles.addressRowView}>
-            <CustomText style={styles.infoPlaceholder} text={"адрес:"} />
+            <CustomText style={styles.infoPlaceholder} text={I18n.t("profile.address")} />
             <CustomText
               style={styles.streetInfo}
               text={_.get(userInfo, "locale", EMPTY_RESPONSE)}
@@ -137,7 +137,7 @@ class Profile extends React.PureComponent {
         </View>
 
         <View style={styles.infoView}>
-          <CustomText style={styles.notesText} text={"Абонементы"} />
+          <CustomText style={styles.notesText} text={I18n.t("header.subscriptions")} />
           <View style={styles.rightArrowView}>
             <TouchableOpacity onPress={this.goToUserSubscriptionList}>
               <Icon
@@ -151,7 +151,7 @@ class Profile extends React.PureComponent {
           </View>
         </View>
         <View style={styles.infoView}>
-          <CustomText style={styles.notesText} text={"Заметки"} />
+          <CustomText style={styles.notesText} text={I18n.t("header.notes")} />
           <View style={styles.rightArrowView}>
             <TouchableOpacity onPress={this.goToUserNotes}>
               <Icon

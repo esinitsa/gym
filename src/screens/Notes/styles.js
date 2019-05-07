@@ -1,8 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import theme from "../../styles";
 
-export const DEVICE_WIDTH = Dimensions.get("window").width;
-export const DEVICE_HEIGHT = Dimensions.get("window").height;
 export default StyleSheet.create({
   container: {
     backgroundColor: theme.colors.containerBackground,
@@ -21,11 +19,11 @@ export default StyleSheet.create({
     justifyContent: "center"
   },
   bodyHeaderText: {
-    fontSize: theme.size.font.bodyHeaderText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.bodyHeaderText,
+    fontWeight: theme.fonts.weight.bold
   },
   headerUsername: {
-    fontSize: theme.size.font.headerUsername,
+    fontSize: theme.fonts.size.headerUsername,
     color: theme.colors.infoText
   },
   headerLeftArrow: {
@@ -36,19 +34,18 @@ export default StyleSheet.create({
     paddingLeft: theme.size.padding.infoText
   },
   noteTitle: {
-    fontSize: theme.size.font.title,
+    fontSize: theme.fonts.size.title,
     color: theme.colors.actionComponent,
-    fontWeight: "600"
+    fontWeight: theme.fonts.weight.bold
   },
   touchableCard: {
     justifyContent: "center",
     alignItems: "center",
     marginTop: theme.size.margin.standard,
-    shadowColor: theme.colors.shadowColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
-    marginVertical: theme.size.margin.standard,
+    shadowColor: theme.shadows.color,
+    shadowOffset: theme.shadows.offset,
+    shadowOpacity: theme.shadows.opacity,
+    shadowRadius: theme.shadows.radius,
     zIndex: 200
   },
   topCard: {
@@ -58,7 +55,7 @@ export default StyleSheet.create({
     borderRadius: theme.size.border.cardBorderRadius
   },
   card: {
-    paddingVertical: theme.size.padding.card,
+    paddingVertical: theme.size.padding.cardVertical,
     paddingHorizontal: theme.size.padding.cardHorizontal,
     width: theme.size.parameters.cardWidth,
     borderRadius: theme.size.border.cardBorderRadius
@@ -84,7 +81,7 @@ export default StyleSheet.create({
     marginTop: theme.size.margin.emptyNotes
   },
   emptyNotesInfo: {
-    fontSize: theme.size.font.topicText,
+    fontSize: theme.fonts.size.topicText,
     color: theme.colors.infoText,
     textAlign: "center",
     paddingHorizontal: theme.size.padding.emptyListItemInfoHorizontal,
@@ -95,8 +92,8 @@ export default StyleSheet.create({
     color: theme.colors.inputColor,
     borderWidth: theme.size.border.listItemBorderWidth,
     height: theme.size.parameters.notes.inputHeight,
-    fontSize: theme.size.font.inputText,
-    borderColor: "#dcdbdc",
+    fontSize: theme.fonts.size.inputText,
+    borderColor: theme.colors.cardItemBackground,
     padding: theme.size.padding.empty,
     margin: theme.size.margin.empty
   },
@@ -116,8 +113,8 @@ export default StyleSheet.create({
     justifyContent: "center"
   },
   buttonText: {
-    color: "#086ab2",
-    fontSize: theme.size.font.markVisit,
-    fontWeight: "700"
+    color: theme.colors.saveNoteButtonText,
+    fontSize: theme.fonts.size.markVisit,
+    fontWeight: theme.fonts.weight.bold
   }
 });

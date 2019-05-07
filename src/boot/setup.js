@@ -17,7 +17,7 @@ export default class Setup extends React.PureComponent {
       systemLanguage = NativeModules.SettingsManager.settings.AppleLocale;
     }
     const language = systemLanguage.substring(0, 2);
-    return language.includes("en") || language.includes("ru") ? language : "en";
+    return language.includes("en") || language.includes("ru") ? language : "ru";
   };
 
   componentDidMount() {

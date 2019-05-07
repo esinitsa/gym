@@ -57,15 +57,15 @@ const styles = StyleSheet.create({
 },
   buttonText: {
     color: theme.colors.actionComponent,
-    fontSize: theme.size.font.buttonText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.buttonText,
+    fontWeight: theme.fonts.weight.bold
   },
   leftHeader: {
     paddingLeft: theme.size.padding.header
   },
   leftHeaderText: {
-    fontSize: theme.size.font.headlineText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.headlineText,
+    fontWeight: theme.fonts.weight.bold
   },
   qrScannerContent: {
     flex: 1,

@@ -45,7 +45,56 @@
   },
   "profile": {
     "numberOfVisits" : "Number of visits",
+    "numberOfVisitsAbbreviated": "Number of visits",
+    "additionalInformation": "Add. information",
+    "emptySubscriptions": "You currently have no subscriptions",
+    "emptyNotes": "You currently have no notes",
+    "currentSubscription": "Current subscription",
+    "lastNotes": "Last notes",
+    "address": "address:",
+    "addNote": "Add note",
+    "noteAdded": "Note added",
+    "mark": "mark",
     "startDate" : "Start Date",
-    "validTill" : "End Date"
+    "validTill" : "End Date",
+    "email": "email:"
+  },
+  "types": {
+    "Admin": "Admin",
+    "Doctor": "Doctor",
+    "Trainer": "Trainer",
+    "Masseur": "Masseur"
+  },
+  "general": {
+    "search": "Search",
+    "markVisit": "Success",
+    "remainder": "Remainder",
+    "inactive": "inactive",
+    "activeBy": "Active by:",
+    "expired": "Expired",
+    "lastVisit": "Last visit:",
+    "yes": "Yes",
+    "no": "No",
+    "type": "Type",
+    "period": "Period",
+    "more": "more",
+    "hint": "hint",
+    "save": "Save",
+    "noSuchUser": "No such user\n Try again",
+    "QRCode": "QR code"
+  },
+  "api": {
+    "incorrectResponse": "incorrect response",
+    "alreadyExists": "Already exists",
+    "emailNotExist": "This email address doesn't exist",
+    "invalidEmailOrPassword": "Invalid email or password"
+  },
+  "exceptions": {
+    "accountNotActivated": "Your account is not activated, try again later"
+  },
+  "header": {
+    "notes": "Notes",
+    "subscriptions": "Subscriptions",
+    "profile": "Profile"
   }
 }

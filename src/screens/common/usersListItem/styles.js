@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.typeIcon,
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: theme.colors.shadowColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6
+    shadowColor: theme.shadows.color,
+    shadowOffset: theme.shadows.offset,
+    shadowOpacity: theme.shadows.opacity,
+    shadowRadius: theme.shadows.radius
   },
   userInfoText: {
     paddingHorizontal: theme.size.padding.userListItem.infoHorizontal,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   emailText: {
     paddingHorizontal: theme.size.padding.userListItem.infoHorizontal,
     paddingBottom: theme.size.padding.infoTextVertical,
-    fontSize: theme.size.font.email,
+    fontSize: theme.fonts.size.email,
     color: theme.colors.profileList.userListEmail,
   }
 });

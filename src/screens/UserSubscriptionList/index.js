@@ -1,17 +1,13 @@
 import _ from "lodash";
-import { Body, Button, Card, Container, Header, Left, Right } from "native-base";
+import { Card, Container } from "native-base";
 import React from "react";
-import { Alert, FlatList, SafeAreaView, View } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
+import { FlatList, SafeAreaView, View } from "react-native";
 import { connect } from "react-redux";
-import { I18n } from "react-redux-i18n";
-import { userLogOut } from "../../components/login/actions";
 import { getUserById, processSubscriptionVisit } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import SubscriptionListItem from "../common/subscriptionListItem";
-import { CustomText } from "../common/text/customText";
+import { renderHeader } from "./components/header";
 import styles from "./styles";
-import theme from "../../styles";
 
 class UserSubscriptionList extends React.PureComponent {
   componentDidMount() {
@@ -27,35 +23,14 @@ class UserSubscriptionList extends React.PureComponent {
     getUserInfo(id);
   };
 
-  onLogOut = () => {
-    const performLogout = () => {
-      this.props.onLogOut();
-      this.goToLogin();
-    };
-    Alert.alert(
-      I18n.t("settings.logout.header"),
-      I18n.t("settings.logout.description"),
-      [
-        {
-          text: I18n.t("settings.logout.cancel"),
-          style: "cancel"
-        },
-        {
-          text: I18n.t("settings.logout.confirm"),
-          onPress: performLogout
-        }
-      ],
-      { cancelable: true }
-    );
-  };
-
   goToHome = () => {
-    _.get(this.props.userInfo, "id", 0) === _.get(this.props.currentUser, "id", 1)
-    ? this.props.navigation.navigate(NavigationType.Home)
-    : this.props.navigation.navigate(NavigationType.Profile, {
-      id: this.props.userInfo.id
-    });
-  }
+    _.get(this.props.userInfo, "id", 0) ===
+    _.get(this.props.currentUser, "id", 1)
+      ? this.props.navigation.navigate(NavigationType.Home)
+      : this.props.navigation.navigate(NavigationType.Profile, {
+          id: this.props.userInfo.id
+        });
+  };
 
   acceptMarkVisit = subscriptionId =>
     this.props.markUserVisit(subscriptionId).then(res => this.getData());
@@ -66,33 +41,7 @@ class UserSubscriptionList extends React.PureComponent {
     });
 
   _keyExtractor = (item, index) => `${index}${item.id}`;
-  renderHeader = () => (
-    <Header style={styles.header}>
-      <Left style={styles.leftHeader}>
-        <Button
-              onPress={this.goToHome}
-              transparent
-              style={styles.profileIconHeader}
-            >
-              <Icon
-                name={"left"}
-                color={theme.colors.actionComponent}
-                size={25}
-                solid
-                style={styles.backArrowIcon}
-              />
-            </Button>
-      </Left>
-      <Body>
-        <CustomText text={"Абонементы"} style={styles.bodyHeaderText} />
-        <CustomText
-          text={`${this.props.userInfo.firstName} ${this.props.userInfo.lastName}`}
-          style={styles.headerUsername}
-        />
-      </Body>
-      <Right/>
-    </Header>
-  );
+
   renderListItem = subscription => {
     const { userInfo } = this.props;
     const { currentUser } = this.props;
@@ -129,7 +78,7 @@ class UserSubscriptionList extends React.PureComponent {
   render() {
     return (
       <Container>
-        {this.renderHeader()}
+        {renderHeader(this.props)}
         <SafeAreaView style={styles.container} behavior="padding">
           {this.renderContent()}
         </SafeAreaView>
@@ -147,7 +96,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     getUser: id => dispatch(getUserById(id)),
-    onLogOut: () => dispatch(userLogOut()),
     markUserVisit: subscriptionId =>
       dispatch(processSubscriptionVisit(subscriptionId)),
     getUserInfo: id => dispatch(getUserById(id))

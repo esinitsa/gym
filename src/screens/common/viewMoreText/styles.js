@@ -4,7 +4,7 @@ import theme from "../../../styles";
 
 const styles = StyleSheet.create({
   viewMoreText: {
-    fontSize: theme.size.font.notesText,
+    fontSize: theme.fonts.size.notesText,
     color: theme.colors.actionComponent
   }
 });

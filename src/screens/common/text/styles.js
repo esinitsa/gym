@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import theme from "../../../styles/index";
 
 const styles = StyleSheet.create({
   text: {
     fontFamily: "TrebuchetMS",
-    fontWeight: "400"
+    fontWeight: theme.fonts.weight.normal
   }
 });
 

@@ -1,16 +1,7 @@
 import _ from "lodash";
-import {
-  Button,
-  Card,
-  CardItem,
-  Container,
-  Header,
-  Left,
-  Right
-} from "native-base";
+import { Card, CardItem, Container } from "native-base";
 import React from "react";
 import {
-  Alert,
   Modal,
   SafeAreaView,
   ScrollView,
@@ -19,22 +10,22 @@ import {
   View
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
 import { getCurrentUser } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { EMPTY_RESPONSE } from "../../constants/profileConstants";
+import { DEFAULT_COUNT_OF_NOTES } from "../../constants/settingsConstants";
+import theme from "../../styles";
 import NoteItem from "../common/notes/listItem";
 import SubscriptionListItem from "../common/subscriptionListItem";
 import { CustomText } from "../common/text/customText";
+import { renderHeader } from "./components/header";
 import styles from "./styles";
-import theme from "../../styles";
 
 class Home extends React.PureComponent {
   state = {
-    isClickSubscription: true,
     qrcodeVisible: false
   };
 
@@ -46,31 +37,13 @@ class Home extends React.PureComponent {
     this.setState({ qrcodeVisible: !this.state.qrcodeVisible });
   };
 
-  onLogOut = () => {
-    const performLogout = () => {
-      this.props.onLogOut();
-      this.goToLogin();
-    };
-    Alert.alert(
-      I18n.t("settings.logout.header"),
-      I18n.t("settings.logout.description"),
-      [
-        { text: I18n.t("settings.logout.cancel"), style: "cancel" },
-        { text: I18n.t("settings.logout.confirm"), onPress: performLogout }
-      ],
-      { cancelable: true }
-    );
-  };
-
-  goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
-
   checkLastVisitSubscription = (subscriptions, userProfile) => {
     const lastVisitSubscription = _.head(subscriptions);
     if (_.isNil(lastVisitSubscription)) {
       return (
         <CustomText
           style={styles.emptyListItemInfo}
-          text={"На данный момент у вас нет абонементов"}
+          text={I18n.t("profile.emptySubscriptions")}
         />
       );
     }
@@ -85,12 +58,12 @@ class Home extends React.PureComponent {
   };
 
   checkLastVisitNote = notes => {
-    const preview = notes ? _.slice(notes, 0, 2) : [];
+    const preview = notes ? _.slice(notes, 0, DEFAULT_COUNT_OF_NOTES) : [];
     if (!preview.length) {
       return (
         <CustomText
           style={styles.emptyListItemInfo}
-          text={"На данный момент у вас нет заметок"}
+          text={I18n.t("profile.emptySubscriptions")}
         />
       );
     }
@@ -120,14 +93,20 @@ class Home extends React.PureComponent {
         </CardItem>
         <CardItem style={styles.userInfoView}>
           <View style={styles.userInfoRow}>
-            <CustomText style={styles.infoPlaceholder} text={"email:"} />
+            <CustomText
+              style={styles.infoPlaceholder}
+              text={I18n.t("profile.email")}
+            />
             <CustomText
               style={styles.streetInfo}
               text={_.get(userInfo, "email", EMPTY_RESPONSE)}
             />
           </View>
           <View style={styles.userInfoRow}>
-            <CustomText style={styles.infoPlaceholder} text={"адрес:"} />
+            <CustomText
+              style={styles.infoPlaceholder}
+              text={I18n.t("profile.address")}
+            />
             <CustomText
               style={styles.streetInfo}
               text={_.get(userInfo, "locale", EMPTY_RESPONSE)}
@@ -143,7 +122,7 @@ class Home extends React.PureComponent {
       <Card style={styles.card}>
         <CardItem header bordered style={styles.cardItem}>
           <CustomText
-            text={"Текущий абонемент"}
+            text={I18n.t("profile.currentSubscription")}
             style={styles.headlineText}
           />
         </CardItem>
@@ -160,7 +139,10 @@ class Home extends React.PureComponent {
       <View style={styles.touchableCard}>
         <Card style={styles.card}>
           <CardItem header bordered style={styles.cardItem}>
-            <CustomText text={"Последние заметки"} style={styles.headlineText} />
+            <CustomText
+              text={I18n.t("profile.lastNotes")}
+              style={styles.headlineText}
+            />
           </CardItem>
           {this.checkLastVisitNote(notes, userProfile)}
         </Card>
@@ -172,14 +154,12 @@ class Home extends React.PureComponent {
     this.props.navigation.navigate(NavigationType.UserSubscriptionList, {
       id: this.props.user.userProfile.id
     });
-    this.setState({ isClickSubscription: true });
   };
 
   goToUserNotes = () => {
     this.props.navigation.navigate(NavigationType.UserNotes, {
       id: this.props.user.userProfile.id
     });
-    this.setState({ isClickSubscription: false });
   };
 
   goToProfile = () =>
@@ -191,32 +171,7 @@ class Home extends React.PureComponent {
     const { userProfile } = this.props.user;
     return (
       <Container>
-        <Header style={styles.header}>
-          <Left style={styles.leftHeader}>
-            <CustomText
-              text={`${_.get(userProfile, "firstName", EMPTY_RESPONSE)} ${_.get(
-                userProfile,
-                "lastName",
-                EMPTY_RESPONSE
-              )}`}
-              style={styles.leftHeaderText}
-            />
-          </Left>
-          <Right>
-            <Button
-              onPress={this.onLogOut}
-              transparent
-              style={styles.profileIconHeader}
-            >
-              <FontAwesome5
-                name={"sign-out-alt"}
-                color={theme.colors.actionComponent}
-                size={25}
-                solid
-              />
-            </Button>
-          </Right>
-        </Header>
+        {renderHeader(this.props)}
         <SafeAreaView style={styles.container}>
           <ScrollView>
             {this.renderUserInfoCard(this.props.userInfo)}
@@ -240,7 +195,7 @@ class Home extends React.PureComponent {
                 <View style={styles.modalView}>
                   <QRCode
                     value={userProfile !== null ? userProfile.id : "200"}
-                    size={250}
+                    size={theme.size.parameters.qrCodeSize}
                   />
                 </View>
               </View>
@@ -250,7 +205,10 @@ class Home extends React.PureComponent {
             style={styles.button}
             onPress={this.visibleMyQRCode}
           >
-            <CustomText style={styles.buttonText} text={"QR code"} />
+            <CustomText
+              style={styles.buttonText}
+              text={I18n.t("general.QRCode")}
+            />
           </TouchableOpacity>
         </SafeAreaView>
       </Container>

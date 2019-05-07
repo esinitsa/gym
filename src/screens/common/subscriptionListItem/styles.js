@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     paddingLeft: theme.size.padding.subscriptionListItem.textInfo
   },
   modalView: {
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: theme.colors.modalBackground,
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
   },
   listText: {
     padding: theme.size.padding.subscriptionListItem.listText,
-    fontSize: theme.size.font.standardText,
-    color: "#C0C0C0",
-    fontWeight: "400"
+    fontSize: theme.fonts.size.standardText,
+    color: theme.colors.listText,
+    fontWeight: theme.fonts.weight.normal
   },
   additionalInfoView: {
     marginTop: theme.size.margin.standard
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
     paddingVertical: theme.size.padding.infoTextVertical
   },
   infoViewLabelText: {
-    fontWeight: "bold",
+    fontWeight: theme.fonts.weight.bold,
     color: theme.colors.infoText
   },
   infoViewText: {
-    fontWeight: "bold"
+    fontWeight: theme.fonts.weight.bold
   },
   clickableArrow: {
     alignContent: "center",
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
   },
   activeLabel: {
     color: theme.colors.infoText,
-    fontWeight: "bold"
+    fontWeight: theme.fonts.weight.bold
   },
   activeText: {
     padding: theme.size.padding.subscriptionListItem.listText,
-    fontSize: theme.size.font.standardText,
+    fontSize: theme.fonts.size.standardText,
     color: "green",
-    fontWeight: "bold"
+    fontWeight: theme.fonts.weight.bold
   },
   inactiveText: {
     color: "red",
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
   subscriptionTypeView: {
     padding: theme.size.padding.subscriptionListItem.subscriptionType,
     color: "#fefefc",
-    fontSize: theme.size.font.subscriptionCountText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.subscriptionCountText,
+    fontWeight: theme.fonts.weight.bold
   },
   footer: {
     backgroundColor: "rgba(0, 0 ,0 ,0)"
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: theme.colors.actionComponent,
-    fontSize: theme.size.font.buttonText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.buttonText,
+    fontWeight: theme.fonts.weight.bold
   }
 });
 

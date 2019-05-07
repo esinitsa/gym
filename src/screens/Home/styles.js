@@ -1,12 +1,7 @@
 import { StyleSheet } from "react-native";
-import { ANIMATED_CARD_PADDING } from "../../constants/cssConstants";
 import theme from "../../styles/index";
 
-
 const styles = StyleSheet.create({
-  linearGradient: {
-    flex: 1
-  },
   container: {
     flex: 1,
     justifyContent: "space-around",
@@ -18,7 +13,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.size.border.cardBorderRadius
   },
   cardItem: {
-    width: "100%"
+    width: theme.size.parameters.FULL_WIDTH
   },
   userInfoView: {
     flexDirection: "column",
@@ -28,41 +23,32 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   emptyListItemInfo: {
-    fontSize: theme.size.font.topicText,
+    fontSize: theme.fonts.size.topicText,
     color: theme.colors.infoText,
     textAlign: "center",
     paddingHorizontal: theme.size.padding.emptyListItemInfoHorizontal,
     paddingVertical: theme.size.padding.emptyListItemInfoVertical
   },
   headlineText: {
-    fontSize: theme.size.font.headlineText
-  },
-  transitionView: {
-    padding: ANIMATED_CARD_PADDING
+    fontSize: theme.fonts.size.headlineText
   },
   userName: {
-    fontSize: theme.size.font.headlineText,
-    fontWeight: "500"
-  },
-  emailText: {
-    paddingTop: theme.size.padding.infoTextVertical,
-    fontSize: theme.size.font.standardText,
-    justifyContent: "flex-start",
-    color: "#95959a"
+    fontSize: theme.fonts.size.headlineText,
+    fontWeight: theme.fonts.weight.bold
   },
   streetInfo: {
-    fontSize: theme.size.font.standardText,
+    fontSize: theme.fonts.size.standardText,
     paddingVertical: theme.size.padding.infoTextVertical,
     marginLeft: theme.size.margin.label
   },
   infoPlaceholder: {
     width: 60,
-    fontSize: theme.size.font.standardText,
+    fontSize: theme.fonts.size.standardText,
     color: theme.colors.infoText,
     paddingVertical: theme.size.padding.infoTextVertical
   },
   listItem: {
-    width: "100%",
+    width: theme.size.parameters.FULL_WIDTH,
     borderTopWidth: theme.size.border.emptyBorderWidth,
     marginHorizontal: theme.size.margin.empty,
     paddingVertical: theme.size.padding.listItem,
@@ -76,23 +62,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginVertical: theme.size.margin.label,
-    shadowColor: theme.colors.shadowColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6
+    shadowColor: theme.shadows.color,
+    shadowOffset: theme.shadows.offset,
+    shadowOpacity: theme.shadows.opacity,
+    shadowRadius: theme.shadows.radius
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#086ab2",
+    backgroundColor: theme.colors.qrCodeButton,
     borderRadius: theme.size.border.qrCodeBtnBorderRadius,
     justifyContent: "center",
     marginHorizontal: theme.size.margin.button,
     height: theme.size.parameters.qrCodeButtonHeight
   },
   buttonText: {
-    fontSize: theme.size.font.topicText,
+    fontSize: theme.fonts.size.topicText,
     color: theme.colors.qrCodeButtonText,
-    fontWeight: "bold"
+    fontWeight: theme.fonts.weight.bold
   },
   header: {
     borderBottomWidth: theme.size.border.headerBottom,
@@ -102,11 +88,11 @@ const styles = StyleSheet.create({
     paddingLeft: theme.size.padding.header
   },
   leftHeaderText: {
-    fontSize: theme.size.font.headlineText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.headlineText,
+    fontWeight: theme.fonts.weight.bold
   },
   touchableView: {
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: theme.colors.modalBackground,
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
@@ -115,7 +101,7 @@ const styles = StyleSheet.create({
     top: 0
   },
   modalView: {
-    borderColor: "white",
+    borderColor: theme.colors.modalBorder,
     borderWidth: theme.size.border.modal
   }
 });

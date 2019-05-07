@@ -86,7 +86,6 @@ export const processSubscriptionVisit = subscriptionId => dispatch => {
 };
 
 export const addInternalRecord = internalRecord => dispatch => {
-  console.log(internalRecord);
   dispatch(addInternalRecordRequest());
   return api
     .post(ADD_INTERNAL_RECORD, internalRecord)

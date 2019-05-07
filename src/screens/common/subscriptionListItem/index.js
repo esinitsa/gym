@@ -25,7 +25,7 @@ export default class SubscriptionListItem extends React.PureComponent {
     const performMarkVisit = () => {
       this.props
         .markUserVisit(subscriptionId)
-        .then(res => showToast("Посещение отмечено"));
+        .then(res => showToast(I18n.t("general.markVisit")));
     };
     Alert.alert(
       I18n.t("mark.header"),
@@ -94,14 +94,14 @@ export default class SubscriptionListItem extends React.PureComponent {
       <View>
         {isActive ? (
           <View style={styles.activeView}>
-            <CustomText style={styles.activeLabel} text={"Остаток"} />
+            <CustomText style={styles.activeLabel} text={I18n.t("general.remainder")} />
             <CustomText
               style={styles.activeText}
               text={subscription.countLeft}
             />
           </View>
         ) : (
-          <CustomText style={styles.inactiveText} text={"inactive"} />
+          <CustomText style={styles.inactiveText} text={I18n.t("general.inactive")} />
         )}
       </View>
     );
@@ -114,11 +114,11 @@ export default class SubscriptionListItem extends React.PureComponent {
       <View>
         {isActive ? (
           <View style={styles.activeView}>
-            <CustomText style={styles.activeLabel} text={"Активен по:"} />
+            <CustomText style={styles.activeLabel} text={I18n.t("general.activeBy")} />
             <CustomText style={styles.activeText} text={endDate} />
           </View>
         ) : (
-          <CustomText style={styles.inactiveText} text={"Истек"} />
+          <CustomText style={styles.inactiveText} text={I18n.t("general.expired")} />
         )}
       </View>
     );
@@ -159,7 +159,7 @@ export default class SubscriptionListItem extends React.PureComponent {
             <View style={styles.textInfoView}>
               {this.checkSubscriptionType(subscription, "subscriptionType")}
               <View style={styles.lastVisitView}>
-                <CustomText style={styles.listText} text={"Последний визит:"} />
+                <CustomText style={styles.listText} text={I18n.t("general.lastVisit")} />
                 <CustomText
                   style={styles.listText}
                   text={`${this.lastVisitDate(
@@ -187,41 +187,41 @@ export default class SubscriptionListItem extends React.PureComponent {
             {!!subscription.active &&
               this.renderInfoRow(
                 "Активен",
-                subscription.active ? "Да" : "Нет",
+                subscription.active ? I18n.t("general.yes") : I18n.t("general.no"),
                 subscription.active ? "green" : "red"
               )}
             {!!subscription.subscriptionType &&
               this.renderInfoRow(
-                "Тип",
+                I18n.t("general.type"),
                 subscription.subscriptionType === "TERM"
-                  ? "Период"
-                  : "Количество посещений"
+                  ? I18n.t("general.period")
+                  : I18n.t("profile.numberOfVisits")
               )}
             {!!subscription.startDate &&
               this.renderInfoRow(
-                "Дата начала",
+                I18n.t("profile.startDate"),
                 moment(subscription.startDate)
                   .locale("ru")
                   .format(DATE_FORMAT)
               )}
             {!!subscription.validTill &&
               this.renderInfoRow(
-                "Дата окончания",
+                I18n.t("profile.validTill"),
                 moment(subscription.validTill)
                   .locale("ru")
                   .format(DATE_FORMAT)
               )}
             {!!subscription.countInitial &&
-              this.renderInfoRow("Кол-во посещений", subscription.countInitial)}
+              this.renderInfoRow(I18n.t("profile.numberOfVisitsAbbreviated"), subscription.countInitial)}
             {!!subscription.countLeft &&
               this.renderInfoRow(
-                "Остаток",
+                I18n.t("general.expired"),
                 subscription.countLeft,
                 subscription.countLeft > 0 ? "green" : "red"
               )}
             {!!subscription.additionalInfo
               ? this.renderInfoRow(
-                  "Доп. информация",
+                  I18n.t("profile.additionalInformation"),
                   subscription.additionalInfo,
                   theme.colors.inputColor
                 )
@@ -231,7 +231,7 @@ export default class SubscriptionListItem extends React.PureComponent {
                 style={styles.button}
                 onPress={() => this.acceptMarkVisit(subscription.id)}
               >
-                <CustomText text={"Отметить"} style={styles.buttonText} />
+                <CustomText text={I18n.t("profile.mark")} style={styles.buttonText} />
               </TouchableOpacity>
             )}
           </View>

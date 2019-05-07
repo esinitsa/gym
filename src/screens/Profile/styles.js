@@ -43,56 +43,46 @@ const styles = StyleSheet.create({
     paddingVertical: theme.size.padding.infoTextVertical
   },
   userName: {
-    fontSize: theme.size.font.title,
+    fontSize: theme.fonts.size.title,
     paddingHorizontal: theme.size.padding.infoText,
     paddingTop: theme.size.padding.infoTextVertical,
-    fontWeight: "500"
+    fontWeight: theme.fonts.weight.bolder
   },
   emailText: {
     paddingHorizontal: theme.size.padding.infoText,
     paddingTop: theme.size.padding.infoTextVertical,
-    fontSize: theme.size.font.personEmail,
+    fontSize: theme.fonts.size.personEmail,
     color: theme.colors.profileList.userListEmail
   },
   addressRowView: {
     flexDirection: "row"
   },
   streetInfo: {
-    fontSize: theme.size.font.standardText,
+    fontSize: theme.fonts.size.standardText,
     paddingVertical: theme.size.padding.infoTextVertical
   },
   infoPlaceholder: {
-    fontSize: theme.size.font.standardText,
+    fontSize: theme.fonts.size.standardText,
     color: theme.colors.infoText,
     paddingHorizontal: theme.size.padding.infoText,
     paddingVertical: theme.size.padding.infoTextVertical
   },
   subscriptionText: {
-    fontSize: theme.size.font.standardText,
+    fontSize: theme.fonts.size.standardText,
     paddingHorizontal: theme.size.padding.infoText,
     marginVertical: theme.size.margin.standard,
-    fontWeight: "500"
+    fontWeight: theme.fonts.weight.bolder
   },
   notesText: {
-    fontSize: theme.size.font.topicText,
+    fontSize: theme.fonts.size.topicText,
     paddingHorizontal: theme.size.padding.infoText,
     marginVertical: theme.size.margin.standard,
-    fontWeight: "500"
-  },
-  signOutText: {
-    fontSize: theme.size.font.standardText,
-    alignSelf: "center",
-    fontWeight: "700",
-    color: "#FF0000"
+    fontWeight: theme.fonts.weight.bolder
   },
   header: {
     borderBottomColor: theme.colors.containerBackground,
     borderBottomWidth: theme.size.border.emptyBorderWidth,
     backgroundColor: "transparent"
-  },
-  rightHeaderText: {
-    paddingHorizontal: theme.size.padding.infoText,
-    color: "#52a5ff"
   },
   backArrowIcon: {
     justifyContent: "center",
@@ -100,8 +90,8 @@ const styles = StyleSheet.create({
     marginLeft: theme.size.margin.standard
   },
   headerBodyText: {
-    fontSize: theme.size.font.bodyHeaderText,
-    fontWeight: "700"
+    fontSize: theme.fonts.size.bodyHeaderText,
+    fontWeight: theme.fonts.weight.bold
   }
 });
 

@@ -12,6 +12,7 @@ import {
 import { showToast } from "../../services/UIActions";
 import NoteItem from "../common/notes/listItem";
 import { CustomText } from "../common/text/customText";
+import { I18n } from "react-redux-i18n";
 import { renderHeader } from "./components/header";
 import styles from "./styles";
 import theme from "../../styles";
@@ -52,11 +53,11 @@ class UserNotes extends React.PureComponent {
   addInternal = () => {
     const internalRecord = {
       authorRole: "DOCTOR",
-      recordBody: this.props.notes,
+      recordBody: this.props.note,
       targetUserId: this.props.userInfo.id
     };
     this.props.addInternalRecord(internalRecord).then(res => {
-      showToast("Заметка добавлена");
+      showToast(I18n.t("profile.noteAdded"));
       this.setState({
         isExpanded: false
       });
@@ -65,9 +66,8 @@ class UserNotes extends React.PureComponent {
     });
   };
 
-  handleExpand = () => {
-    this.setState(state => ({ isExpanded: !state.isExpanded }));
-  };
+  handleExpand = () => this.setState(state => ({ isExpanded: !state.isExpanded }));
+
   renderContent = () => {
     const { userInfo, currentUser } = this.props;
     if (!userInfo) {
@@ -86,7 +86,7 @@ class UserNotes extends React.PureComponent {
                   style={styles.addNoteCardItem}
                 >
                   <CustomText
-                    text="Добавить заметку"
+                    text={I18n.t("profile.addNote")}
                     style={styles.noteTitle}
                   />
                   <View style={styles.editIconView}>
@@ -97,15 +97,15 @@ class UserNotes extends React.PureComponent {
               {isExpanded && (
                 <CardItem style={styles.noteCardItem}>
                   <Field
-                    name="notes"
+                    name="note"
                     component={this.renderInput}
-                    type="notes"
+                    type="note"
                   />
                   <TouchableOpacity
                     style={styles.button}
                     onPress={this.addInternal}
                   >
-                    <CustomText style={styles.buttonText} text={"Сохранить"} />
+                    <CustomText style={styles.buttonText} text={I18n.t("general.save")} />
                   </TouchableOpacity>
                 </CardItem>
               )}
@@ -127,7 +127,7 @@ class UserNotes extends React.PureComponent {
           <View style={styles.emptyNotesView}>
             <CustomText
               style={styles.emptyNotesInfo}
-              text={"На данный момент нет заметок"}
+              text={I18n.t("profile.emptyNotes")}
             />
           </View>
         ) : null}
@@ -148,22 +148,22 @@ class UserNotes extends React.PureComponent {
 }
 
 const Notes = reduxForm({
-  form: "notes"
+  form: "note"
 })(UserNotes);
 
-const selector = formValueSelector("notes");
+const selector = formValueSelector("note");
 
 const mapStateToProps = state => ({
   currentUser: state.user.userProfile,
   userInfo: state.personal.user,
-  notes: selector(state, "notes")
+  note: selector(state, "note")
 });
 
 const mapDispatchToProps = dispatch => ({
   getUserInfo: id => dispatch(getUserById(id)),
   addInternalRecord: internalRecord =>
     dispatch(addInternalRecord(internalRecord)),
-  resetForm: () => dispatch(reset("notes"))
+  resetForm: () => dispatch(reset("note"))
 });
 export default connect(
   mapStateToProps,

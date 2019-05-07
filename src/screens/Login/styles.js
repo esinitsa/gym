@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "white",
-    fontWeight: "200"
+    fontWeight: theme.fonts.weight.light
   },
   logo: {
     width: 150,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
     marginRight: theme.size.margin.standard,
-    fontSize: theme.size.font.topicText,
+    fontSize: theme.fonts.size.topicText,
     fontFamily: "TrebuchetMS",
   },
   inputText: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontFamily: "TrebuchetMS",
   },
   signUpText: {
-    fontSize: theme.size.font.topicText,
+    fontSize: theme.fonts.size.topicText,
      color: "#BF8330",
     fontFamily: "TrebuchetMS",
   }

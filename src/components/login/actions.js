@@ -90,7 +90,7 @@ export const loginUser = (email, password) => dispatch => {
     .post(CHECK_ACTIVE_REQUEST_STRING, { email })
     .then(data => {
       if (data.statusString !== "TRUE") {
-        throw "Your account is not activated, try again later"; // TODO move to i18n
+        throw I18n.t("exceptions.accountNotActivated");
       } else {
         return getToken(email, password, dispatch);
       }

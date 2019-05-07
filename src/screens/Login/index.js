@@ -12,11 +12,10 @@ import { showToast } from "../../services/UIActions";
 import styles from "./styles";
 import { GRADIENT_COLORS } from "../../constants/cssConstants";
 import { CustomText } from "../common/text/customText";
-const logo = require("../../../assets/images/logo.png");
+import theme from "../../styles";
 
 class LoginForm extends React.PureComponent {
   componentWillMount() {
-    /*   this.props.refreshToken(this.props.user.auth); */
     this.props.user.isTokenValid &&
       this.checkAdminAndRedirect(this.props.user.userProfile);
   }
@@ -39,9 +38,7 @@ class LoginForm extends React.PureComponent {
   login = () => {
     return this.props
       .onLogin(this.props.login, this.props.password)
-      .then(res => {
-        return this.checkAdminAndRedirect(res.user);
-      })
+      .then(res => this.checkAdminAndRedirect(res.user))
       .catch(error => {
         showToast(error);
         throw error;
@@ -76,7 +73,7 @@ class LoginForm extends React.PureComponent {
     return (
       <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
         <SafeAreaView style={styles.container}>
-          <Image style={styles.logo} source={logo} />
+          <Image style={styles.logo} source={theme.images.logo} />
           <View style={styles.loginView}>
             <Field name="login" component={this.renderInput} type="text" />
             <Field

@@ -3,6 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { NavigationType } from "../../../constants/navigationTypes";
+import { I18n } from "react-redux-i18n";
 import { CustomText } from "../../common/text/customText";
 import styles from "../styles";
 import theme from "../../../styles";
@@ -32,7 +33,7 @@ export const renderHeader = props => {
         </View>
       </Left>
       <Body>
-        <CustomText text={"Профиль"} style={styles.headerBodyText} />
+        <CustomText text={I18n.t("header.profile")} style={styles.headerBodyText} />
       </Body>
       <Right />
     </Header>

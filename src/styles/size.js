@@ -65,6 +65,8 @@ const size = {
     },
   },
   parameters: {
+    FULL_WIDTH : "100%",
+    qrCodeSize: 250,
     qrCodeButtonHeight: 50,
     buttonHeight: 35,
     buttonWidth: 110,
