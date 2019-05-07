@@ -41,12 +41,10 @@ class PersonalPanel extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getAllClients().catch(error => console.log(error));
+    this.props.getAllClients();
   }
 
-  onSuccess = scanData =>
-    this.props
-      .getUser(scanData.data)
+  onSuccess = scanData => this.props.getUser(scanData.data)
       .then(data => this.goToUserProfile(data))
       .catch(() => showToast(I18n.t("general.noSuchUser")));
 

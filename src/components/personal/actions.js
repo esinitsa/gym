@@ -63,15 +63,13 @@ export const getMyClients = () => dispatch => {
 
 export const getAllClients = () => dispatch => {
   dispatch(getAllClientsRequest());
-  return api
+  api
     .get(GET_ALL_CLIENTS_REQUEST_STRING)
     .then(data => {
       dispatch(getAllClientsSuccess(data));
       return data;
     })
-    .catch(error => {
-      throw error;
-    });
+    .catch(error => console.log(error));
 };
 
 export const processSubscriptionVisit = subscriptionId => dispatch => {
