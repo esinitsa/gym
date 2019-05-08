@@ -1,19 +1,9 @@
 const fonts = {
   size: {
-    headlineText: 25,
     title: 22,
-    topicText: 20,
-    buttonText: 18,
-    bodyHeaderText: 18,
-    subscriptionCountText: 17,
-    inputText: 16,
-    notesAuthorText: 16,
-    standardText: 15,
-    personEmail: 14,
-    headerUsername: 14,
-    notesText: 13,
-    email: 12,
-    markVisit: 12
+    subtitle: 17,
+    standard: 15,
+    placeholder: 13,
   },
   weight: {
     light: "200",
@@ -24,3 +14,4 @@ const fonts = {
 };
 
 export default fonts;
+

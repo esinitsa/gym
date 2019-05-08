@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     backgroundColor: "#BF8330",
-    borderRadius: theme.size.border.buttonBorderRadius,
+    borderRadius: theme.size.border.radius.primary,
     justifyContent: "center",
     height: MARGIN,
     zIndex: 100
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     width: MARGIN,
     borderWidth: 1,
     borderColor: "#BF8330",
-    borderRadius: theme.size.border.circleBorderRadius,
+    borderRadius: theme.size.border.radius.circle,
     alignSelf: "center",
     zIndex: 99,
     backgroundColor: "#BF8330"
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    fontSize: theme.fonts.size.buttonText,
+    fontSize: theme.fonts.size.subtitle,
     backgroundColor: "transparent"
   }
 });

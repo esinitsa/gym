@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   userIcon: {
-    color: theme.colors.profileList.userListIcon
+    color: theme.colors.light
   },
   typeIcon: {
-    height: theme.size.parameters.userListItem.typeIcon,
-    width: theme.size.parameters.userListItem.typeIcon,
-    borderRadius: theme.size.border.typeIconBorderRadius,
-    backgroundColor: theme.colors.typeIcon,
+    height: theme.size.parameters.small,
+    width: theme.size.parameters.small,
+    borderRadius: theme.size.border.radius.secondary,
+    backgroundColor: theme.colors.primary,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: theme.shadows.color,
@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
     shadowRadius: theme.shadows.radius
   },
   userInfoText: {
-    paddingHorizontal: theme.size.padding.userListItem.infoHorizontal,
-    paddingVertical: theme.size.padding.userListItem.infoVertical
+    paddingHorizontal: theme.size.padding.items,
+    paddingVertical: theme.size.padding.small
   },
   emailText: {
-    paddingHorizontal: theme.size.padding.userListItem.infoHorizontal,
-    paddingBottom: theme.size.padding.infoTextVertical,
-    fontSize: theme.fonts.size.email,
-    color: theme.colors.profileList.userListEmail,
+    paddingHorizontal: theme.size.padding.items,
+    paddingBottom: theme.size.padding.mediumVertical,
+    fontSize: theme.fonts.size.placeholder,
+    color: theme.colors.secondary,
   }
 });
 

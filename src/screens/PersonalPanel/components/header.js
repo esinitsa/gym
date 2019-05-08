@@ -44,8 +44,8 @@ export const renderHeader = (props, changeQRState) => {
         >
           <MaterialIcons
             name={"qrcode-scan"}
-            color={theme.colors.actionComponent}
-            size={25}
+            color={theme.colors.primary}
+            size={theme.size.icons.small}
             solid
           />
         </Button>
@@ -56,8 +56,8 @@ export const renderHeader = (props, changeQRState) => {
         >
           <FontAwesome5
             name={"sign-out-alt"}
-            color={theme.colors.actionComponent}
-            size={25}
+            color={theme.colors.primary}
+            size={theme.size.icons.small}
             solid
           />
         </Button>

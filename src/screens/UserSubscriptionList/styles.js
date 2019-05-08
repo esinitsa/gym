@@ -8,14 +8,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: theme.colors.containerBackground
+    backgroundColor: theme.colors.container
   },
   card: {
-    paddingVertical: theme.size.padding.cardVertical,
-    paddingHorizontal: theme.size.padding.cardHorizontal,
+    paddingVertical: theme.size.padding.large,
+    paddingHorizontal: theme.size.padding.medium,
     width: theme.size.parameters.cardWidth,
-    marginTop: theme.size.margin.standard,
-    borderRadius: theme.size.border.cardBorderRadius,
+    marginTop: theme.size.margin.medium,
+    borderRadius: theme.size.border.radius.secondary,
     alignSelf: "center",
     shadowColor: theme.shadows.color,
     shadowOffset: theme.shadows.offset,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     shadowRadius: theme.shadows.radius
   },
   modalView: {
-    backgroundColor: theme.colors.modalBackground,
+    backgroundColor: theme.shadows.background,
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
@@ -32,73 +32,60 @@ const styles = StyleSheet.create({
     top: 0
   },
   header: {
-    borderBottomColor: theme.colors.containerBackground,
-    borderBottomWidth: theme.size.border.emptyBorderWidth,
+    borderBottomColor: theme.colors.container,
+    borderBottomWidth: theme.size.border.width.empty,
     backgroundColor: "transparent"
   },
   headerUsername: {
-    fontSize: theme.fonts.size.headerUsername,
-    color: theme.colors.infoText
+    fontSize: theme.fonts.size.placeholder,
+    color: theme.colors.secondary
   },
   leftHeader: {
     justifyContent: "flex-start",
     alignSelf: "flex-start"
   },
   bodyHeaderText: {
-    fontSize: theme.fonts.size.bodyHeaderText,
+    fontSize: theme.fonts.size.subtitle,
     fontWeight: theme.fonts.weight.bold
   },
   backArrowIcon: {
     justifyContent: "center",
     alignSelf: "center",
-    marginLeft: theme.size.margin.standard
+    marginLeft: theme.size.margin.medium
   },
   listItem: {
-    borderTopColor: theme.colors.listItemBorderTop,
-    backgroundColor: theme.colors.listItemBackground,
+    borderTopColor: theme.colors.secondary,
+    backgroundColor: theme.colors.light,
     justifyContent: "space-between",
     alignContent: "space-between",
     flexDirection: "row"
   },
   listText: {
-    padding: theme.size.padding.infoTextVertical,
-    color: theme.colors.inputColor,
-    fontSize: theme.fonts.size.standardText
+    padding: theme.size.padding.mediumVertical,
+    color: theme.colors.text,
+    fontSize: theme.fonts.size.standard
   },
   activeText: {
-    color: theme.colors.activeText,
-    paddingHorizontal: theme.size.padding.activeTextHorizontal
+    color: theme.colors.success,
+    paddingHorizontal: theme.size.padding.small
   },
   inactiveText: {
-    color: theme.colors.inactiveText,
-    paddingHorizontal: theme.size.padding.activeTextHorizontal
+    color: theme.colors.danger,
+    paddingHorizontal: theme.size.padding.small
   },
   activeTermView: {
     flexDirection: "row"
   },
   typeIcon: {
-    height: theme.size.parameters.userListItem.typeIcon,
-    width: theme.size.parameters.userListItem.typeIcon,
-    borderRadius: theme.size.border.typeIconBorderRadius,
-    backgroundColor: theme.colors.typeIcon,
+    height: theme.size.parameters.small,
+    width: theme.size.parameters.small,
+    borderRadius: theme.size.border.radius.secondary,
+    backgroundColor: theme.colors.primary,
     alignItems: "center",
     justifyContent: "center"
   },
   footer: {
-    backgroundColor: theme.colors.footer
-  },
-  button: {
-    backgroundColor: theme.colors.standardButton,
-    borderRadius: theme.size.border.buttonBorderRadius,
-    height: theme.size.parameters.buttonHeight,
-    width: theme.size.parameters.buttonWidth,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  buttonText: {
-    color: theme.colors.actionComponent,
-    fontSize: theme.fonts.size.buttonText,
-    fontWeight: theme.fonts.weight.bold
+    backgroundColor: "transparent"
   }
 });
 

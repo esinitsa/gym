@@ -13,7 +13,7 @@ export default class SearchBar extends React.PureComponent {
           <Input
             style={styles.searchInput}
             placeholder={I18n.t("general.search")}
-            placeholderTextColor={theme.colors.inputColor}
+            placeholderTextColor={theme.colors.text}
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={this.props.handleInput}

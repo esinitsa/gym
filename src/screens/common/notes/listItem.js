@@ -49,13 +49,11 @@ class NoteItem extends React.PureComponent {
     );
   }
 }
-const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   getUser: id => dispatch(getUserById(id))
 });
 
 export default connect(
-  mapStateToProps,
   mapDispatchToProps
 )(NoteItem);

@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    marginRight: theme.size.margin.standard,
-    fontSize: theme.fonts.size.topicText,
+    marginRight: theme.size.margin.medium,
+    fontSize: theme.fonts.size.title,
     fontFamily: "TrebuchetMS"
   },
   inputItem: {
-    marginTop: theme.size.margin.standard
+    marginTop: theme.size.margin.medium
   },
   input: {
     color: "white",
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.fonts.weight.light
   },
   signInText: {
-    fontSize: theme.fonts.size.topicText,
+    fontSize: theme.fonts.size.title,
     color: "#BF8330",
     fontFamily: "TrebuchetMS"
   }

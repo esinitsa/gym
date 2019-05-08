@@ -54,9 +54,12 @@
     "address": "address:",
     "addNote": "Add note",
     "noteAdded": "Note added",
-    "mark": "mark",
+    "mark": "Mark",
     "startDate" : "Start Date",
     "validTill" : "End Date",
+    "type": "Type",
+    "period": "Period",
+    "active": "Active",
     "email": "email:"
   },
   "types": {
@@ -75,8 +78,6 @@
     "lastVisit": "Last visit:",
     "yes": "Yes",
     "no": "No",
-    "type": "Type",
-    "period": "Period",
     "more": "more",
     "hint": "hint",
     "save": "Save",

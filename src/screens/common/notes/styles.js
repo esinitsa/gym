@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     paddingRight: theme.size.padding.empty,
     paddingTop: theme.size.padding.empty,
     marginLeft: theme.size.margin.empty,
-    marginBottom: theme.size.margin.standard,
-    borderBottomWidth: theme.size.border.emptyBorderWidth
+    marginBottom: theme.size.margin.medium,
+    borderBottomWidth: theme.size.border.width.empty
   },
   leftView: {
     flex: 1,
@@ -39,22 +39,22 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   date: {
-    color: theme.colors.infoText,
-    fontSize: theme.fonts.size.notesText,
+    color: theme.colors.secondary,
+    fontSize: theme.fonts.size.placeholder,
     fontWeight: theme.fonts.weight.normal
   },
   notesAuthor: {
-    fontSize: theme.fonts.size.notesAuthorText,
+    fontSize: theme.fonts.size.standard,
     fontWeight: theme.fonts.weight.bold
   },
   authorRole: {
-    color: theme.colors.actionComponent,
-    fontSize: theme.fonts.size.notesAuthorText,
+    color: theme.colors.primary,
+    fontSize: theme.fonts.size.standard,
     fontWeight: theme.fonts.weight.bold
   },
   notesText: {
-    fontSize: theme.fonts.size.notesText,
-    color: theme.colors.infoText,
+    fontSize: theme.fonts.size.placeholder,
+    color: theme.colors.secondary,
     fontWeight: theme.fonts.weight.normal
   }
 });

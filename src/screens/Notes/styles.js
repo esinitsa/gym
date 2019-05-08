@@ -3,45 +3,45 @@ import theme from "../../styles";
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.containerBackground,
+    backgroundColor: theme.colors.container,
     flex: 1
   },
   content: {
     flex: 1
   },
   header: {
-    borderBottomColor: theme.colors.containerBackground,
-    borderBottomWidth: theme.size.border.emptyBorderWidth,
+    borderBottomColor: theme.colors.container,
+    borderBottomWidth: theme.size.border.width.empty,
     backgroundColor: "transparent"
   },
   bodyHeader: {
-    paddingLeft: theme.size.padding.header,
+    paddingLeft: theme.size.padding.large,
     justifyContent: "center"
   },
   bodyHeaderText: {
-    fontSize: theme.fonts.size.bodyHeaderText,
+    fontSize: theme.fonts.size.subtitle,
     fontWeight: theme.fonts.weight.bold
   },
   headerUsername: {
-    fontSize: theme.fonts.size.headerUsername,
-    color: theme.colors.infoText
+    fontSize: theme.fonts.size.placeholder,
+    color: theme.colors.secondary
   },
   headerLeftArrow: {
     justifyContent: "center",
     alignSelf: "center"
   },
   profileIconHeader: {
-    paddingLeft: theme.size.padding.infoText
+    paddingLeft: theme.size.padding.medium
   },
   noteTitle: {
     fontSize: theme.fonts.size.title,
-    color: theme.colors.actionComponent,
+    color: theme.colors.primary,
     fontWeight: theme.fonts.weight.bold
   },
   touchableCard: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: theme.size.margin.standard,
+    marginTop: theme.size.margin.medium,
     shadowColor: theme.shadows.color,
     shadowOffset: theme.shadows.offset,
     shadowOpacity: theme.shadows.opacity,
@@ -49,16 +49,16 @@ export default StyleSheet.create({
     zIndex: 200
   },
   topCard: {
-    paddingVertical: theme.size.padding.notesTopCard,
-    paddingHorizontal: theme.size.padding.notesTopCard,
+    paddingVertical: theme.size.padding.medium,
+    paddingHorizontal: theme.size.padding.medium,
     width: theme.size.parameters.cardWidth,
-    borderRadius: theme.size.border.cardBorderRadius
+    borderRadius: theme.size.border.radius.secondary
   },
   card: {
-    paddingVertical: theme.size.padding.cardVertical,
-    paddingHorizontal: theme.size.padding.cardHorizontal,
+    paddingVertical: theme.size.padding.large,
+    paddingHorizontal: theme.size.padding.medium,
     width: theme.size.parameters.cardWidth,
-    borderRadius: theme.size.border.cardBorderRadius
+    borderRadius: theme.size.border.radius.secondary
   },
   addNoteCardItem: {
     flex: 1,
@@ -78,22 +78,22 @@ export default StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    marginTop: theme.size.margin.emptyNotes
+    marginTop: theme.size.margin.items
   },
   emptyNotesInfo: {
-    fontSize: theme.fonts.size.topicText,
-    color: theme.colors.infoText,
+    fontSize: theme.fonts.size.title,
+    color: theme.colors.secondary,
     textAlign: "center",
-    paddingHorizontal: theme.size.padding.emptyListItemInfoHorizontal,
-    paddingVertical: theme.size.padding.emptyListItemInfoVertical,
+    paddingHorizontal: theme.size.padding.large,
+    paddingVertical: theme.size.padding.items,
     zIndex: 100
   },
   input: {
-    color: theme.colors.inputColor,
-    borderWidth: theme.size.border.listItemBorderWidth,
-    height: theme.size.parameters.notes.inputHeight,
-    fontSize: theme.fonts.size.inputText,
-    borderColor: theme.colors.cardItemBackground,
+    color: theme.colors.text,
+    borderWidth: theme.size.border.width.primary,
+    height: theme.size.parameters.large,
+    fontSize: theme.fonts.size.standard,
+    borderColor: theme.colors.secondary,
     padding: theme.size.padding.empty,
     margin: theme.size.margin.empty
   },
@@ -103,18 +103,18 @@ export default StyleSheet.create({
     alignSelf: "center"
   },
   button: {
-    backgroundColor: theme.colors.standardButton,
-    marginTop: theme.size.margin.button,
-    borderRadius: theme.size.border.buttonBorderRadius,
-    height: theme.size.parameters.notes.buttonHeight,
-    width: theme.size.parameters.notes.buttonWidth,
+    backgroundColor: theme.colors.container,
+    marginTop: theme.size.margin.large,
+    borderRadius: theme.size.border.radius.primary,
+    height: theme.size.parameters.button.height.medium,
+    width: theme.size.parameters.button.width.medium,
     alignItems: "center",
     alignSelf: "flex-end",
     justifyContent: "center"
   },
   buttonText: {
-    color: theme.colors.saveNoteButtonText,
-    fontSize: theme.fonts.size.markVisit,
+    color: theme.colors.primary,
+    fontSize: theme.fonts.size.standard,
     fontWeight: theme.fonts.weight.bold
   }
 });

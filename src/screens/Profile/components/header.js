@@ -24,8 +24,8 @@ export const renderHeader = props => {
           >
             <Icon
               name={"left"}
-              color={theme.colors.actionComponent}
-              size={25}
+              color={theme.colors.primary}
+              size={theme.size.icons.small}
               solid
               style={styles.backArrowIcon}
             />

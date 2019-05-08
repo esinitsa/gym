@@ -3,19 +3,19 @@ import theme from "../../../styles";
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: theme.size.border.searchBarBorderRadius,
-    paddingHorizontal: theme.size.padding.searchBar,
-    height: theme.size.parameters.searchBar.height,
-    backgroundColor: theme.colors.searchBarContainer
+    borderRadius: theme.size.border.radius.secondary,
+    paddingHorizontal: theme.size.padding.medium,
+    height: theme.size.parameters.small,
+    backgroundColor: theme.colors.light
   },
   item: {
-    paddingHorizontal: theme.size.padding.searchBar
+    paddingHorizontal: theme.size.padding.medium
   },
   icon: {
-    color: theme.colors.inputColor,
+    color: theme.colors.text,
   },
   searchInput: {
-    color: theme.colors.inputColor
+    color: theme.colors.text
   }
 });
 

@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textInfoView: {
-    paddingLeft: theme.size.padding.subscriptionListItem.textInfo
+    paddingLeft: theme.size.padding.medium
   },
   modalView: {
-    backgroundColor: theme.colors.modalBackground,
+    backgroundColor: theme.shadows.background,
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
@@ -27,32 +27,31 @@ const styles = StyleSheet.create({
     top: 0
   },
   header: {
-    borderBottomColor: theme.colors.containerBackground,
-    borderBottomWidth: theme.size.border.emptyBorderWidth,
+    borderBottomColor: theme.colors.container,
+    borderBottomWidth: theme.size.border.width.empty,
     backgroundColor: "transparent"
   },
   leftHeader: {
-    paddingLeft: theme.size.padding.header
+    paddingLeft: theme.size.padding.large
   },
   listItem: {
-    borderTopWidth: theme.size.border.listItemBorderWidth,
-    marginHorizontal: theme.size.margin.standard,
-    paddingVertical: theme.size.padding.subscriptionListItem.listItem,
-    borderTopColor: theme.colors.listItemBorderTop,
-    backgroundColor: theme.colors.listItemBackground,
+    borderTopWidth: theme.size.border.width.primary,
+    marginHorizontal: theme.size.margin.medium,
+    paddingVertical: theme.size.padding.items,
+    borderTopColor: theme.colors.secondary,
+    backgroundColor: theme.colors.light,
     justifyContent: "space-between",
     alignContent: "space-between",
-    paddingLeft: theme.size.padding.listItem,
+    paddingLeft: theme.size.padding.medium,
     flexDirection: "row"
   },
   listText: {
-    padding: theme.size.padding.subscriptionListItem.listText,
-    fontSize: theme.fonts.size.standardText,
-    color: theme.colors.listText,
+    fontSize: 13,
+    color: theme.colors.secondary,
     fontWeight: theme.fonts.weight.normal
   },
   additionalInfoView: {
-    marginTop: theme.size.margin.standard
+    marginTop: theme.size.margin.medium
   },
   lastVisitView: {
     flexDirection: "row",
@@ -62,11 +61,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: theme.size.padding.infoTextVertical
+    paddingVertical: theme.size.padding.mediumVertical
   },
   infoViewLabelText: {
     fontWeight: theme.fonts.weight.bold,
-    color: theme.colors.infoText
+    color: theme.colors.secondary
   },
   infoViewText: {
     fontWeight: theme.fonts.weight.bold
@@ -77,61 +76,62 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   activeLabel: {
-    color: theme.colors.infoText,
+    color: theme.colors.primary,
     fontWeight: theme.fonts.weight.bold
   },
   activeText: {
-    padding: theme.size.padding.subscriptionListItem.listText,
-    fontSize: theme.fonts.size.standardText,
-    color: "green",
+    paddingVertical: theme.spacing.unit,
+    paddingLeft: theme.size.padding.small,
+    fontSize: theme.fonts.size.standard,
+    color: theme.colors.success,
     fontWeight: theme.fonts.weight.bold
   },
   inactiveText: {
-    color: "red",
-    paddingHorizontal: theme.size.padding.subscriptionListItem.inactiveText
+    color: theme.colors.danger,
+    paddingHorizontal: theme.size.padding.small
   },
   activeView: {
     flexDirection: "row",
     justifyContent: "space-between"
   },
   typeIcon: {
-    height: theme.size.parameters.subscriptionListItem.typeIcon,
-    width: theme.size.parameters.subscriptionListItem.typeIcon,
-    borderRadius: theme.size.border.typeIconBorderRadius,
-    backgroundColor: theme.colors.typeIcon,
+    height: theme.size.parameters.small,
+    width: theme.size.parameters.small,
+    borderRadius: theme.size.border.radius.secondary,
+    backgroundColor: theme.colors.primary,
     alignItems: "center",
     justifyContent: "center"
   },
   subscriptionTypeView: {
-    padding: theme.size.padding.subscriptionListItem.subscriptionType,
+    padding: theme.size.padding.small,
     color: "#fefefc",
-    fontSize: theme.fonts.size.subscriptionCountText,
+    fontSize: theme.fonts.size.subtitle,
     fontWeight: theme.fonts.weight.bold
   },
   footer: {
-    backgroundColor: "rgba(0, 0 ,0 ,0)"
+    backgroundColor: "transparent"
   },
   card: {
-    height: theme.size.parameters.subscriptionListItem.cardHeight,
+    height: theme.size.parameters.large,
     width: theme.size.parameters.cardWidth,
-    borderRadius: theme.size.border.cardBorderRadius,
+    borderRadius: theme.size.border.radius.secondary,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center"
   },
   button: {
-    backgroundColor: theme.colors.standardButton,
-    marginTop: theme.size.margin.standard,
-    borderRadius: theme.size.border.buttonBorderRadius,
-    height: theme.size.parameters.buttonHeight,
-    width: theme.size.parameters.buttonWidth,
+    backgroundColor: theme.colors.container,
+    marginTop: theme.size.margin.medium,
+    borderRadius: theme.size.border.radius.primary,
+    height: theme.size.parameters.button.height.medium,
+    width: theme.size.parameters.button.width.medium,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "flex-end"
   },
   buttonText: {
-    color: theme.colors.actionComponent,
-    fontSize: theme.fonts.size.buttonText,
+    color: theme.colors.primary,
+    fontSize: theme.fonts.size.standard,
     fontWeight: theme.fonts.weight.bold
   }
 });

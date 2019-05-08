@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get } from "lodash";
 import { Container, Content, View } from "native-base";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -35,8 +35,7 @@ class Profile extends React.PureComponent {
   };
 
   goToHome = () => {
-    _.get(this.props.userInfo, "id", 0) ===
-    _.get(this.props.currentUser, "id", 1)
+    get(this.props.userInfo, "id", 0) === get(this.props.currentUser, "id", 1)
       ? this.props.navigation.navigate(NavigationType.Home)
       : this.props.navigation.navigate(NavigationType.PersonalPanel);
   };
@@ -70,14 +69,14 @@ class Profile extends React.PureComponent {
   };
 
   checkSubscriptionVisits = (user, prop) => {
-    const type = _.get(user, `${prop}`, EMPTY_RESPONSE);
+    const type = get(user, `${prop}`, EMPTY_RESPONSE);
     if (type === COUNT) {
-      const countInitial = _.get(
+      const countInitial = get(
         user,
         `subscriptions[${this.state.subscriptionNumber}].countInitial`,
         EMPTY_RESPONSE
       );
-      const countLeft = _.get(
+      const countLeft = get(
         user,
         `subscriptions[${this.state.subscriptionNumber}].countLeft`,
         countInitial
@@ -93,17 +92,13 @@ class Profile extends React.PureComponent {
   };
 
   checkSubscriptionType = (user, prop) => {
-    const type = _.get(user, `${prop}`, EMPTY_RESPONSE);
-    if (type === COUNT) {
-      return I18n.t("profile.numberOfVisits");
-    } else if (type === TERM) {
-      return I18n.t("profile.validTill");
-    }
-    return I18n.t("profile.numberOfVisits");
+    const type = get(user, `${prop}`, EMPTY_RESPONSE);
+    const key = type === COUNT ? "profile.numberOfVisits" :   "profile.validTill";
+    return I18n.t(key);
   };
 
   checkDate = (user, prop) => {
-    const date = _.get(user, prop, EMPTY_RESPONSE);
+    const date = get(user, prop, EMPTY_RESPONSE);
     if (date === EMPTY_RESPONSE) {
       return EMPTY_RESPONSE;
     } else {
@@ -119,31 +114,36 @@ class Profile extends React.PureComponent {
           <CustomText
             style={styles.userName}
             text={
-              `${_.get(userInfo, "firstName", EMPTY_RESPONSE)} ` +
-              `${_.get(userInfo, "lastName", EMPTY_RESPONSE)}`
+              `${get(userInfo, "firstName", EMPTY_RESPONSE)} ` +
+              `${get(userInfo, "lastName", EMPTY_RESPONSE)}`
             }
           />
           <CustomText
             style={styles.emailText}
-            text={_.get(userInfo, "email", EMPTY_RESPONSE)}
+            text={get(userInfo, "email", EMPTY_RESPONSE)}
           />
           <View style={styles.addressRowView}>
-            <CustomText style={styles.infoPlaceholder} text={I18n.t("profile.address")} />
+            <CustomText
+              style={styles.infoPlaceholder}
+              text={I18n.t("profile.address")}
+            />
             <CustomText
               style={styles.streetInfo}
-              text={_.get(userInfo, "locale", EMPTY_RESPONSE)}
+              text={get(userInfo, "locale", EMPTY_RESPONSE)}
             />
           </View>
         </View>
-
         <View style={styles.infoView}>
-          <CustomText style={styles.notesText} text={I18n.t("header.subscriptions")} />
+          <CustomText
+            style={styles.notesText}
+            text={I18n.t("header.subscriptions")}
+          />
           <View style={styles.rightArrowView}>
             <TouchableOpacity onPress={this.goToUserSubscriptionList}>
               <Icon
                 name={"right"}
-                color={theme.colors.actionComponent}
-                size={25}
+                color={theme.colors.primary}
+                size={theme.size.icons.small}
                 solid
                 style={styles.rightArrowIcon}
               />
@@ -156,8 +156,8 @@ class Profile extends React.PureComponent {
             <TouchableOpacity onPress={this.goToUserNotes}>
               <Icon
                 name={"right"}
-                color={theme.colors.actionComponent}
-                size={25}
+                color={theme.colors.primary}
+                size={theme.size.icons.small}
                 solid
                 style={styles.rightArrowIcon}
               />

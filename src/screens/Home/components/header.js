@@ -4,9 +4,9 @@ import React from "react";
 import { Alert } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { I18n } from "react-redux-i18n";
+import { NavigationType } from "../../../constants/navigationTypes";
 import { EMPTY_RESPONSE } from "../../../constants/profileConstants";
 import theme from "../../../styles";
-import { NavigationType } from "../../../constants/navigationTypes";
 import { CustomText } from "../../common/text/customText";
 import styles from "../styles";
 
@@ -47,12 +47,12 @@ export const renderHeader = props => {
       <Button
         onPress={onLogOut}
         transparent
-        style={styles.profileIconHeader}
+        style={styles.rightHeader}
       >
         <FontAwesome5
           name={"sign-out-alt"}
-          color={theme.colors.actionComponent}
-          size={25}
+          color={theme.colors.primary}
+          size={theme.size.icons.small}
           solid
         />
       </Button>

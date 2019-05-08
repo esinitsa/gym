@@ -1,5 +1,5 @@
 import { Card, CardItem, Container, Content, Input, Item } from "native-base";
-import _ from "lodash";
+import { get } from "lodash";
 import React from "react";
 import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -66,7 +66,8 @@ class UserNotes extends React.PureComponent {
     });
   };
 
-  handleExpand = () => this.setState(state => ({ isExpanded: !state.isExpanded }));
+  handleExpand = () =>
+    this.setState(state => ({ isExpanded: !state.isExpanded }));
 
   renderContent = () => {
     const { userInfo, currentUser } = this.props;
@@ -77,7 +78,7 @@ class UserNotes extends React.PureComponent {
     return (
       <Content style={styles.content}>
         <View style={styles.touchableCard}>
-          {_.get(userInfo, "id", 0) !== _.get(currentUser, "id", 1) && (
+          {get(userInfo, "id", 0) !== get(currentUser, "id", 1) && (
             <Card style={styles.topCard}>
               <TouchableOpacity onPress={this.handleExpand}>
                 <CardItem
@@ -90,22 +91,26 @@ class UserNotes extends React.PureComponent {
                     style={styles.noteTitle}
                   />
                   <View style={styles.editIconView}>
-                    <Icon name="edit" color={theme.colors.actionComponent} size={25} solid />
+                    <Icon
+                      name="edit"
+                      color={theme.colors.actionComponent}
+                      size={theme.size.icons.small}
+                      solid
+                    />
                   </View>
                 </CardItem>
               </TouchableOpacity>
               {isExpanded && (
                 <CardItem style={styles.noteCardItem}>
-                  <Field
-                    name="note"
-                    component={this.renderInput}
-                    type="note"
-                  />
+                  <Field name="note" component={this.renderInput} type="note" />
                   <TouchableOpacity
                     style={styles.button}
                     onPress={this.addInternal}
                   >
-                    <CustomText style={styles.buttonText} text={I18n.t("general.save")} />
+                    <CustomText
+                      style={styles.buttonText}
+                      text={I18n.t("general.save")}
+                    />
                   </TouchableOpacity>
                 </CardItem>
               )}

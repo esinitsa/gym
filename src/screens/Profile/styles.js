@@ -4,7 +4,7 @@ import theme from "../../styles";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.containerBackground
+    backgroundColor: theme.colors.container
   },
   content: {
     flex: 1
@@ -14,18 +14,18 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   infoView: {
-    backgroundColor: theme.colors.infoViewText,
-    height: theme.size.parameters.infoView,
-    padding: theme.size.padding.infoText,
-    marginTop: theme.size.margin.standard,
+    backgroundColor: theme.colors.light,
+    height: theme.size.parameters.medium,
+    padding: theme.size.padding.medium,
+    marginTop: theme.size.margin.medium,
     justifyContent: "center",
     flexDirection: "row"
   },
   userInfoView: {
-    backgroundColor: theme.colors.infoViewText,
-    height: theme.size.parameters.userInfoView,
-    padding: theme.size.padding.infoText,
-    marginTop: theme.size.margin.standard,
+    backgroundColor: theme.colors.light,
+    height: theme.size.parameters.large,
+    padding: theme.size.padding.medium,
+    marginTop: theme.size.margin.medium,
     justifyContent: "center"
   },
   rightArrowView: {
@@ -36,61 +36,61 @@ const styles = StyleSheet.create({
   },
   rightArrowIcon: {
     alignSelf: "flex-end",
-    marginRight: theme.size.margin.standard
+    marginRight: theme.size.margin.medium
   },
   userInfoText: {
-    paddingHorizontal: theme.size.padding.infoText,
-    paddingVertical: theme.size.padding.infoTextVertical
+    paddingHorizontal: theme.size.padding.medium,
+    paddingVertical: theme.size.padding.mediumVertical
   },
   userName: {
     fontSize: theme.fonts.size.title,
-    paddingHorizontal: theme.size.padding.infoText,
-    paddingTop: theme.size.padding.infoTextVertical,
+    paddingHorizontal: theme.size.padding.medium,
+    paddingTop: theme.size.padding.mediumVertical,
     fontWeight: theme.fonts.weight.bolder
   },
   emailText: {
-    paddingHorizontal: theme.size.padding.infoText,
-    paddingTop: theme.size.padding.infoTextVertical,
-    fontSize: theme.fonts.size.personEmail,
-    color: theme.colors.profileList.userListEmail
+    paddingHorizontal: theme.size.padding.medium,
+    paddingTop: theme.size.padding.mediumVertical,
+    fontSize: theme.fonts.size.placeholder,
+    color: theme.colors.secondary
   },
   addressRowView: {
     flexDirection: "row"
   },
   streetInfo: {
-    fontSize: theme.fonts.size.standardText,
-    paddingVertical: theme.size.padding.infoTextVertical
+    fontSize: theme.fonts.size.standard,
+    paddingVertical: theme.size.padding.mediumVertical
   },
   infoPlaceholder: {
-    fontSize: theme.fonts.size.standardText,
-    color: theme.colors.infoText,
-    paddingHorizontal: theme.size.padding.infoText,
-    paddingVertical: theme.size.padding.infoTextVertical
+    fontSize: theme.fonts.size.standard,
+    color: theme.colors.secondary,
+    paddingHorizontal: theme.size.padding.medium,
+    paddingVertical: theme.size.padding.mediumVertical
   },
   subscriptionText: {
-    fontSize: theme.fonts.size.standardText,
-    paddingHorizontal: theme.size.padding.infoText,
-    marginVertical: theme.size.margin.standard,
+    fontSize: theme.fonts.size.standard,
+    paddingHorizontal: theme.size.padding.secondary,
+    marginVertical: theme.size.margin.medium,
     fontWeight: theme.fonts.weight.bolder
   },
   notesText: {
-    fontSize: theme.fonts.size.topicText,
-    paddingHorizontal: theme.size.padding.infoText,
-    marginVertical: theme.size.margin.standard,
+    fontSize: theme.fonts.size.title,
+    paddingHorizontal: theme.size.padding.medium,
+    marginVertical: theme.size.margin.medium,
     fontWeight: theme.fonts.weight.bolder
   },
   header: {
-    borderBottomColor: theme.colors.containerBackground,
-    borderBottomWidth: theme.size.border.emptyBorderWidth,
+    borderBottomColor: theme.colors.container,
+    borderBottomWidth: theme.size.border.width.empty,
     backgroundColor: "transparent"
   },
   backArrowIcon: {
     justifyContent: "center",
     alignSelf: "center",
-    marginLeft: theme.size.margin.standard
+    marginLeft: theme.size.margin.medium
   },
   headerBodyText: {
-    fontSize: theme.fonts.size.bodyHeaderText,
+    fontSize: theme.fonts.size.subtitle,
     fontWeight: theme.fonts.weight.bold
   }
 });

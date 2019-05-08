@@ -25,8 +25,8 @@ export const renderHeader = props => {
         <Button onPress={goToHome} transparent style={styles.profileIconHeader}>
           <Icon
             name={"left"}
-            color={theme.colors.actionComponent}
-            size={25}
+            color={theme.colors.primary}
+            size={theme.size.icons.small}
             solid
             style={styles.backArrowIcon}
           />

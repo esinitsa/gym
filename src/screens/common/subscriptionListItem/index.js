@@ -75,7 +75,7 @@ export default class SubscriptionListItem extends React.PureComponent {
             text={this.checkCountVisits(subscription)}
           />
         ) : (
-          <Octicons name={"calendar"} color="white" size={35} />
+          <Octicons name={"calendar"} color="white" size={theme.size.icons.medium} />
         )}
       </View>
     );
@@ -138,7 +138,7 @@ export default class SubscriptionListItem extends React.PureComponent {
           <CustomText
             style={[
               styles.infoViewText,
-              { color: color ? color : theme.colors.actionComponent }
+              { color: color ? color : theme.colors.primary }
             ]}
             text={value}
           />
@@ -174,8 +174,8 @@ export default class SubscriptionListItem extends React.PureComponent {
               <TouchableOpacity onPress={this.handleExpand}>
                 <Icon
                   name={isExpanded ? "up" : "down"}
-                  color={theme.colors.actionComponent}
-                  size={25}
+                  color={theme.colors.primary}
+                  size={theme.size.icons.small}
                   solid
                 />
               </TouchableOpacity>
@@ -186,15 +186,15 @@ export default class SubscriptionListItem extends React.PureComponent {
           <View style={styles.additionalInfoView}>
             {!!subscription.active &&
               this.renderInfoRow(
-                "Активен",
+                I18n.t("profile.active"),
                 subscription.active ? I18n.t("general.yes") : I18n.t("general.no"),
                 subscription.active ? "green" : "red"
               )}
             {!!subscription.subscriptionType &&
               this.renderInfoRow(
-                I18n.t("general.type"),
+                I18n.t("profile.type"),
                 subscription.subscriptionType === "TERM"
-                  ? I18n.t("general.period")
+                  ? I18n.t("profile.period")
                   : I18n.t("profile.numberOfVisits")
               )}
             {!!subscription.startDate &&
@@ -223,7 +223,7 @@ export default class SubscriptionListItem extends React.PureComponent {
               ? this.renderInfoRow(
                   I18n.t("profile.additionalInformation"),
                   subscription.additionalInfo,
-                  theme.colors.inputColor
+                  theme.colors.text
                 )
               : null}
             {isAdminPreview && (

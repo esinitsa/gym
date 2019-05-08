@@ -1,9 +1,12 @@
-import _ from "lodash";
+import { get } from "lodash";
 import { Card, Container } from "native-base";
 import React from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
 import { connect } from "react-redux";
-import { getUserById, processSubscriptionVisit } from "../../components/personal/actions";
+import {
+  getUserById,
+  processSubscriptionVisit
+} from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import SubscriptionListItem from "../common/subscriptionListItem";
 import { renderHeader } from "./components/header";
@@ -24,8 +27,7 @@ class UserSubscriptionList extends React.PureComponent {
   };
 
   goToHome = () => {
-    _.get(this.props.userInfo, "id", 0) ===
-    _.get(this.props.currentUser, "id", 1)
+    get(this.props.userInfo, "id", 0) === get(this.props.currentUser, "id", 1)
       ? this.props.navigation.navigate(NavigationType.Home)
       : this.props.navigation.navigate(NavigationType.Profile, {
           id: this.props.userInfo.id
@@ -54,7 +56,7 @@ class UserSubscriptionList extends React.PureComponent {
               this.props.markUserVisit(subscriptionId)
             }
             isAdminPreview={
-              _.get(userInfo, "id", 0) !== _.get(currentUser, "id", 1)
+              get(userInfo, "id", 0) !== get(currentUser, "id", 1)
             }
             subscription={subscription.item}
             withExtension
@@ -65,7 +67,7 @@ class UserSubscriptionList extends React.PureComponent {
   };
 
   renderContent = () => {
-    const subscriptions = _.get(this.props.userInfo, "subscriptions", []);
+    const subscriptions = get(this.props.userInfo, "subscriptions", []);
     return (
       <FlatList
         data={subscriptions}

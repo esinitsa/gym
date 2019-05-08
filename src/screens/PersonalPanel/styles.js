@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: theme.colors.keyboardAvoid
+    backgroundColor: theme.colors.light
   },
   header: {
-    borderBottomColor: theme.colors.containerBackground,
-    borderBottomWidth: theme.size.border.emptyBorderWidth,
+    borderBottomColor: theme.colors.container,
+    borderBottomWidth: theme.size.border.width.empty,
     backgroundColor: "transparent"
   },
   modalView: {
@@ -30,41 +30,28 @@ const styles = StyleSheet.create({
     top: 0,
   },
   qrScanRightHeader: {
-    paddingLeft: theme.size.padding.header,
-    paddingRight: theme.size.padding.header,
-    marginHorizontal: theme.size.margin.qrScannerIcon
+    paddingLeft: theme.size.padding.large,
+    paddingRight: theme.size.padding.large,
+    marginHorizontal: theme.size.margin.small
   },
   signOutRightHeader: {
-    paddingLeft: theme.size.padding.header,
-    paddingRight: theme.size.padding.header
+    paddingLeft: theme.size.padding.large,
+    paddingRight: theme.size.padding.large
   },
   listItem: {
-    marginHorizontal: theme.size.margin.standard,
-    paddingVertical: theme.size.padding.listItem,
-    borderTopWidth: theme.size.border.listItemBorderWidth,
-    borderTopColor: theme.colors.listItemBorderTop,
-    backgroundColor: theme.colors.listItemBackground,
-    paddingLeft: theme.size.padding.listItem,
+    marginHorizontal: theme.size.margin.medium,
+    paddingVertical: theme.size.padding.medium,
+    borderTopWidth: theme.size.border.width.primary,
+    borderTopColor: theme.colors.secondary,
+    backgroundColor: theme.colors.light,
+    paddingLeft: theme.size.padding.medium,
     flexDirection: "row",
   },
-  button: {
-    backgroundColor: theme.colors.standardButton,
-    borderRadius: theme.size.border.buttonBorderRadius,
-    height: theme.size.parameters.buttonHeight,
-    width: theme.size.parameters.buttonWidth,
-    alignItems: "center",
-    justifyContent: "center",
-},
-  buttonText: {
-    color: theme.colors.actionComponent,
-    fontSize: theme.fonts.size.buttonText,
-    fontWeight: theme.fonts.weight.bold
-  },
   leftHeader: {
-    paddingLeft: theme.size.padding.header
+    paddingLeft: theme.size.padding.large
   },
   leftHeaderText: {
-    fontSize: theme.fonts.size.headlineText,
+    fontSize: theme.fonts.size.title,
     fontWeight: theme.fonts.weight.bold
   },
   qrScannerContent: {
@@ -72,7 +59,7 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH
   },
   footer: {
-    backgroundColor: "rgba(0, 0 ,0 ,0)"
+    backgroundColor: "transparent"
   },
 });
 

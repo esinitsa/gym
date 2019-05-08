@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   item: {
-    marginTop: theme.size.margin.standard
+    marginTop: theme.size.margin.medium
   },
   label: {
     color: "white",
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
-    marginRight: theme.size.margin.standard,
-    fontSize: theme.fonts.size.topicText,
+    marginRight: theme.size.margin.medium,
+    fontSize: theme.fonts.size.title,
     fontFamily: "TrebuchetMS",
   },
   inputText: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontFamily: "TrebuchetMS",
   },
   signUpText: {
-    fontSize: theme.fonts.size.topicText,
+    fontSize: theme.fonts.size.title,
      color: "#BF8330",
     fontFamily: "TrebuchetMS",
   }

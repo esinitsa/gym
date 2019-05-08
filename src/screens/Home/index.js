@@ -195,7 +195,7 @@ class Home extends React.PureComponent {
                 <View style={styles.modalView}>
                   <QRCode
                     value={userProfile !== null ? userProfile.id : "200"}
-                    size={theme.size.parameters.qrCodeSize}
+                    size={theme.size.parameters.items}
                   />
                 </View>
               </View>
