@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     paddingBottom: theme.size.padding.empty,
     paddingRight: theme.size.padding.empty,
     paddingTop: theme.size.padding.empty,
-    width: theme.size.parameters.FULL_WIDTH
+    width: theme.size.parameters.fullWidth
   },
   listItem: {
-    width: theme.size.parameters.FULL_WIDTH,
+    width: theme.size.parameters.fullWidth,
     flexDirection: "row",
     paddingLeft: theme.size.padding.empty,
     paddingBottom: theme.size.padding.empty,

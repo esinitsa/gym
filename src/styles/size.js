@@ -18,6 +18,7 @@ const size = {
   },
   margin: {
     items: DEVICE_HEIGHT / 2.4,
+    form: spacing.unit * 15,
     large: spacing.unit * 8,
     medium: spacing.unit * 5,
     small: spacing.unit * 3,
@@ -31,8 +32,9 @@ const size = {
     empty: 0
   },
   parameters: {
-    FULL_WIDTH: "100%",
+    fullWidth: "100%",
     cardWidth: DEVICE_WIDTH - 40,
+    logo: spacing.unit * 75,
     items: spacing.unit * 125,
     large: spacing.unit * 50,
     medium: spacing.unit * 35,
@@ -46,6 +48,9 @@ const size = {
         medium: spacing.unit * 45
       }
     },
+    circle: {
+      radius: spacing.unit * 20
+    },
     scanMarker: {
       corner: spacing.unit * 13
     }
@@ -53,6 +58,7 @@ const size = {
   icons: {
     medium: spacing.unit *  17,
     small: spacing.unit * 12,
+    dropDown: spacing.unit * 2,
   }
 };
 

@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
+  webview: {
+    flex: 1,
+    height: theme.size.parameters.large
+  },
   infoView: {
     flex: 1,
     flexDirection: "row",

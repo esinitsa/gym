@@ -1,18 +1,16 @@
-import { Input, Item, Label, View, Text } from "native-base";
+import { Container, Input, Item, Label, Text, View } from "native-base";
 import React from "react";
-import { SafeAreaView, Image, TouchableOpacity } from "react-native";
+import { Image, SafeAreaView, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { Field, formValueSelector, reduxForm } from "redux-form";
 import { loginUser, refreshToken } from "../../components/login/actions";
-import ButtonSubmit from "../common/buttons/submit";
 import { NavigationType } from "../../constants/navigationTypes";
-import LinearGradient from "react-native-linear-gradient";
 import { showToast } from "../../services/UIActions";
-import styles from "./styles";
-import { GRADIENT_COLORS } from "../../constants/cssConstants";
-import { CustomText } from "../common/text/customText";
 import theme from "../../styles";
+import ButtonSubmit from "../common/buttons/submit";
+import { CustomText } from "../common/text/customText";
+import styles from "./styles";
 
 class LoginForm extends React.PureComponent {
   componentWillMount() {
@@ -29,7 +27,7 @@ class LoginForm extends React.PureComponent {
   checkAdminAndRedirect = user => {
     const isAdmin = user.roles.includes("ADMIN");
     if (isAdmin) {
-      return this.goToPersonalPanel();
+      return this.goToAdminPanel();
     } else {
       return this.goToProfile();
     }
@@ -45,11 +43,13 @@ class LoginForm extends React.PureComponent {
       });
   };
 
-  goToPersonalPanel = () => this.props.navigation.navigate(NavigationType.Personal);
+  goTo = (screen, params) => this.props.navigation.navigate(screen, params);
 
-  goToProfile = () => this.props.navigation.navigate(NavigationType.Home);
+  goToAdminPanel = () => this.goTo(NavigationType.Personal);
 
-  goToSignUp = () => this.props.navigation.navigate(NavigationType.SignUp);
+  goToProfile = () => this.goTo(NavigationType.Home);
+
+  goToSignUp = () => this.goTo(NavigationType.SignUp);
 
   renderInput = ({ input }) => {
     return (
@@ -71,7 +71,7 @@ class LoginForm extends React.PureComponent {
 
   render() {
     return (
-      <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
+      <Container>
         <SafeAreaView style={styles.container}>
           <Image style={styles.logo} source={theme.images.logo} />
           <View style={styles.loginView}>
@@ -94,7 +94,7 @@ class LoginForm extends React.PureComponent {
             </TouchableOpacity>
           </View>
         </SafeAreaView>
-      </LinearGradient>
+      </Container>
     );
   }
 }

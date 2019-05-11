@@ -2,12 +2,12 @@ import { createSwitchNavigator } from "react-navigation";
 import Profile from "../screens/Profile";
 import UserNotes from "../screens/Notes";
 import Home from "../screens/Home";
-import UserSubscriptionList from "../screens/UserSubscriptionList";
+import Subscriptions from "../screens/Subscriptions";
 
 export default createSwitchNavigator(
   {
     Home: {screen: Home},
-    UserSubscriptionList: {screen: UserSubscriptionList},
+    Subscriptions: {screen: Subscriptions},
     Profile: { screen: Profile },
     UserNotes: { screen: UserNotes }
   },

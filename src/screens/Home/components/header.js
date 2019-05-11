@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { I18n } from "react-redux-i18n";
 import { NavigationType } from "../../../constants/navigationTypes";
-import { EMPTY_RESPONSE } from "../../../constants/profileConstants";
+import { EMPTY_RESPONSE } from "../../../constants";
 import theme from "../../../styles";
 import { CustomText } from "../../common/text/customText";
 import styles from "../styles";

@@ -3,7 +3,7 @@ import theme from "../../../styles/index";
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "TrebuchetMS",
+    fontFamily: theme.fonts.family.standard,
     fontWeight: theme.fonts.weight.normal
   }
 });

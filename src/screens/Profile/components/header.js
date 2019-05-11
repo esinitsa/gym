@@ -9,8 +9,8 @@ import styles from "../styles";
 import theme from "../../../styles";
 
 export const renderHeader = props => {
-  const goToPersonalPanel = () => {
-    props.navigation.navigate(NavigationType.PersonalPanel);
+  const goToAdminPanel = () => {
+    props.navigation.navigate(NavigationType.AdminPanel);
   };
 
   return (
@@ -18,7 +18,7 @@ export const renderHeader = props => {
       <Left style={styles.leftHeader}>
         <View style={styles.headerView}>
           <Button
-            onPress={goToPersonalPanel}
+            onPress={goToAdminPanel}
             transparent
             style={styles.profileIconHeader}
           >

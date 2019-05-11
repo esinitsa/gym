@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Input, Item, Label, Text } from "native-base";
+import { View, Input, Item, Label, Text, Container } from "native-base";
 import { SafeAreaView, TouchableOpacity } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
@@ -7,25 +7,18 @@ import { signUpUser } from "../../components/login/actions";
 import { I18n } from "react-redux-i18n";
 import styles from "./styles";
 import { showToast } from "../../services/UIActions";
-import { GRADIENT_COLORS } from "../../constants/cssConstants";
 import {
   emailRegexCheck,
   required,
-  minLength,
-  maxLength,
-  handleMaxLength
+  maxLength30BlockInput,
+  handleMaxLength,
+  maxLength100,
+  maxLength70,
+  maxLength30,
+  minLength4
 } from "../../services/validations";
 import { NavigationType } from "../../constants/navigationTypes";
-import LinearGradient from "react-native-linear-gradient";
 import ButtonSubmit from "../common/buttons/submit";
-
-const maxLength100BlockInput = 100;
-const maxLength70BlockInput = 70;
-const maxLength30BlockInput = 30;
-const maxLength100 = maxLength(maxLength100BlockInput);
-const maxLength70 = maxLength(maxLength70BlockInput);
-const maxLength30 = maxLength(maxLength30BlockInput);
-const minLength4 = minLength(4);
 
 class SignUpForm extends React.PureComponent {
   renderInput({ input }) {
@@ -45,10 +38,8 @@ class SignUpForm extends React.PureComponent {
       </Item>
     );
   }
-  goToLogin = () => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.Login);
-  };
+
+  goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
 
   signUp = () => {
     if (this.props.valid) {
@@ -78,7 +69,7 @@ class SignUpForm extends React.PureComponent {
 
   render() {
     return (
-      <LinearGradient colors={GRADIENT_COLORS} style={styles.linearGradient}>
+     <Container>
         <SafeAreaView style={styles.container}>
           <View style={styles.formContainer}>
             <Field
@@ -127,7 +118,7 @@ class SignUpForm extends React.PureComponent {
             </TouchableOpacity>
           </View>
         </SafeAreaView>
-      </LinearGradient>
+        </Container>
     );
   }
 }

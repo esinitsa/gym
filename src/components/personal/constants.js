@@ -10,6 +10,9 @@ export const GET_USER_BY_ID_SUCCESS = "@@user/getUserById/SUCCESS";
 export const GET_TRAINERS_REQUEST = "@@user/getTrainers/REQUEST";
 export const GET_TRAINERS_SUCCESS = "@@user/getTrainers/SUCCESS";
 
+export const GET_NOTES_AUTHOR_BY_ID_REQUEST = "@@user/getNotesAuthorById/REQUEST";
+export const GET_NOTES_AUTHOR_BY_ID_SUCCESS = "@@user/getNotesAuthorById/SUCCESS";
+
 export const SUBSCRIPTION_VISIT_REQUEST = "@@user/processSubscriptionVisit/REQUEST";
 export const SUBSCRIPTION_VISIT_SUCCESS = "@@user/processSubscriptionVisit/SUCCESS";
 

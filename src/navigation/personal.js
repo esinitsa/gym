@@ -1,12 +1,12 @@
 import { createSwitchNavigator } from "react-navigation";
-import PersonalPanel from "../screens/PersonalPanel";
+import AdminPanel from "../screens/AdminPanel";
 
 export default createSwitchNavigator(
     {
-        PersonalPanel: { screen: PersonalPanel }
+        AdminPanel: { screen: AdminPanel }
     },
     {
-        initialRouteName: "PersonalPanel",
+        initialRouteName: "AdminPanel",
         headerMode: "none",
     }
 );

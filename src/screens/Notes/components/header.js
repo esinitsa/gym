@@ -1,23 +1,25 @@
-import _ from "lodash";
 import { Body, Button, Header, Left, Right } from "native-base";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import { NavigationType } from "../../../constants/navigationTypes";
 import { CustomText } from "../../common/text/customText";
 import { I18n } from "react-redux-i18n";
+import { isEqualUsers } from "../../../services/filter";
 import styles from "../styles";
 import theme from "../../../styles";
 
 export const renderHeader = props => {
+  const { userInfo, currentUser } = props;
+
+  const goTo = (screen, params) => props.navigation.navigate(screen, params);
+
   const goToHome = () => {
-    _.get(props.userInfo, "id", 0) === _.get(props.currentUser, "id", 1)
-      ? props.navigation.navigate(NavigationType.Home)
-      : props.navigation.navigate(NavigationType.Profile, {
+    isEqualUsers(userInfo, currentUser)
+      ? goTo(NavigationType.Home)
+      : goTo(NavigationType.Profile, {
           id: props.userInfo.id
         });
   };
-
-  const { userInfo } = props;
 
   return (
     <Header style={styles.header}>

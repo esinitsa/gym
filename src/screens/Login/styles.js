@@ -2,32 +2,28 @@ import { StyleSheet } from "react-native";
 import theme from "../../styles";
 
 const styles = StyleSheet.create({
-  linearGradient: {
-    flex: 1
-  },
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    backgroundColor: theme.colors.container,
   },
   item: {
     marginTop: theme.size.margin.medium
   },
   label: {
-    color: "white",
+    color: theme.colors.text,
     fontWeight: theme.fonts.weight.light
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: theme.size.parameters.logo,
+    height: theme.size.parameters.logo,
     alignSelf: "center",
-    marginTop: 40,
+    marginTop: theme.size.margin.form * theme.spacing.unit
   },
   loginView: {
-    alignContent: "center",
-     marginTop: 40,
+    alignContent: "space-around",
+     marginVertical: theme.size.margin.form,
      justifyContent: "center",
-     padding: 20,
-     marginBottom: 30,
+     padding: theme.size.padding.items,
   },
   signUpView: {
     flexDirection: "row",
@@ -35,19 +31,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    color: "#ffffff",
+    color: theme.colors.subtitle,
     marginRight: theme.size.margin.medium,
-    fontSize: theme.fonts.size.title,
-    fontFamily: "TrebuchetMS",
+    fontSize: theme.fonts.size.standard,
+    fontFamily: theme.fonts.family.standard,
   },
   inputText: {
-    color: "#ffffff",
-    fontFamily: "TrebuchetMS",
+    color: theme.colors.text,
+    fontFamily: theme.fonts.family.standard,
   },
   signUpText: {
-    fontSize: theme.fonts.size.title,
-     color: "#BF8330",
-    fontFamily: "TrebuchetMS",
+    fontSize: theme.fonts.size.subtitle,
+    color: theme.colors.primary,
+    fontFamily: theme.fonts.family.standard,
   }
 });
 

@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import { Card, Container } from "native-base";
 import React from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
@@ -7,12 +6,12 @@ import {
   getUserById,
   processSubscriptionVisit
 } from "../../components/personal/actions";
-import { NavigationType } from "../../constants/navigationTypes";
-import SubscriptionListItem from "../common/subscriptionListItem";
+import { reverseArray, isEqualUsers } from "../../services/filter";
+import SubscriptionItem from "../common/subscriptions/listItem";
 import { renderHeader } from "./components/header";
 import styles from "./styles";
 
-class UserSubscriptionList extends React.PureComponent {
+class Subscriptions extends React.PureComponent {
   componentDidMount() {
     this.getData();
   }
@@ -26,21 +25,8 @@ class UserSubscriptionList extends React.PureComponent {
     getUserInfo(id);
   };
 
-  goToHome = () => {
-    get(this.props.userInfo, "id", 0) === get(this.props.currentUser, "id", 1)
-      ? this.props.navigation.navigate(NavigationType.Home)
-      : this.props.navigation.navigate(NavigationType.Profile, {
-          id: this.props.userInfo.id
-        });
-  };
-
   acceptMarkVisit = subscriptionId =>
     this.props.markUserVisit(subscriptionId).then(res => this.getData());
-
-  goToProfile = () =>
-    this.props.navigation.navigate(NavigationType.Profile, {
-      id: this.props.userInfo.id
-    });
 
   _keyExtractor = (item, index) => `${index}${item.id}`;
 
@@ -50,14 +36,12 @@ class UserSubscriptionList extends React.PureComponent {
     return (
       <Card style={styles.card}>
         <View style={styles.listItem}>
-          <SubscriptionListItem
+          <SubscriptionItem
             userProfile={this.props.userInfo}
             markUserVisit={subscriptionId =>
               this.props.markUserVisit(subscriptionId)
             }
-            isAdminPreview={
-              get(userInfo, "id", 0) !== get(currentUser, "id", 1)
-            }
+            isAdminPreview={!isEqualUsers(userInfo, currentUser)}
             subscription={subscription.item}
             withExtension
           />
@@ -67,7 +51,7 @@ class UserSubscriptionList extends React.PureComponent {
   };
 
   renderContent = () => {
-    const subscriptions = get(this.props.userInfo, "subscriptions", []);
+    const subscriptions = reverseArray(this.props.userInfo, "subscriptions");
     return (
       <FlatList
         data={subscriptions}
@@ -107,4 +91,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserSubscriptionList);
+)(Subscriptions);

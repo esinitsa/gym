@@ -40,3 +40,11 @@ export const emailsArrayRegexCheck = value => {
 export const handleMaxLength = max => value => {
     return value ? value.slice(0, max) : value;
 };
+
+export const maxLength100BlockInput = 100;
+export const maxLength70BlockInput = 70;
+export const maxLength30BlockInput = 30;
+export const maxLength100 = maxLength(maxLength100BlockInput);
+export const maxLength70 = maxLength(maxLength70BlockInput);
+export const maxLength30 = maxLength(maxLength30BlockInput);
+export const minLength4 = minLength(4);

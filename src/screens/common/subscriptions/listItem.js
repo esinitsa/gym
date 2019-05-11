@@ -1,22 +1,22 @@
 import _ from "lodash";
-import moment from "moment";
 import React from "react";
 import { TouchableOpacity, View, Alert } from "react-native";
+import { WebView } from "react-native-webview";
 import { I18n } from "react-redux-i18n";
 import Icon from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
 import { showToast } from "../../../services/UIActions";
 import {
-  COUNT,
-  DATE_FORMAT,
   DEFAULT_COUNT,
   EMPTY_RESPONSE
-} from "../../../constants/profileConstants";
+} from "../../../constants";
+import { checkType, isActive } from "../../../services/filter";
+import { getDateWithFormat, lastDateFromArray } from "../../../services/dateManager";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 import theme from "../../../styles";
 
-export default class SubscriptionListItem extends React.PureComponent {
+export default class SubscriptionItem extends React.PureComponent {
   state = {
     isExpanded: false
   };
@@ -44,32 +44,22 @@ export default class SubscriptionListItem extends React.PureComponent {
     );
   };
 
-  lastVisitDate = previouslyValidated =>
-    _.isArray(previouslyValidated)
-      ? moment(_.last(previouslyValidated))
-          .locale("ru")
-          .format(DATE_FORMAT)
-      : EMPTY_RESPONSE;
+  lastVisitDate = previouslyValidated => lastDateFromArray(previouslyValidated);
 
   checkDate = (subscription, prop) => {
-    const date = _.get(subscription, prop, EMPTY_RESPONSE);
-    if (date === EMPTY_RESPONSE) {
-      return EMPTY_RESPONSE;
-    } else {
-      return moment(date)
-        .locale("ru")
-        .format(DATE_FORMAT);
-    }
+    const date = _.get(subscription, prop);
+    return date
+      ? getDateWithFormat(date)
+      : EMPTY_RESPONSE;
   };
 
-  checkCountVisits = subscription =>
-    _.get(subscription, "countInitial", DEFAULT_COUNT);
+  checkCountVisits = subscription => _.get(subscription, "countInitial", DEFAULT_COUNT);
 
   renderSubscriptionType = (subscription, prop) => {
     const type = _.get(subscription, `${prop}`, EMPTY_RESPONSE);
     return (
       <View>
-        {type === COUNT ? (
+        { checkType(type) ? (
           <CustomText
             style={styles.subscriptionTypeView}
             text={this.checkCountVisits(subscription)}
@@ -83,16 +73,15 @@ export default class SubscriptionListItem extends React.PureComponent {
 
   checkSubscriptionType = (subscription, prop) => {
     const type = _.get(subscription, `${prop}`, EMPTY_RESPONSE);
-    return type === COUNT
+    return checkType(type)
       ? this.checkCountActive(subscription)
       : this.checkTermActive(subscription);
   };
 
   checkCountActive = subscription => {
-    const isActive = _.get(subscription, "active", EMPTY_RESPONSE);
     return (
       <View>
-        {isActive ? (
+        { isActive(subscription) ? (
           <View style={styles.activeView}>
             <CustomText style={styles.activeLabel} text={I18n.t("general.remainder")} />
             <CustomText
@@ -108,11 +97,10 @@ export default class SubscriptionListItem extends React.PureComponent {
   };
 
   checkTermActive = subscription => {
-    const isActive = _.get(subscription, "active", EMPTY_RESPONSE);
     const endDate = this.checkDate(subscription, "validTill");
     return (
       <View>
-        {isActive ? (
+        { isActive(subscription) ? (
           <View style={styles.activeView}>
             <CustomText style={styles.activeLabel} text={I18n.t("general.activeBy")} />
             <CustomText style={styles.activeText} text={endDate} />
@@ -124,8 +112,22 @@ export default class SubscriptionListItem extends React.PureComponent {
     );
   };
 
-  handleExpand = () => {
-    this.setState(state => ({ isExpanded: !state.isExpanded }));
+  handleExpand = () => this.setState(state => ({ isExpanded: !state.isExpanded }));
+
+  renderAdditionalInfoRow = (label, value, color) => {
+    return (
+      <View style={styles.infoView}>
+        <View>
+          <CustomText style={styles.infoViewLabelText} text={label} />
+        </View>
+        <WebView
+          scalesPageToFit={false}
+          useWebKit={false}
+          style={styles.webview}
+          source={{html: value}}
+        />
+      </View>
+    );
   };
 
   renderInfoRow = (label, value, color) => {
@@ -200,16 +202,12 @@ export default class SubscriptionListItem extends React.PureComponent {
             {!!subscription.startDate &&
               this.renderInfoRow(
                 I18n.t("profile.startDate"),
-                moment(subscription.startDate)
-                  .locale("ru")
-                  .format(DATE_FORMAT)
+                getDateWithFormat(subscription.startDate)
               )}
             {!!subscription.validTill &&
               this.renderInfoRow(
                 I18n.t("profile.validTill"),
-                moment(subscription.validTill)
-                  .locale("ru")
-                  .format(DATE_FORMAT)
+                getDateWithFormat(subscription.validTill)
               )}
             {!!subscription.countInitial &&
               this.renderInfoRow(I18n.t("profile.numberOfVisitsAbbreviated"), subscription.countInitial)}
@@ -220,7 +218,7 @@ export default class SubscriptionListItem extends React.PureComponent {
                 subscription.countLeft > 0 ? "green" : "red"
               )}
             {!!subscription.additionalInfo
-              ? this.renderInfoRow(
+              ? this.renderAdditionalInfoRow(
                   I18n.t("profile.additionalInformation"),
                   subscription.additionalInfo,
                   theme.colors.text

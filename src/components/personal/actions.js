@@ -10,7 +10,9 @@ import {
   SUBSCRIPTION_VISIT_REQUEST,
   SUBSCRIPTION_VISIT_SUCCESS,
   ADD_INTERNAL_RECORD_REQUEST,
-  ADD_INTERNAL_RECORD_SUCCESS
+  ADD_INTERNAL_RECORD_SUCCESS,
+  GET_NOTES_AUTHOR_BY_ID_REQUEST,
+  GET_NOTES_AUTHOR_BY_ID_SUCCESS
 } from "./constants";
 import {
   GET_MY_CLIENTS_REQUEST_STRING,
@@ -47,6 +49,12 @@ const subscriptionVisitSuccess = ({ user }) => ({
 
 const addInternalRecordRequest = () => ({ type: ADD_INTERNAL_RECORD_REQUEST });
 const addInternalRecordSuccess = () => ({ type: ADD_INTERNAL_RECORD_SUCCESS });
+
+const getNotesAuthorRequest = () => ({ type: GET_NOTES_AUTHOR_BY_ID_REQUEST });
+const getNotesAuthorSuccess = author => ({
+  type: GET_NOTES_AUTHOR_BY_ID_SUCCESS,
+  [KEYS[GET_NOTES_AUTHOR_BY_ID_SUCCESS]]: author
+});
 
 export const getMyClients = () => dispatch => {
   dispatch(getMyClientsRequest());
@@ -109,6 +117,21 @@ export const getUserById = id => dispatch => {
     })
     .then(data => {
       dispatch(getUserSuccess(data));
+      return data;
+    })
+    .catch(error => console.log(error));
+};
+
+export const getNotesAuthorById = id => dispatch => {
+  dispatch(getNotesAuthorRequest());
+  return api
+    .get(GET_USER_BY_ID_REQUEST_STRING, {
+      params: {
+        id
+      }
+    })
+    .then(data => {
+      dispatch(getNotesAuthorSuccess(data));
       return data;
     })
     .catch(error => console.log(error));

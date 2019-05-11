@@ -1,41 +1,51 @@
-import moment from "moment";
+import { get } from "lodash";
 import { Body, Left, ListItem, Right, View } from "native-base";
 import React from "react";
-
-import ViewMoreCustomText from "../viewMoreText/index";
 import { connect } from "react-redux";
-import { getUserById } from "../../../components/personal/actions";
-import { DATE_FORMAT } from "../../../constants/profileConstants";
+import { I18n } from "react-redux-i18n";
+import { getNotesAuthorById } from "../../../components/personal/actions";
+import { EMPTY_RESPONSE } from "../../../constants";
 import { CustomText } from "../text/customText";
+import ViewMoreCustomText from "../viewMoreText/index";
+import { ROLES } from "../../../constants/userTypes";
+import { checkAdmin } from "../../../services/filter";
+import { getDateWithFormat } from "../../../services/dateManager";
 import styles from "./styles";
-// TODO move to i18n
-export const ROLES = {
-  ["DOCTOR"]: "Доктор"
-};
 
 class NoteItem extends React.PureComponent {
+
+  componentDidMount() {
+    this.props.getAuthor(this.props.note.authorUserId);
+  }
+
   render() {
-    const { note } = this.props;
+    const { note, author } = this.props;
     if (!note) {
       return null;
     }
-
     return (
       <View style={styles.container}>
         <ListItem style={styles.listItem}>
           <Left style={styles.leftView}>
-            <CustomText text={"Escobar E."} style={styles.notesAuthor} />
+          {
+            checkAdmin(get(author,"roles")) ?
+            <CustomText text={
+              `${get(author, "firstName", EMPTY_RESPONSE)} ` +
+              `${get(author, "lastName", EMPTY_RESPONSE)}`} style={styles.notesAuthor} />
+            :
+            <CustomText text={I18n.t("types.admin")} style={styles.notesAuthor} />
+          }
           </Left>
           <Body style={styles.bodyView}>
             <CustomText
-              text={moment(note.createdAt).format(DATE_FORMAT)}
+              text={getDateWithFormat(note.createdAt)}
               style={styles.date}
             />
           </Body>
           <Right style={styles.rightView}>
             <View style={styles.rightContentView}>
               <CustomText
-                text={ROLES[note.authorRoleId]}
+                text={I18n.t(`${ROLES[note.authorRoleId]}`)}
                 style={styles.authorRole}
               />
             </View>
@@ -50,10 +60,12 @@ class NoteItem extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getUser: id => dispatch(getUserById(id))
+const mapStateToProps = state => ({
+  author: state.personal.author
 });
 
-export default connect(
-  mapDispatchToProps
-)(NoteItem);
+const mapDispatchToProps = dispatch => ({
+  getAuthor: id => dispatch(getNotesAuthorById(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteItem);

@@ -10,6 +10,9 @@ const fonts = {
     normal: "400",
     bolder: "500",
     bold: "700"
+  },
+  family: {
+    standard: "TrebuchetMS"
   }
 };
 

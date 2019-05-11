@@ -2,12 +2,12 @@ import { get } from "lodash";
 import React from "react";
 import {  View } from "react-native";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { EMPTY_RESPONSE } from "../../../constants/profileConstants";
+import { EMPTY_RESPONSE } from "../../../constants";
 import theme from "../../../styles";
 import { CustomText } from "../text/customText";
 import styles from "./styles";
 
-export default class UsersListItem extends React.PureComponent {
+export default class UserItem extends React.PureComponent {
 
   render() {
     const userProfile = this.props.user;

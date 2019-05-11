@@ -1,36 +1,34 @@
 import { StyleSheet } from "react-native";
 import theme from "../../../styles";
 
-const MARGIN = 40;
-
 const styles = StyleSheet.create({
-  button: {
-    alignItems: "center",
-    backgroundColor: "#BF8330",
-    borderRadius: theme.size.border.radius.primary,
-    justifyContent: "center",
-    height: MARGIN,
-    zIndex: 100
-  },
-  circle: {
-    height: MARGIN,
-    marginTop: -MARGIN,
-    width: MARGIN,
-    borderWidth: 1,
-    borderColor: "#BF8330",
-    borderRadius: theme.size.border.radius.circle,
-    alignSelf: "center",
-    zIndex: 99,
-    backgroundColor: "#BF8330"
-  },
   container: {
     alignItems: "center",
     flex: 1,
-    marginTop: 40,
+    marginTop: theme.size.margin.form,
     justifyContent: "flex-start"
   },
+  button: {
+    alignItems: "center",
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.size.border.radius.primary,
+    justifyContent: "center",
+    height: theme.size.parameters.circle.radius,
+    zIndex: 100
+  },
+  circle: {
+    height: theme.size.parameters.circle.radius,
+    width: theme.size.parameters.circle.radius,
+    marginTop: -theme.size.parameters.circle.radius,
+    borderWidth: theme.size.border.width.primary,
+    borderColor: theme.colors.primary,
+    borderRadius: theme.size.border.radius.circle,
+    alignSelf: "center",
+    zIndex: 99,
+    backgroundColor: theme.colors.primary,
+  },
   text: {
-    color: "#ffffff",
+    color: theme.colors.light,
     fontSize: theme.fonts.size.subtitle,
     backgroundColor: "transparent"
   }

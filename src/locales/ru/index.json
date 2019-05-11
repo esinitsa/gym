@@ -63,10 +63,13 @@
     "email": "email:"
   },
   "types": {
-    "Admin": "Админ",
-    "Doctor": "Доктор",
-    "Trainer": "Тренер",
-    "Masseur": "Массажист"
+    "admin": "Админ",
+    "doctor": "Доктор",
+    "trainer": "Тренер",
+    "masseur": "Массажист",
+    "superAdmin": "Админ",
+    "user": "Клиент",
+    "client": "Клиент"
   },
   "general": {
     "search": "Поиск",

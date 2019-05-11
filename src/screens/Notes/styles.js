@@ -28,7 +28,12 @@ export default StyleSheet.create({
   },
   headerLeftArrow: {
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "center",
+  },
+  dropDownArrow: {
+    justifyContent: "flex-end",
+    alignSelf: "flex-end",
+    fontSize: theme.fonts.size.subtitle,
   },
   profileIconHeader: {
     paddingLeft: theme.size.padding.medium
@@ -71,7 +76,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingLeft: theme.size.padding.empty,
-    paddingRight: theme.size.padding.empty
+    paddingRight: theme.size.padding.empty,
   },
   emptyNotesView: {
     position: "absolute",
@@ -97,6 +102,33 @@ export default StyleSheet.create({
     padding: theme.size.padding.empty,
     margin: theme.size.margin.empty
   },
+  saveNoteView: {
+    flex: 1,
+    flexDirection: "row"
+  },
+  pickerContainer: {
+    flexDirection: "row",
+    marginTop: theme.size.margin.large
+  },
+  pickerView: {
+   flex: 1,
+  },
+  pickerText: {
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    color: theme.colors.text,
+    fontSize: theme.fonts.size.subtitle,
+    fontWeight: theme.fonts.weight.bold
+  },
+  pickerItemText: {
+    fontSize: theme.fonts.size.standard,
+    fontWeight: theme.fonts.weight.bold
+  },
+  pickerBackHeader: {
+    color: theme.colors.primary,
+    fontSize: theme.fonts.size.standard,
+    fontWeight: theme.fonts.weight.bold
+  },
   editIconView: {
     alignContent: "center",
     alignItems: "flex-end",
@@ -114,7 +146,7 @@ export default StyleSheet.create({
   },
   buttonText: {
     color: theme.colors.primary,
-    fontSize: theme.fonts.size.standard,
+    fontSize: theme.fonts.size.placeholder,
     fontWeight: theme.fonts.weight.bold
   }
 });

@@ -9,13 +9,14 @@ import { userLogOut } from "../../components/login/actions";
 import { renderHeader } from "./components/header";
 import { getUserById } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
+import { isEqualUsers } from "../../services/filter";
 import {
   COUNT,
   DATE_TYPE,
   DEFAULT_COUNT,
   EMPTY_RESPONSE,
   TERM
-} from "../../constants/profileConstants";
+} from "../../constants";
 import { CustomText } from "../common/text/customText";
 import styles from "./styles";
 import theme from "../../styles";
@@ -34,21 +35,23 @@ class Profile extends React.PureComponent {
     getUserInfo(id);
   };
 
+  goTo = (screen, params) => this.props.navigation.navigate(screen, params);
+
   goToHome = () => {
-    get(this.props.userInfo, "id", 0) === get(this.props.currentUser, "id", 1)
-      ? this.props.navigation.navigate(NavigationType.Home)
-      : this.props.navigation.navigate(NavigationType.PersonalPanel);
+      isEqualUsers(this.props.userInfo, this.props.currentUser)
+      ? this.goTo(NavigationType.Home)
+      : this.goTo(NavigationType.AdminPanel);
   };
 
-  goToLogin = () => this.props.navigation.navigate(NavigationType.Login);
+  goToLogin = () => this.goTo(NavigationType.Login);
 
-  goToUserSubscriptionList = () =>
-    this.props.navigation.navigate(NavigationType.UserSubscriptionList, {
+  goToSubscriptions = () =>
+    this.goTo(NavigationType.Subscriptions, {
       id: this.props.userInfo.id
     });
 
   goToUserNotes = () =>
-    this.props.navigation.navigate(NavigationType.UserNotes, {
+    this.goTo(NavigationType.UserNotes, {
       id: this.props.userInfo.id
     });
 
@@ -139,7 +142,7 @@ class Profile extends React.PureComponent {
             text={I18n.t("header.subscriptions")}
           />
           <View style={styles.rightArrowView}>
-            <TouchableOpacity onPress={this.goToUserSubscriptionList}>
+            <TouchableOpacity onPress={this.goToSubscriptions}>
               <Icon
                 name={"right"}
                 color={theme.colors.primary}

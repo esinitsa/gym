@@ -1,6 +1,8 @@
 import axios from "axios";
 import { I18n } from "react-redux-i18n";
 import { store } from "../boot/configureStore";
+import { get } from "lodash";
+import { EMPTY_RESPONSE } from "../constants";
 import { refreshToken } from "../components/login/actions";
 import { KEYS } from "../constants/reducerTypeKeys";
 import { BASE_URL } from "./../constants/index";
@@ -22,9 +24,7 @@ const api = axios.create({
 api.interceptors.response.use(
   response => {
     if (
-      response.data &&
-      response.data.code &&
-      response.data.code >= MULTIPLE_CHOICES_STATUS_CODE
+      get(response, "data.code", EMPTY_RESPONSE) >= MULTIPLE_CHOICES_STATUS_CODE
     ) {
       return Promise.reject(
         response.data.messages
@@ -32,9 +32,7 @@ api.interceptors.response.use(
           : I18n.t("api.incorrectResponse")
       );
     } else if (
-      response.data &&
-      response.data.statusCode &&
-      response.data.statusCode === CONFLICT_STATUS_CODE
+      get(response, "data.statusCode", EMPTY_RESPONSE) === CONFLICT_STATUS_CODE
     ) {
       return Promise.reject(
         response.data.messages
@@ -42,9 +40,7 @@ api.interceptors.response.use(
           : I18n.t("api.alreadyExists")
       );
     } else if (
-      response.data &&
-      response.data.statusString &&
-      response.data.statusString === NOT_FOUND
+      get(response, "data.statusString", EMPTY_RESPONSE) === NOT_FOUND
     ) {
       return Promise.reject(
         response.data.messages
@@ -56,9 +52,7 @@ api.interceptors.response.use(
   },
   error => {
     if (
-      error &&
-      error.response &&
-      error.response.status === UNAUTHORIZED_STATUS_CODE
+      get(error, "response.status", EMPTY_RESPONSE) === UNAUTHORIZED_STATUS_CODE
     ) {
       const state = store.getState();
       const lastSuccessType = state.personal.lastSuccessType;

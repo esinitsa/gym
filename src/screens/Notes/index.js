@@ -1,5 +1,5 @@
-import { Card, CardItem, Container, Content, Input, Item } from "native-base";
-import { get } from "lodash";
+import { Card, CardItem, Container, Content, Input, Item, Picker, Left, Right} from "native-base";
+import { size } from "lodash";
 import React from "react";
 import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -14,12 +14,15 @@ import NoteItem from "../common/notes/listItem";
 import { CustomText } from "../common/text/customText";
 import { I18n } from "react-redux-i18n";
 import { renderHeader } from "./components/header";
+import { ROLES } from "../../constants/userTypes";
+import { filter, reverseArray, isEqualUsers } from "../../services/filter";
 import styles from "./styles";
 import theme from "../../styles";
 
 class UserNotes extends React.PureComponent {
   state = {
-    isExpanded: false
+    isExpanded: false,
+    selected: 0
   };
 
   componentDidMount() {
@@ -35,12 +38,18 @@ class UserNotes extends React.PureComponent {
     getUserInfo(id);
   };
 
+  onValueChange = value => {
+    this.setState({
+      selected: value
+    });
+  }
+
   renderInput = ({ input }) => {
     return (
       <Item>
         <Input
           autoCapitalize="none"
-          style={styles.input} // TODO move to styles.js
+          style={styles.input}
           autoCorrect={false}
           multiline={true}
           keyboardType={input.name === "login" ? "email-address" : "default"}
@@ -50,9 +59,41 @@ class UserNotes extends React.PureComponent {
     );
   };
 
+  renderPicker = () => {
+    return (
+      <Left style={styles.pickerContainer}>
+        <Picker
+          note
+          mode="dropdown"
+          style={styles.pickerView}
+          textStyle={styles.pickerText}
+          selectedValue={this.state.selected}
+          itemTextStyle={styles.pickerItemText}
+          headerTitleStyle={styles.bodyHeaderText}
+          headerBackButtonTextStyle={styles.pickerBackHeader}
+          iosIcon={
+          <Icon
+            name={"down"}
+            color={theme.colors.primary}
+            solid
+            style={styles.dropDownArrow}
+          />}
+          onValueChange={this.onValueChange}
+        >
+        {
+          filter(this.props.currentUser.roles).map((item, index) => (
+            <Picker.Item label={I18n.t(`${ROLES[item]}`)} value={index}
+              key={`${this.props.currentUser.id}${item}`} />
+          ))
+        }
+        </Picker>
+      </Left>
+    );
+  };
+
   addInternal = () => {
     const internalRecord = {
-      authorRole: "DOCTOR",
+      authorRole: filter(this.props.currentUser.roles)[this.state.selected],
       recordBody: this.props.note,
       targetUserId: this.props.userInfo.id
     };
@@ -78,7 +119,7 @@ class UserNotes extends React.PureComponent {
     return (
       <Content style={styles.content}>
         <View style={styles.touchableCard}>
-          {get(userInfo, "id", 0) !== get(currentUser, "id", 1) && (
+          { !isEqualUsers(userInfo, currentUser) && (
             <Card style={styles.topCard}>
               <TouchableOpacity onPress={this.handleExpand}>
                 <CardItem
@@ -93,7 +134,7 @@ class UserNotes extends React.PureComponent {
                   <View style={styles.editIconView}>
                     <Icon
                       name="edit"
-                      color={theme.colors.actionComponent}
+                      color={theme.colors.primary}
                       size={theme.size.icons.small}
                       solid
                     />
@@ -103,22 +144,26 @@ class UserNotes extends React.PureComponent {
               {isExpanded && (
                 <CardItem style={styles.noteCardItem}>
                   <Field name="note" component={this.renderInput} type="note" />
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={this.addInternal}
-                  >
-                    <CustomText
-                      style={styles.buttonText}
-                      text={I18n.t("general.save")}
-                    />
-                  </TouchableOpacity>
+                  <View style={styles.saveNoteView}>
+                  {this.renderPicker()}
+                  <Right>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={this.addInternal}
+                    >
+                      <CustomText
+                        style={styles.buttonText}
+                        text={I18n.t("general.save")}
+                      />
+                    </TouchableOpacity>
+                    </Right>
+                  </View>
                 </CardItem>
               )}
             </Card>
           )}
         </View>
-        {!!userInfo.internalRecords &&
-          [...userInfo.internalRecords].map((it, index) => (
+        { reverseArray(userInfo, "internalRecords").map((it, index) => (
             <View
               style={styles.touchableCard}
               key={`${it.authorUserId}${index}`}
@@ -128,7 +173,7 @@ class UserNotes extends React.PureComponent {
               </Card>
             </View>
           ))}
-        {!userInfo.internalRecords || !userInfo.internalRecords.length ? (
+        { !size(userInfo.internalRecords) ? (
           <View style={styles.emptyNotesView}>
             <CustomText
               style={styles.emptyNotesInfo}

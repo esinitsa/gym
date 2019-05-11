@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.size.border.radius.secondary
   },
   cardItem: {
-    width: theme.size.parameters.FULL_WIDTH
+    width: theme.size.parameters.fullWidth
   },
   userInfoView: {
     flexDirection: "column",
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.size.padding.mediumVertical
   },
   listItem: {
-    width: theme.size.parameters.FULL_WIDTH,
+    width: theme.size.parameters.fullWidth,
     borderTopWidth: theme.size.border.width.empty,
     marginHorizontal: theme.size.margin.empty,
     paddingVertical: theme.size.padding.medium,

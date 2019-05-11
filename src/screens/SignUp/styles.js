@@ -7,39 +7,40 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: theme.colors.container
   },
   formContainer: {
-    padding: 20
+    padding: theme.size.padding.items
   },
   signInView: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "center",
-    marginTop: 30
+    marginTop: theme.size.margin.form
   },
   text: {
-    color: "#ffffff",
+    color: theme.colors.text,
     marginRight: theme.size.margin.medium,
-    fontSize: theme.fonts.size.title,
-    fontFamily: "TrebuchetMS"
+    fontSize: theme.fonts.size.subtitle,
+    fontFamily: theme.fonts.family.standard
   },
   inputItem: {
     marginTop: theme.size.margin.medium
   },
   input: {
-    color: "white",
+    color: theme.colors.text,
     padding: theme.size.padding.empty,
     margin: theme.size.margin.empty
   },
   label: {
-    color: "white",
+    color: theme.colors.text,
     fontWeight: theme.fonts.weight.light
   },
   signInText: {
-    fontSize: theme.fonts.size.title,
-    color: "#BF8330",
-    fontFamily: "TrebuchetMS"
+    fontSize: theme.fonts.size.subtitle,
+    color: theme.colors.primary,
+    fontFamily: theme.fonts.family.standard
   }
 });
 

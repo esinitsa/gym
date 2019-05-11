@@ -15,11 +15,11 @@ import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
 import { getCurrentUser } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
-import { EMPTY_RESPONSE } from "../../constants/profileConstants";
+import { EMPTY_RESPONSE } from "../../constants";
 import { DEFAULT_COUNT_OF_NOTES } from "../../constants/settingsConstants";
 import theme from "../../styles";
 import NoteItem from "../common/notes/listItem";
-import SubscriptionListItem from "../common/subscriptionListItem";
+import SubscriptionItem from "../common/subscriptions/listItem";
 import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
 import styles from "./styles";
@@ -38,7 +38,7 @@ class Home extends React.PureComponent {
   };
 
   checkLastVisitSubscription = (subscriptions, userProfile) => {
-    const lastVisitSubscription = _.head(subscriptions);
+    const lastVisitSubscription = _.last(subscriptions);
     if (_.isNil(lastVisitSubscription)) {
       return (
         <CustomText
@@ -49,7 +49,7 @@ class Home extends React.PureComponent {
     }
     return (
       <View style={styles.listItem}>
-        <SubscriptionListItem
+        <SubscriptionItem
           userProfile={userProfile}
           subscription={lastVisitSubscription}
         />
@@ -150,8 +150,8 @@ class Home extends React.PureComponent {
     );
   };
 
-  goToUserSubscriptionList = () => {
-    this.props.navigation.navigate(NavigationType.UserSubscriptionList, {
+  goToSubscriptions = () => {
+    this.props.navigation.navigate(NavigationType.Subscriptions, {
       id: this.props.user.userProfile.id
     });
   };
@@ -175,7 +175,7 @@ class Home extends React.PureComponent {
         <SafeAreaView style={styles.container}>
           <ScrollView>
             {this.renderUserInfoCard(this.props.userInfo)}
-            <TouchableOpacity onPress={this.goToUserSubscriptionList}>
+            <TouchableOpacity onPress={this.goToSubscriptions}>
               {this.renderSubscriptionCard(
                 _.get(userProfile, "subscriptions", EMPTY_RESPONSE),
                 userProfile
@@ -194,7 +194,7 @@ class Home extends React.PureComponent {
               <View style={styles.touchableView}>
                 <View style={styles.modalView}>
                   <QRCode
-                    value={userProfile !== null ? userProfile.id : "200"}
+                    value={_.get(userProfile, "id", EMPTY_RESPONSE)}
                     size={theme.size.parameters.items}
                   />
                 </View>

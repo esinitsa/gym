@@ -26,11 +26,11 @@ import { contains } from "../../services/search";
 import { showToast } from "../../services/UIActions";
 import ScanMarker from "../common/scanMarker/index";
 import SearchBar from "../common/searchBar/index";
-import UsersListItem from "../common/usersListItem";
+import UserItem from "../common/users/listItem";
 import { renderHeader } from "./components/header";
 import styles from "./styles";
 
-class PersonalPanel extends PureComponent {
+class AdminPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,19 +73,11 @@ class PersonalPanel extends PureComponent {
     );
   };
 
-  goToSubscriptionList = user => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.SubscriptionList, {
-      user
-    });
-  };
+  goTo = (screen, params) => this.props.navigation.navigate(screen, params);
 
-  goToUserProfile = user => {
-    const { navigation } = this.props;
-    navigation.navigate(NavigationType.Profile, {
-      id: user.id
-    });
-  };
+  goToSubscriptionList = user => this.goTo(NavigationType.SubscriptionList, {user});
+
+  goToUserProfile = user => this.goTo(NavigationType.Profile, {id: user.id});
 
   _keyExtractor = (item, index) => `${index}${item.id}`;
 
@@ -113,7 +105,7 @@ class PersonalPanel extends PureComponent {
                   <TouchableOpacity
                     onPress={() => this.goToUserProfile(client.item)}
                   >
-                    <UsersListItem user={client.item} />
+                    <UserItem user={client.item} />
                   </TouchableOpacity>
                 </View>
               )}
@@ -172,4 +164,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PersonalPanel);
+)(AdminPanel);
