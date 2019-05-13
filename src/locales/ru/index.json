@@ -1,0 +1,104 @@
+{
+  "login": {
+    "buttons": {
+      "login": "Авторизация",
+      "signup": "Регистрация",
+      "create": "Создать"
+    },
+    "placeholders": {
+      "login": "Email или Имя пользователя",
+      "password": "Пароль",
+      "email": "Email",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "locale": "Адрес",
+      "dateBirth": "Дата рождения"
+    },
+    "messages": {
+      "invalidLoginData": "Введите верные Email & Пароль!",
+      "signUpSuccess": "Вы успешно зарегистрировались",
+      "invalidSignUpData": "Введите верные данные",
+      "required": "Необходимые",
+      "maxLength": "Должно быть %{max} символов или меньше",
+      "minLength": "Должно быть %{min} символов или больше",
+      "invalidEmail": "Неверный email",
+      "forceLogoutMessage": "Ваше разрешение истекло. Пожалуйста, войдите снова."
+    },
+    "hint": {
+      "or": "или"
+    }
+  },
+  "settings": {
+    "viewFullProfile": "Посмотреть свой профиль",
+    "logout": {
+      "header": "Выход",
+      "description": "Вы хотите выйти?",
+      "cancel": "Нет, отменить",
+      "confirm": "Да, выйти"
+    }
+  },
+  "mark": {
+    "header": "Посещение",
+    "description": "Вы хотите подтвердить посещение?",
+    "cancel": "Закрыть",
+    "confirm": "Да, подтвердить посещение"
+  },
+  "profile": {
+    "numberOfVisits" : "Количество занятий",
+    "numberOfVisitsAbbreviated": "Кол-во посещений",
+    "additionalInformation": "Доп. информация",
+    "mark": "Отметить",
+    "emptySubscriptions": "На данный момент у вас нет абонементов",
+    "emptyNotes": "На данный момент у вас нет заметок",
+    "address": "адрес:",
+    "currentSubscription": "Текущий абонемент",
+    "addNote": "Добавить заметку",
+    "noteAdded": "Заметка добавлена",
+    "lastNotes": "Последние заметки",
+    "startDate" : "Дата начала",
+    "validTill" : "Дата окончания",
+    "type": "Тип",
+    "period": "Период",
+    "active": "Активен",
+    "email": "email:"
+  },
+  "types": {
+    "admin": "Админ",
+    "doctor": "Доктор",
+    "trainer": "Тренер",
+    "masseur": "Массажист",
+    "superAdmin": "Админ",
+    "user": "Клиент",
+    "client": "Клиент"
+  },
+  "general": {
+    "search": "Поиск",
+    "markVisit": "Посещение отмечено",
+    "remainder": "Остаток",
+    "inactive": "не активен",
+    "activeBy": "Активен по:",
+    "expired": "Истек",
+    "lastVisit": "Последний визит:",
+    "yes": "Да",
+    "no": "Нет",
+    "more": "подробнее",
+    "hint": "скрыть",
+    "save": "Сохранить",
+    "noSuchUser": "Такого пользователя нет\n Попробуйте еще раз",
+    "QRCode": "QR код"
+  },
+  "api": {
+    "incorrectResponse": "Неправильный ответ",
+    "alreadyExists": "Уже существует",
+    "emailNotExist": "Этот адрес электронной почты не существует",
+    "invalidEmailOrPassword": "Неправильный адрес электронной почты или пароль"
+  },
+  "exceptions": {
+    "accountNotActivated": "Ваш аккаунт не активирован, попробуйте позже"
+  },
+  "header": {
+    "notes": "Заметки",
+    "subscriptions": "Абонементы",
+    "profile": "Профиль"
+  }
+}
