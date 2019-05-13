@@ -1,20 +1,15 @@
+import { Root } from "native-base";
 import React from "react";
-import { createStackNavigator } from "react-navigation";
-import LoginForm from "./screens/Login";
-
-
-const AppNavigator = createStackNavigator({
-  Login: {
-    screen: LoginForm,
-  },
-});
+import Navigation from "./navigation";
 
 class App extends React.PureComponent {
   render() {
     return (
-       <AppNavigator />
-   );
- }
+      <Root>
+        <Navigation />
+      </Root>
+    );
+  }
 }
 
 export default App;

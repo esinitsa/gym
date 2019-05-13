@@ -1,0 +1,104 @@
+{
+  "login": {
+    "buttons": {
+      "login": "Sign in",
+      "signup": "Sign up",
+      "create": "Create"
+    },
+    "placeholders": {
+      "login": "Email or Username",
+      "password": "Password",
+      "email": "Email",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "locale": "Locale",
+      "dateBirth": "Date Of Birth"
+    },
+    "messages": {
+      "invalidLoginData": "Enter Valid Username & Password!",
+      "signUpSuccess": "Successfully sign up",
+      "invalidSignUpData": "Enter Valid Info",
+      "required": "Required",
+      "maxLength": "Must be %{max} characters or less",
+      "minLength": "Must be %{min} characters or more",
+      "invalidEmail": "Invalid email",
+      "forceLogoutMessage": "Your authorization has expired. Please re-login."
+    },
+    "hint": {
+      "or": "or"
+    }
+  },
+  "settings": {
+    "viewFullProfile": "View your Profile",
+    "logout": {
+      "header": "Log Out",
+      "description": "Do you want to log out?",
+      "cancel": "No, cancel",
+      "confirm": "Yes, log out"
+    }
+  },
+  "mark": {
+    "header": "Visit",
+    "description": "You want to confirm visit?",
+    "cancel": "No, cancel",
+    "confirm": "Yes, confirm visit"
+  },
+  "profile": {
+    "numberOfVisits" : "Number of visits",
+    "numberOfVisitsAbbreviated": "Number of visits",
+    "additionalInformation": "Add. information",
+    "emptySubscriptions": "You currently have no subscriptions",
+    "emptyNotes": "You currently have no notes",
+    "currentSubscription": "Current subscription",
+    "lastNotes": "Last notes",
+    "address": "address:",
+    "addNote": "Add note",
+    "noteAdded": "Note added",
+    "mark": "Mark",
+    "startDate" : "Start Date",
+    "validTill" : "End Date",
+    "type": "Type",
+    "period": "Period",
+    "active": "Active",
+    "email": "email:"
+  },
+  "types": {
+    "admin": "Admin",
+    "doctor": "Doctor",
+    "trainer": "Trainer",
+    "masseur": "Masseur",
+    "superAdmin": "Admin",
+    "user": "Client",
+    "client": "Client"
+  },
+  "general": {
+    "search": "Search",
+    "markVisit": "Success",
+    "remainder": "Remainder",
+    "inactive": "inactive",
+    "activeBy": "Active by:",
+    "expired": "Expired",
+    "lastVisit": "Last visit:",
+    "yes": "Yes",
+    "no": "No",
+    "more": "more",
+    "hint": "hint",
+    "save": "Save",
+    "noSuchUser": "No such user\n Try again",
+    "QRCode": "QR code"
+  },
+  "api": {
+    "incorrectResponse": "incorrect response",
+    "alreadyExists": "Already exists",
+    "emailNotExist": "This email address doesn't exist",
+    "invalidEmailOrPassword": "Invalid email or password"
+  },
+  "exceptions": {
+    "accountNotActivated": "Your account is not activated, try again later"
+  },
+  "header": {
+    "notes": "Notes",
+    "subscriptions": "Subscriptions",
+    "profile": "Profile"
+  }
+}
