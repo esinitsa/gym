@@ -5,7 +5,7 @@ const colors = {
   success: "#008000",
   danger: "#ff0000",
   light: "#ffffff",
-  text: "#000000",
+  text: "#414141",
 };
 
 export default colors;

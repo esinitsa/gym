@@ -22,9 +22,9 @@ export const renderHeader = props => {
   };
 
   return (
-    <Header style={styles.header}>
+    <Header style={styles.header} noShadow>
       <Left style={styles.leftHeader}>
-        <Button onPress={goToHome} transparent style={styles.profileIconHeader}>
+        <Button onPress={goToHome} transparent>
           <Icon
             name={"left"}
             color={theme.colors.primary}
@@ -34,7 +34,7 @@ export const renderHeader = props => {
           />
         </Button>
       </Left>
-      <Body>
+      <Body style={styles.headerBody}>
         <CustomText
           text={I18n.t("header.subscriptions")}
           style={styles.bodyHeaderText}

@@ -1,6 +1,6 @@
 import { Container, Input, Item, Label, Text, View } from "native-base";
 import React from "react";
-import { Image, SafeAreaView, TouchableOpacity } from "react-native";
+import { Image, SafeAreaView, TouchableOpacity, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { Field, formValueSelector, reduxForm } from "redux-form";
@@ -73,6 +73,7 @@ class LoginForm extends React.PureComponent {
     return (
       <Container>
         <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor={theme.colors.container} barStyle="dark-content" />
           <Image style={styles.logo} source={theme.images.logo} />
           <View style={styles.loginView}>
             <Field name="login" component={this.renderInput} type="text" />

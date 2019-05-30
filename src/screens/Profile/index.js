@@ -2,7 +2,7 @@ import { get } from "lodash";
 import { Container, Content, View } from "native-base";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
-import { Alert, SafeAreaView, TouchableOpacity } from "react-native";
+import { Alert, SafeAreaView, TouchableOpacity, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
@@ -38,7 +38,7 @@ class Profile extends React.PureComponent {
   goTo = (screen, params) => this.props.navigation.navigate(screen, params);
 
   goToHome = () => {
-      isEqualUsers(this.props.userInfo, this.props.currentUser)
+    isEqualUsers(this.props.userInfo, this.props.currentUser)
       ? this.goTo(NavigationType.Home)
       : this.goTo(NavigationType.AdminPanel);
   };
@@ -54,6 +54,10 @@ class Profile extends React.PureComponent {
     this.goTo(NavigationType.UserNotes, {
       id: this.props.userInfo.id
     });
+
+  goToCalendar = () => this.goTo(NavigationType.Calendar, {
+    user: this.props.userInfo
+  });
 
   onLogOut = () => {
     const performLogout = () => {
@@ -96,7 +100,7 @@ class Profile extends React.PureComponent {
 
   checkSubscriptionType = (user, prop) => {
     const type = get(user, `${prop}`, EMPTY_RESPONSE);
-    const key = type === COUNT ? "profile.numberOfVisits" :   "profile.validTill";
+    const key = type === COUNT ? "profile.numberOfVisits" : "profile.validTill";
     return I18n.t(key);
   };
 
@@ -167,6 +171,23 @@ class Profile extends React.PureComponent {
             </TouchableOpacity>
           </View>
         </View>
+        <View style={styles.infoView}>
+          <CustomText
+            style={styles.notesText}
+            text={I18n.t("header.calendar")}
+          />
+          <View style={styles.rightArrowView}>
+            <TouchableOpacity onPress={this.goToCalendar}>
+              <Icon
+                name={"right"}
+                color={theme.colors.primary}
+                size={theme.size.icons.small}
+                solid
+                style={styles.rightArrowIcon}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
       </Content>
     );
   };
@@ -175,6 +196,7 @@ class Profile extends React.PureComponent {
     return (
       <Container>
         {renderHeader(this.props)}
+        <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
         <SafeAreaView style={styles.container}>
           {this.renderContent()}
         </SafeAreaView>

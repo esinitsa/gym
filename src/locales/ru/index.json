@@ -50,13 +50,18 @@
     "mark": "Отметить",
     "emptySubscriptions": "На данный момент у вас нет абонементов",
     "emptyNotes": "На данный момент у вас нет заметок",
+    "emptyCalendarRecords": "На данный момент у вас нет записей",
     "address": "адрес:",
     "currentSubscription": "Текущий абонемент",
     "addNote": "Добавить заметку",
     "noteAdded": "Заметка добавлена",
     "lastNotes": "Последние заметки",
+    "calendar": "Календарь",
+    "myCalendar": "Мой календарь",
     "startDate" : "Дата начала",
     "validTill" : "Дата окончания",
+    "makeAppointment": "Записаться на прием",
+    "personalInfo": "Личная информация",
     "type": "Тип",
     "period": "Период",
     "active": "Активен",
@@ -87,6 +92,16 @@
     "noSuchUser": "Такого пользователя нет\n Попробуйте еще раз",
     "QRCode": "QR код"
   },
+  "labels": {
+    "role": "Роль",
+    "userName": "Имя пользователя",
+    "duration": "Длительность"
+  },
+  "labelCalendar": {
+    "role": "роль:",
+    "userName": "имя пользователя:",
+    "duration": "длительность:"
+  },
   "api": {
     "incorrectResponse": "Неправильный ответ",
     "alreadyExists": "Уже существует",
@@ -99,6 +114,56 @@
   "header": {
     "notes": "Заметки",
     "subscriptions": "Абонементы",
-    "profile": "Профиль"
+    "profile": "Профиль",
+    "calendar": "Календарь"
+  },
+  "calendar": {
+    "monthNames": {
+      "january": "Январь",
+      "february": "Февраль",
+      "march": "Март",
+      "april": "Апрель",
+      "may": "Май",
+      "june": "Июнь",
+      "july": "Июль",
+      "august": "Август",
+      "september": "Сентябрь",
+      "october": "Октябрь",
+      "november": "Ноябрь",
+      "december": "Декабрь"
+    },
+    "monthNamesShort": {
+      "january": "Янв",
+      "february" : "Фев",
+      "march" : "Мар",
+      "april": "Апр",
+      "may": "Май",
+      "june": "Июн",
+      "july": "Июл",
+      "august": "Авг",
+      "september": "Сен",
+      "october": "Окт",
+      "november": "Ноя",
+      "december": "Дек"
+    },
+    "dayNames": {
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота",
+      "sunday": "Суббота"
+    },
+    "dayNamesShort": {
+      "monday": "Пон.",
+      "tuesday": "Вт.",
+      "wednesday":"Ср.",
+      "thursday":"Чет.",
+      "friday":"Пят.",
+      "saturday":"Сб.",
+      "sunday":"Вс."
+    }
   }
 }
+

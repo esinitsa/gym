@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   textInfoView: {
-    paddingLeft: theme.size.padding.medium
+    flex: 1,
+    paddingLeft: theme.size.padding.medium,
   },
   modalView: {
     backgroundColor: theme.shadows.background,
@@ -77,7 +78,8 @@ const styles = StyleSheet.create({
   clickableArrow: {
     alignContent: "center",
     alignItems: "flex-end",
-    alignSelf: "center"
+    alignSelf: "center",
+    paddingLeft: theme.size.padding.medium
   },
   activeLabel: {
     color: theme.colors.primary,
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     paddingLeft: theme.size.padding.small,
     fontSize: theme.fonts.size.standard,
     color: theme.colors.success,
-    fontWeight: theme.fonts.weight.bold
+    fontWeight: theme.fonts.weight.bold,
   },
   inactiveText: {
     color: theme.colors.danger,

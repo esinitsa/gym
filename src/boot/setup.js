@@ -4,6 +4,8 @@ import { store, persistor } from "./configureStore";
 import { PersistGate } from "redux-persist/integration/react";
 import { initializeI18n } from "../i18n";
 import { getLanguageCode } from "../services/language";
+import { LocaleConfig } from "react-native-calendars";
+import { calendarLocale } from "../services/calendar";
 import App from "../App";
 
 export default class Setup extends React.PureComponent {
@@ -12,7 +14,10 @@ export default class Setup extends React.PureComponent {
   componentDidMount() {
     const systemLanguage = getLanguageCode();
     this.state.store && initializeI18n(this.state.store, systemLanguage);
+    LocaleConfig.locales[systemLanguage] = calendarLocale();
+    LocaleConfig.defaultLocale = systemLanguage;
   }
+
   render() {
     return (
       <Provider store={store}>

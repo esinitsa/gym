@@ -213,7 +213,7 @@ export default class SubscriptionItem extends React.PureComponent {
               this.renderInfoRow(I18n.t("profile.numberOfVisitsAbbreviated"), subscription.countInitial)}
             {!!subscription.countLeft &&
               this.renderInfoRow(
-                I18n.t("general.expired"),
+                I18n.t("general.remainder"),
                 subscription.countLeft,
                 subscription.countLeft > 0 ? "green" : "red"
               )}

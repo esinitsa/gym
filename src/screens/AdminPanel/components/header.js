@@ -29,7 +29,7 @@ export const renderHeader = (props, changeQRState) => {
   const goToLogin = () => props.navigation.navigate(NavigationType.Login);
 
   return (
-    <Header style={styles.header}>
+    <Header style={styles.header} noShadow>
       <Left style={styles.leftHeader}>
         <CustomText
           style={styles.leftHeaderText}

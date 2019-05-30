@@ -8,12 +8,29 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.container
   },
   card: {
-    paddingVertical: theme.size.padding.large,
+    paddingVertical: theme.size.padding.small,
+    marginVertical: theme.size.margin.empty,
+    width: theme.size.parameters.cardWidth,
+    borderRadius: theme.size.border.radius.secondary
+  },
+  calendarCard: {
+    paddingHorizontal: theme.size.padding.empty,
+    paddingVertical: theme.size.padding.small,
+    marginVertical: theme.size.margin.empty,
     width: theme.size.parameters.cardWidth,
     borderRadius: theme.size.border.radius.secondary
   },
   cardItem: {
-    width: theme.size.parameters.fullWidth
+    justifyContent: "center",
+    width: theme.size.parameters.fullWidth,
+    paddingTop: theme.size.padding.medium,
+    paddingBottom: theme.size.padding.medium
+  },
+  calendarItem: {
+    width: theme.size.parameters.cardWidth / 2,
+    height: theme.size.parameters.medium,
+    alignItems: "center",
+    justifyContent: "center"
   },
   userInfoView: {
     flexDirection: "column",
@@ -27,16 +44,53 @@ const styles = StyleSheet.create({
     color: theme.colors.secondary,
     textAlign: "center",
     paddingHorizontal: theme.size.padding.large,
-    paddingVertical: theme.size.padding.items
+  },
+  calendarCardItem: {
+    flexDirection: "row",
+    paddingLeft: theme.size.padding.empty,
+    paddingRight: theme.size.padding.empty,
+    paddingTop: theme.size.padding.empty,
+    paddingBottom: theme.size.padding.empty,
+    borderRightWidth: theme.size.border.width.primary
+  },
+  calendarCardText: {
+    fontSize: theme.fonts.size.standard,
+    color: theme.colors.primary,
+    fontWeight: theme.fonts.weight.bold,
+    marginLeft: theme.size.margin.empty,
+    textAlign: "center"
+  },
+  calendarView: {
+    flex: 1,
+    height: theme.size.parameters.medium
+  },
+  leftCalendarCardItem: {
+    flex: 1,
+    height: theme.size.parameters.medium,
+    backgroundColor: theme.colors.light,
+    alignContent: "center",
+    justifyContent: "center",
+    borderRightWidth: 1,
+    borderColor: theme.colors.container
+  },
+  rightCalendarCardItem: {
+    flex: 1,
+    height: theme.size.parameters.small,
+    width: theme.size.parameters.fullWidth,
+    backgroundColor: theme.colors.light,
+    paddingHorizontal: 5,
+    justifyContent: "center",
+    borderLeftWidth: 1,
+    borderColor: theme.colors.container
   },
   headlineText: {
     fontSize: theme.fonts.size.title,
-    color: theme.colors.primary,
+    color: theme.colors.primary
   },
   userName: {
     fontSize: theme.fonts.size.title,
     fontWeight: theme.fonts.weight.bold,
-    color: theme.colors.primary,
+    color: theme.colors.primary
   },
   streetInfo: {
     fontSize: theme.fonts.size.standard,
@@ -44,7 +98,7 @@ const styles = StyleSheet.create({
     marginLeft: theme.size.margin.small
   },
   infoPlaceholder: {
-    width: 60,
+    width: theme.size.parameters.userInfo,
     fontSize: theme.fonts.size.standard,
     color: theme.colors.secondary,
     paddingVertical: theme.size.padding.mediumVertical
@@ -53,7 +107,6 @@ const styles = StyleSheet.create({
     width: theme.size.parameters.fullWidth,
     borderTopWidth: theme.size.border.width.empty,
     marginHorizontal: theme.size.margin.empty,
-    paddingVertical: theme.size.padding.medium,
     borderTopColor: theme.colors.secondary,
     backgroundColor: theme.colors.light,
     justifyContent: "space-between",
@@ -61,9 +114,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   touchableCard: {
-    justifyContent: "center",
     alignItems: "center",
-    marginVertical: theme.size.margin.small,
+    marginTop: theme.size.margin.small,
     shadowColor: theme.shadows.color,
     shadowOffset: theme.shadows.offset,
     shadowOpacity: theme.shadows.opacity,
@@ -75,6 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.size.border.radius.primary,
     justifyContent: "center",
     marginHorizontal: theme.size.margin.large,
+    marginVertical: theme.size.margin.qrCode,
     height: theme.size.parameters.button.height.large
   },
   buttonText: {
@@ -87,6 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.light
   },
   leftHeader: {
+    flex: 1,
     paddingLeft: theme.size.padding.large
   },
   leftHeaderText: {
