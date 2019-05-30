@@ -9,13 +9,13 @@ export default class StaffHeader extends React.PureComponent {
       <View style={styles.headerContainer}>
         <View style={styles.headerTableView} />
         <View style={styles.fullNameView}>
-          <CustomText style={styles.userInfoText} text={`ФИО`} />
+          <CustomText style={styles.userInfoText} text={"ФИО"} />
         </View>
         <View style={styles.valueView}>
-          <CustomText style={styles.userInfoText} text={`Стоимость`} />
+          <CustomText style={styles.userInfoText} text={"Стоимость"} />
         </View>
         <View style={styles.scheduleHeaderView}>
-          <CustomText style={styles.userInfoText} text={`Расписание`} />
+          <CustomText style={styles.userInfoText} text={"Расписание"} />
         </View>
       </View>
     );
