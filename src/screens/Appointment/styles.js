@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   labelWithPickerView: {
     flexDirection: "row",
     marginHorizontal: theme.size.margin.large,
-    marginTop: 20
+    marginTop: theme.size.margin.medium
   },
   pickerContainer: {
     width: theme.size.parameters.pickerWidth,
