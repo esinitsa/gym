@@ -9,7 +9,9 @@ import {
   getTime,
   getDateForCalendar,
   getMarkedDates,
-  convertMillisecondsToMinutes
+  convertMillisecondsToMinutes,
+  userScheduleFilter,
+  calendarDateIterator
 } from "../../../services/dateManager";
 import { CustomText } from "../text/customText";
 import { agendaTheme, styles } from "./styles";
@@ -38,18 +40,24 @@ export default class Calendar extends Component {
 
   loadItems = day => {
     setTimeout(() => {
-      [...this.props.schedule].map(item => {
-        const { duration, startAt, staffRole } = item;
-        const time = getDateForCalendar(startAt);
-        if (!this.state.items[time]) {
-          this.state.items[time] = [];
+      for (let i = -30; i < 90; i++) {
+        const date = calendarDateIterator(day, i);
+        const strDate = getDateForCalendar(date);
+        if (!this.state.items[strDate]) {
+          this.state.items[strDate] = [];
+          userScheduleFilter([...this.props.schedule], strDate).map(item => {
+            const { duration, startAt, staffRole } = item;
+            if (!this.state.items[strDate]) {
+              this.state.items[strDate] = [];
+            }
+            this.state.items[strDate].push({
+              time: getTime(startAt),
+              duration: convertMillisecondsToMinutes(duration),
+              staffRole
+            });
+          });
         }
-        this.state.items[time].push({
-          time: getTime(startAt),
-          duration: convertMillisecondsToMinutes(duration),
-          staffRole
-        });
-      });
+      }
       const newItems = {};
       Object.keys(this.state.items).forEach(key => {
         newItems[key] = this.state.items[key];

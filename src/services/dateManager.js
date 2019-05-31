@@ -16,12 +16,18 @@ export const getDateWithFormat = date =>
 export const getDateForCalendar = date =>
   moment(date)
     .locale("ru")
+    .utcOffset(0, true)
     .format(CALENDAR_FORMAT);
 
 export const getTime = date =>
   moment(date)
     .locale("ru")
     .format(TIME_FORMAT);
+
+export const userScheduleFilter = (schedule, calendarDate) =>
+  _.filter(schedule, item => getDateForCalendar(item.startAt) === calendarDate);
+
+export const calendarDateIterator = (date, i) => date.timestamp + i * 24 * 60 * 60 * 1000;
 
 export const getMarkedDates = previouslyValidated => {
   const markedDates = {};
