@@ -13,15 +13,6 @@ export default class StaffItem extends React.PureComponent {
 
   goToAppointment = () => this.goTo(NavigationType.Appointment);
 
-  makeAppointment = () => {
-    const { staff, user } = this.props;
-    this.props.makeAppointment({
-      targetUserId: user.id,
-      targetStaffId: staff.id,
-      duration: 3300
-    });
-  };
-
   render() {
     const { staff } = this.props;
     return (

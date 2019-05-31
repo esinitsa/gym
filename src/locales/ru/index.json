@@ -102,6 +102,11 @@
     "userName": "имя пользователя:",
     "duration": "длительность:"
   },
+  "table": {
+    "fullName": "ФИО",
+    "cost": "Стоимость",
+    "schedule": "Расписание"
+  },
   "api": {
     "incorrectResponse": "Неправильный ответ",
     "alreadyExists": "Уже существует",

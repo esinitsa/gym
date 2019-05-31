@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   pickerFrame: {
     height: theme.size.parameters.small,
-    width: "100%",
+    width: theme.size.parameters.fullWidth,
     borderColor: theme.colors.secondary,
     borderWidth: 1,
     alignItems: "center"
@@ -90,17 +90,17 @@ const styles = StyleSheet.create({
     paddingLeft: theme.size.padding.small
   },
   dateContainer: {
-    width: "100%",
+    width: theme.size.parameters.fullWidth,
     height: theme.size.parameters.small
   },
   dateIcon: {
     position: "absolute",
     left: 0,
-    top: 4,
-    marginLeft: 0
+    top: theme.spacing.unit * 2,
+    marginLeft: theme.size.margin.empty
   },
   dateInput: {
-    marginLeft: 36,
+    marginLeft: theme.size.margin.icon,
     height: theme.size.parameters.small,
     borderColor: theme.colors.secondary
   },

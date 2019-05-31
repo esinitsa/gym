@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     height: theme.size.parameters.small,
     width: theme.size.parameters.fullWidth,
     backgroundColor: theme.colors.light,
-    paddingHorizontal: 5,
+    paddingHorizontal: theme.size.margin.small,
     justifyContent: "center",
     borderLeftWidth: 1,
     borderColor: theme.colors.container

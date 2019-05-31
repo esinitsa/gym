@@ -102,6 +102,11 @@
     "userName": "username:",
     "duration": "duration:"
   },
+  "table": {
+    "fullName": "Full name",
+    "cost": "Cost",
+    "schedule": "Schedule"
+  },
   "api": {
     "incorrectResponse": "incorrect response",
     "alreadyExists": "Already exists",
