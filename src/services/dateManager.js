@@ -16,12 +16,12 @@ export const getDateWithFormat = date =>
 export const getDateForCalendar = date =>
   moment(date)
     .locale("ru")
-    .utcOffset(0, true)
     .format(CALENDAR_FORMAT);
 
-export const getTime = date =>
-  moment(date)
+export const getTime = timestamp =>
+  moment(timestamp)
     .locale("ru")
+    .utcOffset(0, false)
     .format(TIME_FORMAT);
 
 export const userScheduleFilter = (schedule, calendarDate) =>
