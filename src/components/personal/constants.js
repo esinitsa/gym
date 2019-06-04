@@ -27,3 +27,6 @@ export const ADD_INTERNAL_RECORD_SUCCESS = "@@user/addInternalRecord/SUCCESS";
 
 export const MAKE_APPOINTMENT_REQUEST = "@@user/makeAppointment/REQUEST";
 export const MAKE_APPOINTMENT_SUCCESS = "@@user/makeAppointment/SUCCESS";
+
+export const UPDATE_SCHEDULE_REQUEST = "@@user/updateSchedule/REQUEST";
+export const UPDATE_SCHEDULE_SUCCESS = "@@user/updateSchedule/SUCCESS";

@@ -44,13 +44,17 @@ const getUsersByRoleSuccess = clients => ({
   [KEYS[GET_USERS_BY_ROLE_SUCCESS]]: clients
 });
 
-const getUserScheduleByIdRequest = () => ({ type: GET_USER_SCHEDULE_BY_ID_REQUEST });
+const getUserScheduleByIdRequest = () => ({
+  type: GET_USER_SCHEDULE_BY_ID_REQUEST
+});
 const getUserScheduleByIdSuccess = userSchedule => ({
   type: GET_USER_SCHEDULE_BY_ID_SUCCESS,
   [KEYS[GET_USER_SCHEDULE_BY_ID_SUCCESS]]: userSchedule
 });
 
-const getStaffScheduleByIdRequest = () => ({ type: GET_STAFF_SCHEDULE_BY_ID_REQUEST });
+const getStaffScheduleByIdRequest = () => ({
+  type: GET_STAFF_SCHEDULE_BY_ID_REQUEST
+});
 const getStaffScheduleByIdSuccess = staffSchedule => ({
   type: GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
   [KEYS[GET_STAFF_SCHEDULE_BY_ID_SUCCESS]]: staffSchedule
@@ -97,7 +101,7 @@ export const getUsersByRole = role => dispatch => {
   dispatch(getUsersByRoleRequest());
   api
     .get(GET_USERS_BY_ROLE, {
-      params: {
+      params : {
         role
       }
     })
@@ -158,7 +162,6 @@ export const addInternalRecord = internalRecord => dispatch => {
 };
 
 export const makeAppointment = appointmentBody => dispatch => {
-  console.log(appointmentBody.startAt);
   dispatch(makeAppointmentRequest());
   return api
     .post(MAKE_APPOINTMENT, appointmentBody)

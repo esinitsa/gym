@@ -10,6 +10,7 @@ import { showToast } from "../../services/UIActions";
 import theme from "../../styles";
 import ButtonSubmit from "../common/buttons/submit";
 import { CustomText } from "../common/text/customText";
+import { checkUserRole } from "../../services/filter";
 import styles from "./styles";
 
 class LoginForm extends React.PureComponent {
@@ -24,14 +25,7 @@ class LoginForm extends React.PureComponent {
     }
   }
 
-  checkAdminAndRedirect = user => {
-    const isAdmin = user.roles.includes("ADMIN");
-    if (isAdmin) {
-      return this.goToAdminPanel();
-    } else {
-      return this.goToProfile();
-    }
-  };
+  checkAdminAndRedirect = user => this.goTo(checkUserRole(user));
 
   login = () => {
     return this.props
@@ -44,10 +38,6 @@ class LoginForm extends React.PureComponent {
   };
 
   goTo = (screen, params) => this.props.navigation.navigate(screen, params);
-
-  goToAdminPanel = () => this.goTo(NavigationType.Personal);
-
-  goToProfile = () => this.goTo(NavigationType.Home);
 
   goToSignUp = () => this.goTo(NavigationType.SignUp);
 
