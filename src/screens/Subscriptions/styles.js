@@ -38,20 +38,22 @@ const styles = StyleSheet.create({
   },
   headerUsername: {
     fontSize: theme.fonts.size.placeholder,
-    color: theme.colors.secondary
+    color: theme.colors.secondary,
+    textAlign: "center"
   },
-  leftHeader: {
-    justifyContent: "flex-start",
-    alignSelf: "flex-start"
+  headerBody: {
+    flex: 1,
+    alignItems: "center"
   },
   bodyHeaderText: {
     fontSize: theme.fonts.size.subtitle,
     fontWeight: theme.fonts.weight.bold
   },
+  leftHeader: {
+    flex: 1,
+  },
   backArrowIcon: {
-    justifyContent: "center",
-    alignSelf: "center",
-    marginLeft: theme.size.margin.medium
+    paddingLeft: theme.size.padding.backArrow
   },
   listItem: {
     borderTopColor: theme.colors.secondary,

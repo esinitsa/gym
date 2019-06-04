@@ -3,23 +3,17 @@ import { Body, Left, ListItem, Right, View } from "native-base";
 import React from "react";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
-import { getNotesAuthorById } from "../../../components/personal/actions";
 import { EMPTY_RESPONSE } from "../../../constants";
+import { getNotesAuthorById } from "../../../components/personal/actions";
+import { ROLES } from "../../../constants/userTypes";
+import { getDateWithFormat } from "../../../services/dateManager";
 import { CustomText } from "../text/customText";
 import ViewMoreCustomText from "../viewMoreText/index";
-import { ROLES } from "../../../constants/userTypes";
-import { checkAdmin } from "../../../services/filter";
-import { getDateWithFormat } from "../../../services/dateManager";
 import styles from "./styles";
 
 class NoteItem extends React.PureComponent {
-
-  componentDidMount() {
-    this.props.getAuthor(this.props.note.authorUserId);
-  }
-
   render() {
-    const { note, author } = this.props;
+    const { note } = this.props;
     if (!note) {
       return null;
     }
@@ -27,14 +21,14 @@ class NoteItem extends React.PureComponent {
       <View style={styles.container}>
         <ListItem style={styles.listItem}>
           <Left style={styles.leftView}>
-          {
-            checkAdmin(get(author,"roles")) ?
-            <CustomText text={
-              `${get(author, "firstName", EMPTY_RESPONSE)} ` +
-              `${get(author, "lastName", EMPTY_RESPONSE)}`} style={styles.notesAuthor} />
-            :
-            <CustomText text={I18n.t("types.admin")} style={styles.notesAuthor} />
-          }
+            {get(note, "authorName", EMPTY_RESPONSE) ? (
+              <CustomText text={note.authorName} style={styles.notesAuthor} />
+            ) : (
+              <CustomText
+                text={I18n.t("types.admin")}
+                style={styles.notesAuthor}
+              />
+            )}
           </Left>
           <Body style={styles.bodyView}>
             <CustomText
@@ -68,4 +62,7 @@ const mapDispatchToProps = dispatch => ({
   getAuthor: id => dispatch(getNotesAuthorById(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NoteItem);

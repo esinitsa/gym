@@ -8,7 +8,8 @@ import {
   Modal,
   SafeAreaView,
   TouchableOpacity,
-  View
+  View,
+  StatusBar
 } from "react-native";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import { connect } from "react-redux";
@@ -16,10 +17,11 @@ import { I18n } from "react-redux-i18n";
 import { refreshToken, userLogOut } from "../../components/login/actions";
 import {
   addInternalRecord,
-  getAllClients,
   getMyClients,
   getUserById,
-  processSubscriptionVisit
+  processSubscriptionVisit,
+  getUsersByRole,
+  makeAppointment
 } from "../../components/personal/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { contains } from "../../services/search";
@@ -28,6 +30,7 @@ import ScanMarker from "../common/scanMarker/index";
 import SearchBar from "../common/searchBar/index";
 import UserItem from "../common/users/listItem";
 import { renderHeader } from "./components/header";
+import theme from "../../styles";
 import styles from "./styles";
 
 class AdminPanel extends PureComponent {
@@ -41,7 +44,7 @@ class AdminPanel extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getAllClients();
+    this.props.getUsersByRole("CLIENT");
   }
 
   onSuccess = scanData => this.props.getUser(scanData.data)
@@ -92,6 +95,7 @@ class AdminPanel extends PureComponent {
     return (
       <Container style={styles.linearGradient}>
         {renderHeader(this.props, this.changeQRState)}
+        <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
         <SafeAreaView style={styles.container}>
           <KeyboardAvoidingView style={styles.keyboardView} behavior="padding">
             <SearchBar handleInput={this.handleInput} />
@@ -150,7 +154,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     getMyClients: () => dispatch(getMyClients()),
-    getAllClients: () => dispatch(getAllClients()),
+    getUsersByRole: role => dispatch(getUsersByRole(role)),
+    makeAppointment: appointmentBody => dispatch(makeAppointment(appointmentBody)),
     getUser: id => dispatch(getUserById(id)),
     onLogOut: () => dispatch(userLogOut()),
     markUserVisit: subscriptionId =>

@@ -9,5 +9,8 @@ export const NavigationType = {
   UserNotes: "UserNotes",
   Login: "Login",
   Profile: "Profile",
-  SubscriptionList: "SubscriptionList"
+  SubscriptionList: "SubscriptionList",
+  Calendar: "Calendar",
+  StaffTable: "StaffTable",
+  Appointment: "Appointment"
 };

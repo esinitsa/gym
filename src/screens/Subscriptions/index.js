@@ -1,6 +1,6 @@
 import { Card, Container } from "native-base";
 import React from "react";
-import { FlatList, SafeAreaView, View } from "react-native";
+import { FlatList, SafeAreaView, View, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import {
   getUserById,
@@ -9,6 +9,7 @@ import {
 import { reverseArray, isEqualUsers } from "../../services/filter";
 import SubscriptionItem from "../common/subscriptions/listItem";
 import { renderHeader } from "./components/header";
+import theme from "../../styles";
 import styles from "./styles";
 
 class Subscriptions extends React.PureComponent {
@@ -65,6 +66,7 @@ class Subscriptions extends React.PureComponent {
     return (
       <Container>
         {renderHeader(this.props)}
+        <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
         <SafeAreaView style={styles.container} behavior="padding">
           {this.renderContent()}
         </SafeAreaView>

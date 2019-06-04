@@ -49,6 +49,7 @@
     "additionalInformation": "Add. information",
     "emptySubscriptions": "You currently have no subscriptions",
     "emptyNotes": "You currently have no notes",
+    "emptyCalendarRecords": "You currently have no records",
     "currentSubscription": "Current subscription",
     "lastNotes": "Last notes",
     "address": "address:",
@@ -57,6 +58,10 @@
     "mark": "Mark",
     "startDate" : "Start Date",
     "validTill" : "End Date",
+    "calendar": "Calendar",
+    "myCalendar": "My calendar",
+    "makeAppointment": "Make an appointment",
+    "personalInfo": "Personal information",
     "type": "Type",
     "period": "Period",
     "active": "Active",
@@ -87,6 +92,21 @@
     "noSuchUser": "No such user\n Try again",
     "QRCode": "QR code"
   },
+  "labels": {
+    "role": "Role",
+    "userName": "Username",
+    "duration": "Duration"
+  },
+  "labelCalendar": {
+    "role": "role:",
+    "userName": "username:",
+    "duration": "duration:"
+  },
+  "table": {
+    "fullName": "Full name",
+    "cost": "Cost",
+    "schedule": "Schedule"
+  },
   "api": {
     "incorrectResponse": "incorrect response",
     "alreadyExists": "Already exists",
@@ -99,6 +119,55 @@
   "header": {
     "notes": "Notes",
     "subscriptions": "Subscriptions",
-    "profile": "Profile"
+    "profile": "Profile",
+    "calendar": "Calendar"
+  },
+  "calendar": {
+    "monthNames": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "monthNamesShort": {
+      "january": "Jan",
+      "february" : "Feb",
+      "march" : "Mar",
+      "april": "Apr",
+      "may": "May",
+      "june": "Jun",
+      "july": "Jul",
+      "august": "Aug",
+      "september": "Sept",
+      "october": "Oct",
+      "november": "Nov",
+      "december": "Dec"
+    },
+    "dayNames": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "dayNamesShort": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday":"Wed",
+      "thursday":"Thu",
+      "friday":"Fri",
+      "saturday":"Sat",
+      "sunday":"Sun"
+    }
   }
 }

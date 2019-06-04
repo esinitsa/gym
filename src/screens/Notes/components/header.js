@@ -22,19 +22,19 @@ export const renderHeader = props => {
   };
 
   return (
-    <Header style={styles.header}>
-      <Left>
+    <Header style={styles.header} noShadow>
+      <Left style={styles.leftHeader}>
         <Button onPress={goToHome} transparent style={styles.profileIconHeader}>
           <Icon
             name={"left"}
             color={theme.colors.primary}
             size={theme.size.icons.small}
             solid
-            style={styles.headerLeftArrow}
+            style={styles.backArrowIcon}
           />
         </Button>
       </Left>
-      <Body style={styles.bodyHeader}>
+      <Body style={styles.headerBody}>
         <CustomText text={I18n.t("header.notes")} style={styles.bodyHeaderText} />
         <CustomText
           text={`${userInfo.firstName} ${userInfo.lastName}`}

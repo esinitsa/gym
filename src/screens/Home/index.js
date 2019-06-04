@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Card, CardItem, Container } from "native-base";
+import { Card, CardItem, Container, Left, Right } from "native-base";
 import React from "react";
 import {
   Modal,
@@ -7,7 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  View,
+  StatusBar
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import { connect } from "react-redux";
@@ -85,10 +86,7 @@ class Home extends React.PureComponent {
         <CardItem header bordered style={styles.cardItem}>
           <CustomText
             style={styles.userName}
-            text={
-              `${_.get(userInfo, "firstName", EMPTY_RESPONSE)} ` +
-              `${_.get(userInfo, "lastName", EMPTY_RESPONSE)}`
-            }
+            text={I18n.t("profile.personalInfo")}
           />
         </CardItem>
         <CardItem style={styles.userInfoView}>
@@ -150,28 +148,72 @@ class Home extends React.PureComponent {
     );
   };
 
+  renderCalendarCard = () => {
+    return (
+      <View style={styles.touchableCard}>
+        <Card style={styles.calendarCard}>
+          <CardItem header bordered style={styles.cardItem}>
+            <CustomText
+              text={I18n.t("profile.calendar")}
+              style={styles.headlineText}
+            />
+          </CardItem>
+          <CardItem bordered style={styles.calendarCardItem}>
+            <Left style={styles.calendarView}>
+              <TouchableOpacity
+                style={styles.leftCalendarCardItem}
+                onPress={this.goToCalendar}
+              >
+                <CustomText
+                  style={styles.calendarCardText}
+                  text={I18n.t("profile.myCalendar")}
+                />
+              </TouchableOpacity>
+            </Left>
+            <Right style={styles.calendarView}>
+              <TouchableOpacity
+                style={styles.rightCalendarCardItem}
+                onPress={this.goToStaffTable}
+              >
+                <CustomText
+                  style={styles.calendarCardText}
+                  text={I18n.t("profile.makeAppointment")}
+                />
+              </TouchableOpacity>
+            </Right>
+          </CardItem>
+        </Card>
+      </View>
+    );
+  };
+
+  goTo = (screen, params) => this.props.navigation.navigate(screen, params);
+
   goToSubscriptions = () => {
-    this.props.navigation.navigate(NavigationType.Subscriptions, {
+    this.goTo(NavigationType.Subscriptions, {
       id: this.props.user.userProfile.id
     });
   };
 
   goToUserNotes = () => {
-    this.props.navigation.navigate(NavigationType.UserNotes, {
+    this.goTo(NavigationType.UserNotes, {
       id: this.props.user.userProfile.id
     });
   };
 
-  goToProfile = () =>
-    this.props.navigation.navigate(NavigationType.Profile, {
-      id: this.props.user.userProfile.id
+  goToCalendar = () =>
+    this.goTo(NavigationType.Calendar, {
+      user: this.props.userInfo
     });
+
+  goToStaffTable = () => this.goTo(NavigationType.StaffTable);
 
   render() {
     const { userProfile } = this.props.user;
     return (
       <Container>
         {renderHeader(this.props)}
+        <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
         <SafeAreaView style={styles.container}>
           <ScrollView>
             {this.renderUserInfoCard(this.props.userInfo)}
@@ -184,6 +226,7 @@ class Home extends React.PureComponent {
             <TouchableOpacity onPress={this.goToUserNotes}>
               {this.renderNotesCard(userProfile)}
             </TouchableOpacity>
+            {this.renderCalendarCard(userProfile)}
           </ScrollView>
           <Modal
             animationType="fade"

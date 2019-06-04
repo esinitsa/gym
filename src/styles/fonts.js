@@ -1,6 +1,7 @@
 const fonts = {
   size: {
     title: 22,
+    dropDownTitle: 20,
     subtitle: 17,
     standard: 15,
     placeholder: 13,

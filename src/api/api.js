@@ -5,7 +5,7 @@ import { get } from "lodash";
 import { EMPTY_RESPONSE } from "../constants";
 import { refreshToken } from "../components/login/actions";
 import { KEYS } from "../constants/reducerTypeKeys";
-import { BASE_URL } from "./../constants/index";
+import Config from "./../constants/config";
 import { FORCE_LOGOUT } from "./../constants/stateConstants";
 import {
   CONFLICT_STATUS_CODE,
@@ -15,7 +15,7 @@ import {
 } from "./apiConstants";
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: Config.BASE_URL,
   responseType: "json",
   withCredentials: true,
   timeout: 15000

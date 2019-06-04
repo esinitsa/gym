@@ -7,3 +7,5 @@ export const ROLES = {
   ["USER"]: "types.user",
   ["CLIENT"]: "types.client"
 };
+
+export const STAFF_ROLES = ["TRAINER", "DOCTOR", "MASSEUR"];

@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Input, Item, Label, Text, Container } from "native-base";
-import { SafeAreaView, TouchableOpacity } from "react-native";
+import { SafeAreaView, TouchableOpacity, StatusBar } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import { signUpUser } from "../../components/login/actions";
 import { I18n } from "react-redux-i18n";
+import theme from "../../styles";
 import styles from "./styles";
 import { showToast } from "../../services/UIActions";
 import {
@@ -71,6 +72,7 @@ class SignUpForm extends React.PureComponent {
     return (
      <Container>
         <SafeAreaView style={styles.container}>
+          <StatusBar backgroundColor={theme.colors.container} barStyle="dark-content" />
           <View style={styles.formContainer}>
             <Field
               name="email"

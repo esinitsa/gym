@@ -13,6 +13,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row"
   },
+  bodyHeader: {
+    flex: 1,
+    alignItems: "center"
+  },
+  leftHeader: {
+    flex: 1,
+  },
   infoView: {
     backgroundColor: theme.colors.light,
     height: theme.size.parameters.medium,
@@ -85,9 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent"
   },
   backArrowIcon: {
-    justifyContent: "center",
-    alignSelf: "center",
-    marginLeft: theme.size.margin.medium
+    paddingLeft: theme.size.padding.backArrow
   },
   headerBodyText: {
     fontSize: theme.fonts.size.subtitle,

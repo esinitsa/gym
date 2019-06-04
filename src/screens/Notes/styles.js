@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import theme from "../../styles";
+
+const pickerView = Platform.OS === "ios" ? { flex: 1 } : { width: theme.size.parameters.pickerWidth };
 
 export default StyleSheet.create({
   container: {
@@ -13,6 +15,10 @@ export default StyleSheet.create({
     borderBottomColor: theme.colors.container,
     borderBottomWidth: theme.size.border.width.empty,
     backgroundColor: "transparent"
+  },
+  headerBody: {
+    flex: 1,
+    alignItems: "center"
   },
   bodyHeader: {
     paddingLeft: theme.size.padding.large,
@@ -35,8 +41,11 @@ export default StyleSheet.create({
     alignSelf: "flex-end",
     fontSize: theme.fonts.size.subtitle,
   },
-  profileIconHeader: {
-    paddingLeft: theme.size.padding.medium
+  leftHeader: {
+    flex: 1,
+  },
+  backArrowIcon: {
+    paddingLeft: theme.size.padding.backArrow
   },
   noteTitle: {
     fontSize: theme.fonts.size.title,
@@ -110,15 +119,13 @@ export default StyleSheet.create({
     flexDirection: "row",
     marginTop: theme.size.margin.large
   },
-  pickerView: {
-   flex: 1,
-  },
+  pickerView,
   pickerText: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
     color: theme.colors.text,
     fontSize: theme.fonts.size.subtitle,
-    fontWeight: theme.fonts.weight.bold
+    fontWeight: theme.fonts.weight.bold,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit
   },
   pickerItemText: {
     fontSize: theme.fonts.size.standard,
