@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.title,
     fontWeight: theme.fonts.weight.bold
   },
+  content: {
+    marginTop: theme.size.margin.picker
+  },
   labelWithPickerView: {
     flexDirection: "row",
     marginHorizontal: theme.size.margin.large,

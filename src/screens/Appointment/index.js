@@ -25,16 +25,16 @@ import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
 import { renderPicker } from "./components/picker";
 import { renderDateTimePicker } from "./components/dateTimePicker";
+import moment from "moment";
 import styles from "./styles";
-
 
 class Appointment extends React.PureComponent {
   state = {
     selectedRole: 0,
     selectedStaff: 0,
     selectedDuration: 0,
-    chosenDate: new Date(),
-    date: new Date(),
+    chosenDate: moment(),
+    date: moment(),
     time: getCurrentTime(),
     isDatePickerVisible: false,
     isTimePickerVisible: false
@@ -103,7 +103,7 @@ class Appointment extends React.PureComponent {
           backgroundColor={theme.colors.light}
           barStyle="dark-content"
         />
-        <View style={{ marginTop: 80 }}>
+        <View style={styles.content}>
           {this.renderLabelWithPicker(I18n.t("labels.role"), {
             selectedValue: selectedRole,
             onValueChange: this.onValueChangeRole,

@@ -18,6 +18,7 @@ const size = {
   },
   margin: {
     items: DEVICE_HEIGHT / 2.4,
+    picker: spacing.unit * 40,
     qrCode: Platform.OS === "ios" ? 0 : spacing.unit * 5,
     icon: spacing.unit * 18,
     form: spacing.unit * 15,

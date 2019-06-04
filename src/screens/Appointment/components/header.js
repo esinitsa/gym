@@ -9,9 +9,9 @@ import { CustomText } from "../../common/text/customText";
 import styles from "../styles";
 
 export const renderHeader = props => {
-  const { userInfo, currentUser } = props;
+  const { userInfo, currentUser, navigation } = props;
 
-  const goTo = (screen, params) => props.navigation.navigate(screen, params);
+  const goTo = (screen, params) => navigation.navigate(screen, params);
 
   const goToHome = () => {
     isEqualUsers(userInfo, currentUser)

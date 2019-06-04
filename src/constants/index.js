@@ -1,4 +1,3 @@
-export const BASE_URL = "http://localhost:8080/";
 export const DEFAULT_COUNT = "0";
 export const COUNT = "COUNT";
 export const TERM = "TERM";

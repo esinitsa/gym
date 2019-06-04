@@ -16,8 +16,8 @@ class Calendar extends React.PureComponent {
   }
 
   render() {
-    const { schedule, currentUser } = this.props;
-    const user = this.props.navigation.getParam("user");
+    const { schedule, currentUser, navigation } = this.props;
+    const user = navigation.getParam("user");
     const lastActiveSubscription = last(get(user, "subscriptions"));
     return (
       <Container>
