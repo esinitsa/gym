@@ -1,14 +1,14 @@
-import { Container, View, Button } from "native-base";
 import { last } from "lodash";
+import { Container, View } from "native-base";
 import React from "react";
 import { SafeAreaView, StatusBar } from "react-native";
-import { userLogOut } from "../../components/login/actions";
 import { connect } from "react-redux";
+import { userLogOut } from "../../components/login/actions";
 import { getCurrentUser } from "../../components/personal/actions";
-import { renderTimePicker } from "./components/timePicker";
-import { CustomText } from "../common/text/customText";
 import theme from "../../styles";
+import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
+import { renderTimePicker } from "./components/timePicker";
 import styles from "./styles";
 
 class StaffSchedule extends React.PureComponent {
@@ -58,8 +58,6 @@ class StaffSchedule extends React.PureComponent {
   };
 
   render() {
-    const { userProfile } = this.props.user;
-    console.log(this.state.schedule);
     return (
       <Container>
         {renderHeader(this.props)}
