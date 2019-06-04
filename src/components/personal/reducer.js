@@ -16,7 +16,9 @@ import {
   GET_STAFF_SCHEDULE_BY_ID_REQUEST,
   GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
   GET_USER_SCHEDULE_BY_ID_REQUEST,
-  GET_USER_SCHEDULE_BY_ID_SUCCESS
+  GET_USER_SCHEDULE_BY_ID_SUCCESS,
+  UPDATE_SCHEDULE_REQUEST,
+  UPDATE_SCHEDULE_SUCCESS
 } from "./constants";
 
 const initialState = {
@@ -143,6 +145,19 @@ export const personalReducer = (state = initialState, action) => {
     case MAKE_APPOINTMENT_SUCCESS:
       return {
         ...state,
+        isDataLoading: false
+      };
+    case UPDATE_SCHEDULE_REQUEST:
+      return {
+        ...state,
+        isDataLoading: true,
+        lastRequestType: UPDATE_SCHEDULE_REQUEST,
+        lastSuccessType: UPDATE_SCHEDULE_SUCCESS
+      };
+    case UPDATE_SCHEDULE_SUCCESS:
+      return {
+        ...state,
+        user: action.user,
         isDataLoading: false
       };
     default:
