@@ -3,7 +3,7 @@ import DatePicker from "react-native-datepicker";
 import styles from "../styles";
 
 export const renderTimePicker = (index, onTimeChange) => {
-  const [time, setTime] = useState("9:00");
+  const [time, setTime] = useState("00:00");
 
   const onChangeTime = newTime => {
     setTime(newTime);

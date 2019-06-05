@@ -1,22 +1,20 @@
-import { last } from "lodash";
-import { Container, View } from "native-base";
-import React from "react";
+import { Container, View, Button } from "native-base";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar } from "react-native";
-import { I18n } from "react-redux-i18n";
 import { connect } from "react-redux";
+import { I18n } from "react-redux-i18n";
 import { userLogOut } from "../../components/login/actions";
 import { getCurrentUser } from "../../components/personal/actions";
 import { DAYS_OF_WEEK, DAY_LOCALIZATION } from "../../constants/calendar";
 import theme from "../../styles";
 import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
-import { renderTimePicker } from "./components/timePicker";
 import { pickers } from "./components/pickers";
 import styles from "./styles";
 
-class StaffSchedule extends React.PureComponent {
-  state = {
-    schedule: [...new Array(7)].map((item, index) => {
+const StaffSchedule = props => {
+  const [schedule, setSchedule] = useState(
+    [...new Array(7)].map((item, index) => {
       return {
         dayOfWeek: DAYS_OF_WEEK[index],
         intervals: [
@@ -27,52 +25,55 @@ class StaffSchedule extends React.PureComponent {
         ]
       };
     })
+  );
+
+  useEffect(() => props.getUserInfo(), []);
+
+  const onChangeToTime = (dayIndex, intervalIndex, time) => {
+    schedule[dayIndex].intervals[intervalIndex].to = time;
+    setSchedule([...schedule]);
   };
 
-  componentDidMount() {
-    this.props.getUserInfo();
-  }
+  const onChangeFromTime = (dayIndex, intervalIndex, time) => {
+    schedule[dayIndex].intervals[intervalIndex].from = time;
+    setSchedule([...schedule]);
+  };
 
-  onChangeToTime = (dayIndex, intervalIndex, time) => {
-    this.state.schedule[dayIndex].intervals[intervalIndex].to = time;
-    this.setState({
-      schedule: [...this.state.schedule]
+  const addedNewPickerLine = dayIndex => {
+    schedule[dayIndex].intervals.push({
+      from: "00:00",
+      to: "00:00"
     });
+    setSchedule([...schedule]);
   };
 
-  onChangeFromTime = (dayIndex, intervalIndex, time) => {
-    this.state.schedule[dayIndex].intervals[intervalIndex].from = time;
-    this.setState({
-      schedule: [...this.state.schedule]
-    });
-  };
-
-  renderSchedulePickers = (dayOfWeek ,dayIndex) => {
+  const renderSchedulePickers = (dayOfWeek, dayIndex) => {
     return (
       <View style={{ flexDirection: "row" }}>
         <CustomText text={I18n.t(DAY_LOCALIZATION[dayOfWeek])} />
-        {pickers(dayIndex, this.state.schedule[dayIndex].intervals, this.onChangeFromTime, this.onChangeToTime)}
+        {pickers(
+          dayIndex,
+          schedule[dayIndex].intervals,
+          onChangeFromTime,
+          onChangeToTime
+        )}
+        <Button onPress={() => addedNewPickerLine(dayIndex)} style={{height: 50, width: 50}}>
+          <CustomText text={"Click"} />
+        </Button>
       </View>
     );
   };
 
-  render() {
-    return (
-      <Container>
-        {renderHeader(this.props)}
-        <StatusBar
-          backgroundColor={theme.colors.light}
-          barStyle="dark-content"
-        />
-        <SafeAreaView style={styles.container}>
-          {DAYS_OF_WEEK.map((day, index) =>
-            this.renderSchedulePickers(day, index)
-          )}
-        </SafeAreaView>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      {renderHeader(props)}
+      <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
+      <SafeAreaView style={styles.container}>
+        {DAYS_OF_WEEK.map((day, index) => renderSchedulePickers(day, index))}
+      </SafeAreaView>
+    </Container>
+  );
+};
 
 const mapStateToProps = state => ({
   user: state.user,
