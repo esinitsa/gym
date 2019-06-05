@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "react-native-datepicker";
 import styles from "../styles";
 
-export const renderTimePicker = (time , index, onTimeChange) => {
+export const renderTimePicker = (index, onTimeChange) => {
+  const [time, setTime] = useState("9:00");
+
+  const onChangeTime = newTime => {
+    setTime(newTime);
+    onTimeChange(index, newTime);
+  };
+
   return (
     <DatePicker
       style={styles.dateContainer}
@@ -16,7 +23,7 @@ export const renderTimePicker = (time , index, onTimeChange) => {
       customStyles={{
         dateInput: styles.dateInput
       }}
-      onDateChange={changeTime => onTimeChange(changeTime, index)}
+      onDateChange={onChangeTime}
     />
   );
 };

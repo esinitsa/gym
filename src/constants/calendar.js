@@ -50,3 +50,23 @@ export const calendarLocale = () => {
     ]
   };
 };
+
+export const DAYS_OF_WEEK = [
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+  "SUNDAY"
+];
+
+export const DAY_LOCALIZATION = {
+  ["MONDAY"]: "calendar.dayNames.monday",
+  ["TUESDAY"]: "calendar.dayNames.tuesday",
+  ["WEDNESDAY"]: "calendar.dayNames.wednesday",
+  ["THURSDAY"]: "calendar.dayNames.thursday",
+  ["FRIDAY"]: "calendar.dayNames.friday",
+  ["SATURDAY"]: "calendar.dayNames.saturday",
+  ["SUNDAY"]: "calendar.dayNames.sunday"
+};
