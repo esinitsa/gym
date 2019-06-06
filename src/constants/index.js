@@ -7,6 +7,10 @@ export const CALENDAR_FORMAT = "YYYY-MM-DD";
 export const TIME_FORMAT = "HH:mm";
 export const EMPTY_RESPONSE = "";
 export const APPOINTMENT_DURATIONS = [60, 90, 120, 150, 180];
+export const BASIC_SCHEDULE = {
+  from: "9:00",
+  to: "18:00"
+};
 export const PICKER_TYPES = {
   ["ROLE"]: "ROLE",
   ["STAFF"]: "STAFF",
