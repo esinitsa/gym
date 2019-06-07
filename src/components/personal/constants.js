@@ -13,6 +13,9 @@ export const GET_USER_SCHEDULE_BY_ID_SUCCESS = "@@user/getUserScheduleById/SUCCE
 export const GET_STAFF_SCHEDULE_BY_ID_REQUEST = "@@user/getStaffScheduleById/REQUEST";
 export const GET_STAFF_SCHEDULE_BY_ID_SUCCESS = "@@user/getStaffScheduleById/SUCCESS";
 
+export const SET_STAFF_SCHEDULE_REQUEST = "@@user/setStaffScheduleById/REQUEST";
+export const SET_STAFF_SCHEDULE_SUCCESS = "@@user/setStaffScheduleById/SUCCESS";
+
 export const GET_TRAINERS_REQUEST = "@@user/getTrainers/REQUEST";
 export const GET_TRAINERS_SUCCESS = "@@user/getTrainers/SUCCESS";
 

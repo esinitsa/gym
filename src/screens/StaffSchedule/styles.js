@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   addNewPickerIcon: {
     width: theme.size.parameters.small,
-    height: theme.size.parameters.small,
+    height: theme.size.parameters.small
   },
   header: {
     borderBottomWidth: theme.size.border.width.empty,
@@ -30,18 +30,9 @@ const styles = StyleSheet.create({
     marginRight: 2,
     paddingRight: 10
   },
-  touchableView: {
-    backgroundColor: theme.shadows.background,
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-    position: "relative",
-    right: 0,
-    top: 0
-  },
-  modalView: {
-    borderColor: theme.colors.light,
-    borderWidth: theme.size.border.radius.primary
+  dateContainer: {
+    width: theme.size.parameters.staffSchedule.timePicker.width,
+    height: theme.size.parameters.staffSchedule.timePicker.height,
   }
 });
 

@@ -9,7 +9,7 @@ import {
   GET_ALL_MASSEURS_SUCCESS,
   GET_USERS_BY_ROLE_SUCCESS,
   GET_USER_SCHEDULE_BY_ID_SUCCESS,
-  GET_STAFF_SCHEDULE_BY_ID_SUCCESS
+  GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
 } from "../components/personal/constants";
 
 export const KEYS = {

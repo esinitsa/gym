@@ -1,12 +1,21 @@
-import { Button, Container, View } from "native-base";
+import { Container, View } from "native-base";
+import { head } from "lodash";
 import React, { useEffect, useMemo, useState } from "react";
 import { SafeAreaView, StatusBar } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
-import { userLogOut } from "../../components/login/actions";
-import { getCurrentUser } from "../../components/personal/actions";
+import {
+  getCurrentUser,
+  setStaffSchedule
+} from "../../components/personal/actions";
 import { BASIC_SCHEDULE } from "../../constants";
 import { DAYS_OF_WEEK, DAY_LOCALIZATION } from "../../constants/calendar";
+import {
+  compareTimeFromPickers,
+  incrementFromTime,
+  incrementToTime,
+} from "../../services/schedule";
+import { showToast } from "../../services/UIActions";
 import theme from "../../styles";
 import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
@@ -24,15 +33,31 @@ const StaffSchedule = props => {
   useEffect(() => props.getUserInfo(), []);
 
   const onChangeTime = key => (dayIndex, intervalIndex, time) => {
-    schedule[dayIndex].intervals[intervalIndex] = {
+    const newInterval = {
       ...schedule[dayIndex].intervals[intervalIndex],
       [key]: time
     };
-    setSchedule([...schedule]);
+    if (compareTimeFromPickers(newInterval)) {
+      schedule[dayIndex].intervals[intervalIndex] = newInterval;
+      setSchedule([...schedule]);
+    } else {
+      showToast(I18n.t("exceptions.invalidTime"));
+    }
   };
 
-  const addedNewPickerLine = dayIndex => {
-    schedule[dayIndex].intervals.push(BASIC_SCHEDULE);
+  const addPickerLine = dayIndex => {
+    setSchedule(prevSchedule => {
+      const lastToTime = head(prevSchedule[dayIndex].intervals).to;
+      schedule[dayIndex].intervals.push({
+        from: incrementFromTime(lastToTime),
+        to: incrementToTime(lastToTime)
+      });
+      return [...schedule];
+    });
+  };
+
+  const removePickerLine = dayIndex => {
+    schedule[dayIndex].intervals.pop();
     setSchedule([...schedule]);
   };
 
@@ -44,18 +69,14 @@ const StaffSchedule = props => {
           dayIndex={dayIndex}
           intervals={schedule[dayIndex].intervals}
           onChangeTime={onChangeTime}
+          addPickerLine={addPickerLine}
+          removePickerLine={removePickerLine}
         />
-        <Button
-          onPress={() => addedNewPickerLine(dayIndex)}
-          style={styles.addNewPickerIcon}
-        >
-          <CustomText text={"Click"} />
-        </Button>
       </View>
     );
   };
 
-  const renderHeaderMemo = useMemo(() => renderHeader(props), [props]);
+  const renderHeaderMemo = useMemo(() => renderHeader({...props, schedule}), [props, schedule]);
 
   return (
     <Container>
@@ -69,13 +90,13 @@ const StaffSchedule = props => {
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
+  currentUser: state.user.userProfile,
   userInfo: state.personal.user
 });
 
 const mapDispatchToProps = dispatch => ({
   getUserInfo: () => dispatch(getCurrentUser()),
-  onLogOut: () => dispatch(userLogOut())
+  setStaffSchedule: staffScheduleBody => dispatch(setStaffSchedule(staffScheduleBody)),
 });
 
 export default connect(

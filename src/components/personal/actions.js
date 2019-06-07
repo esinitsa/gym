@@ -15,6 +15,8 @@ import {
   GET_NOTES_AUTHOR_BY_ID_SUCCESS,
   GET_STAFF_SCHEDULE_BY_ID_REQUEST,
   GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
+  SET_STAFF_SCHEDULE_REQUEST,
+  SET_STAFF_SCHEDULE_SUCCESS,
   GET_USER_SCHEDULE_BY_ID_REQUEST,
   GET_USER_SCHEDULE_BY_ID_SUCCESS,
   MAKE_APPOINTMENT_REQUEST,
@@ -28,7 +30,8 @@ import {
   GET_USERS_BY_ROLE,
   GET_USER_SCHEDULE_BY_ID,
   GET_STAFF_SCHEDULE_BY_ID,
-  ADD_INTERNAL_RECORD
+  ADD_INTERNAL_RECORD,
+  SET_STAFF_SCHEDULE
 } from "../../api/apiConstants";
 import { KEYS } from "../../constants/reducerTypeKeys";
 
@@ -50,6 +53,14 @@ const getUserScheduleByIdRequest = () => ({
 const getUserScheduleByIdSuccess = userSchedule => ({
   type: GET_USER_SCHEDULE_BY_ID_SUCCESS,
   [KEYS[GET_USER_SCHEDULE_BY_ID_SUCCESS]]: userSchedule
+});
+
+const setStaffScheduleRequest = () => ({
+  type: SET_STAFF_SCHEDULE_REQUEST
+});
+
+const setStaffScheduleSuccess = () => ({
+  type: SET_STAFF_SCHEDULE_SUCCESS
 });
 
 const getStaffScheduleByIdRequest = () => ({
@@ -101,7 +112,7 @@ export const getUsersByRole = role => dispatch => {
   dispatch(getUsersByRoleRequest());
   api
     .get(GET_USERS_BY_ROLE, {
-      params : {
+      params: {
         role
       }
     })
@@ -135,6 +146,16 @@ export const getStaffScheduleById = staffId => dispatch => {
     })
     .then(data => {
       dispatch(getStaffScheduleByIdSuccess(data));
+    })
+    .catch(error => console.log(error));
+};
+
+export const setStaffSchedule = staffScheduleBody => dispatch => {
+  dispatch(setStaffScheduleRequest());
+  return api
+    .post(SET_STAFF_SCHEDULE, staffScheduleBody)
+    .then(data => {
+      dispatch(setStaffScheduleSuccess());
     })
     .catch(error => console.log(error));
 };

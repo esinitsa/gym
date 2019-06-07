@@ -35,6 +35,12 @@
       "description": "Вы хотите выйти?",
       "cancel": "Нет, отменить",
       "confirm": "Да, выйти"
+    },
+    "setSchedule": {
+      "header": "Расписание",
+      "description": "Вы хотите установить расписание?",
+      "cancel": "Отмена",
+      "confirm": "Да"
     }
   },
   "mark": {
@@ -114,13 +120,16 @@
     "invalidEmailOrPassword": "Неправильный адрес электронной почты или пароль"
   },
   "exceptions": {
-    "accountNotActivated": "Ваш аккаунт не активирован, попробуйте позже"
+    "accountNotActivated": "Ваш аккаунт не активирован, попробуйте позже",
+    "invalidTime": "Введите правильное время",
+    "crossingTime" : "Рабочее время не может пересекаться в один и тот же день"
   },
   "header": {
     "notes": "Заметки",
     "subscriptions": "Абонементы",
     "profile": "Профиль",
-    "calendar": "Календарь"
+    "calendar": "Календарь",
+    "schedule": "Расписание"
   },
   "calendar": {
     "monthNames": {
@@ -168,6 +177,15 @@
       "friday":"Пят.",
       "saturday":"Сб.",
       "sunday":"Вс."
+    }
+  },
+  "picker": {
+    "placeholders" : {
+      "selectTime": "Выберите время"
+    },
+    "settings": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
     }
   }
 }

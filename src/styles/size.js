@@ -64,6 +64,12 @@ const size = {
     scanMarker: {
       corner: spacing.unit * 13
     },
+    staffSchedule: {
+      timePicker: {
+        height: spacing.unit * 20,
+        width: spacing.unit * 40
+      }
+    },
     staffTable: {
       header: {
         height: spacing.unit * 20
@@ -77,6 +83,7 @@ const size = {
     }
   },
   icons: {
+    large: spacing.unit * 25,
     medium: spacing.unit * 17,
     small: spacing.unit * 12,
     dropDown: spacing.unit * 2,
