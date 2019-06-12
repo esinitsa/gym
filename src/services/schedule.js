@@ -8,10 +8,7 @@ export const validateSchedule = schedule => {
     if (item.intervals.length === 2) {
       const firstInterval = head(item.intervals);
       const lastInterval = last(item.intervals);
-      if (
-        isBetween(firstInterval, lastInterval.from) ||
-        isBetween(firstInterval.from, firstInterval.to, lastInterval.to)
-      ) {
+      if (crossingIntervals(firstInterval, lastInterval)) {
         isValid = false;
       }
     }
@@ -20,14 +17,31 @@ export const validateSchedule = schedule => {
 };
 
 export const compareTimeFromPickers = ({ from, to }) =>
-  timeToMomentFormat(to).diff(timeToMomentFormat(from)) > 0 ? true : false;
+  timeConstructor(to).diff(timeConstructor(from)) > 0 ? true : false;
+
+export const crossingIntervals = (firstInterval, lastInterval) =>
+  isBetween(firstInterval, lastInterval.from) ||
+  isBetween(firstInterval, lastInterval.to) ||
+  isBetween(lastInterval, firstInterval.from) ||
+  isBetween(lastInterval, firstInterval.to);
 
 export const isBetween = ({ from, to }, comparableTime) =>
-  timeToMomentFormat(comparableTime).isBetween(from, to);
+  timeConstructor(comparableTime).isBetween(
+    timeConstructor(from),
+    timeConstructor(to)
+  );
 
 export const timeToMomentFormat = time =>
-  moment(time, TIME_FORMAT).utcOffset(0, false);
+  timeConstructor(time).format(TIME_FORMAT);
 
-export const incrementFromTime = time => moment(time).add(1, HOURS);
+export const timeConstructor = time => moment(time, TIME_FORMAT);
 
-export const incrementToTime = time => moment(time).add(2, HOURS);
+export const incrementFromTime = time =>
+  timeConstructor(time)
+    .add(1, HOURS)
+    .format(TIME_FORMAT);
+
+export const incrementToTime = time =>
+  timeConstructor(time)
+    .add(2, HOURS)
+    .format(TIME_FORMAT);

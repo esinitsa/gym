@@ -1,14 +1,14 @@
-import { Button, View } from "native-base";
+import { View } from "native-base";
 import React, { useState } from "react";
 import DatePicker from "react-native-datepicker";
 import { I18n } from "react-redux-i18n";
-import Icon from "react-native-vector-icons/Ionicons";
 import {
   INTERVAL,
   TIME_FORMAT,
   DATE_TIME_PICKER_MODES
 } from "../../../constants/";
 import { timeToMomentFormat } from "../../../services/schedule";
+import { ButtonIcon } from "../../common/buttons/icon";
 import theme from "../../../styles";
 import styles from "../styles";
 
@@ -39,6 +39,35 @@ export const TimePickers = ({
   const removeInterval = () => {
     removePickerLine(dayIndex);
     setExpanded(false);
+  };
+
+  const renderAddButton = () => {
+    return (
+      intervals.length < 2 && (
+        <ButtonIcon
+          event={addInterval}
+          type={"Ionicons"}
+          icon={"ios-add-circle-outline"}
+          color={theme.colors.primary}
+          size={theme.size.icons.small}
+        />
+      )
+    );
+  };
+
+  const renderRemoveButton = index => {
+    return (
+      isExpanded &&
+      index === intervals.length - 1 && (
+        <ButtonIcon
+          event={removeInterval}
+          type={"Ionicons"}
+          icon={"ios-close-circle-outline"}
+          color={theme.colors.primary}
+          size={theme.size.icons.small}
+        />
+      )
+    );
   };
 
   const renderSchedulePickers = ({ from, to }, index) => {
@@ -72,6 +101,10 @@ export const TimePickers = ({
           }}
           onDateChange={changeToTime(index)}
         />
+        <View style={styles.pickerToggle}>
+          {renderAddButton()}
+          {renderRemoveButton(index)}
+        </View>
       </View>
     );
   };
@@ -80,25 +113,6 @@ export const TimePickers = ({
     <View>
       {intervals.map((interval, index) =>
         renderSchedulePickers(interval, index)
-      )}
-      {isExpanded ? (
-        <Button onPress={removeInterval} transparent>
-          <Icon
-            name={"ios-close-circle-outline"}
-            color={theme.colors.primary}
-            size={theme.size.icons.small}
-            solid
-          />
-        </Button>
-      ) : (
-        <Button onPress={addInterval} transparent>
-          <Icon
-            name={"ios-add-circle-outline"}
-            color={theme.colors.primary}
-            size={theme.size.icons.small}
-            solid
-          />
-        </Button>
       )}
     </View>
   );

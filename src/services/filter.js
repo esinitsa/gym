@@ -1,4 +1,4 @@
-import _, { reverse, isEqual } from "lodash";
+import _, { reverse, isEqual, get } from "lodash";
 import { COUNT, EMPTY_RESPONSE } from "../constants";
 import { STAFF_ROLES } from "../constants/userTypes";
 import { NavigationType } from "../constants/navigationTypes";
@@ -15,10 +15,12 @@ export const checkAdmin = roles => _.indexOf(roles, ADMIN) === -1;
 export const checkType = type => type === COUNT;
 
 export const isActive = subscription =>
-  _.get(subscription, "active", EMPTY_RESPONSE);
+  get(subscription, "active", EMPTY_RESPONSE);
 
-export const reverseArray = (items, props) =>
-  _.get(items, props) ? reverse(_.get(items, props, [])) : [];
+export const reverseArray = (items, props) => {
+  const item = get(items, props);
+  return _.isNil(item) ? [] : [...item];
+};
 
 export const isEqualUsers = (userInfo, currentUser) =>
   isEqual(userInfo.id, currentUser.id);

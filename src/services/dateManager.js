@@ -11,17 +11,17 @@ import { getLanguageCode } from "./language";
 
 export const getDateWithFormat = date =>
   moment(date)
-    .locale(getLanguageCode)
+    .locale(getLanguageCode())
     .format(DATE_FORMAT);
 
 export const getDateForCalendar = date =>
   moment(date)
-    .locale(getLanguageCode)
+    .locale(getLanguageCode())
     .format(CALENDAR_FORMAT);
 
 export const getTime = timestamp =>
   moment(timestamp)
-    .locale(getLanguageCode)
+    .locale(getLanguageCode())
     .utcOffset(0, false)
     .format(TIME_FORMAT);
 

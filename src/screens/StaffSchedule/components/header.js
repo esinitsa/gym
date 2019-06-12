@@ -1,12 +1,12 @@
-import { Button, Header, Left, Right, Body } from "native-base";
+import { Header, View } from "native-base";
 import React from "react";
 import { Alert } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import { I18n } from "react-redux-i18n";
-import { showToast } from "../../../services/UIActions";
 import { validateSchedule } from "../../../services/schedule";
+import { showToast } from "../../../services/UIActions";
 import theme from "../../../styles";
 import { CustomText } from "../../common/text/customText";
+import { ButtonIcon } from "../../common/buttons/icon";
 import styles from "../styles";
 
 export const renderHeader = props => {
@@ -24,32 +24,36 @@ export const renderHeader = props => {
       I18n.t("settings.setSchedule.header"),
       I18n.t("settings.setSchedule.description"),
       [
-        { text: I18n.t("settings.setSchedule.cancel"), style: "cancel"  },
-        { text: I18n.t("settings.setSchedule.confirm"), onPress: performSetSchedule}
+        { text: I18n.t("settings.setSchedule.cancel"), style: "cancel" },
+        {
+          text: I18n.t("settings.setSchedule.confirm"),
+          onPress: performSetSchedule
+        }
       ],
       { cancelable: true }
     );
   };
 
   return (
-    <Header style={styles.header}>
-      <Left />
-      <Body>
+    <Header style={styles.header} noShadow>
+      <View style={styles.rightHeaderView} />
+      <View style={styles.headerBody}>
         <CustomText
           text={I18n.t("header.schedule")}
-          style={styles.leftHeaderText}
+          style={styles.bodyHeaderText}
         />
-      </Body>
-      <Right>
-        <Button onPress={acceptSchedule} transparent style={styles.rightHeader}>
-          <Icon
-            name={"ios-checkmark"}
-            color={theme.colors.primary}
-            size={theme.size.icons.large}
-            solid
-          />
-        </Button>
-      </Right>
+        <CustomText
+          text={`${currentUser.firstName} ${currentUser.lastName}`}
+          style={styles.headerUsername}
+        />
+      </View>
+      <ButtonIcon
+        type={"Ionicons"}
+        event={acceptSchedule}
+        icon={"ios-checkmark"}
+        color={theme.colors.primary}
+        size={theme.size.icons.large}
+      />
     </Header>
   );
 };

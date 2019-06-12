@@ -63,8 +63,8 @@ const StaffSchedule = props => {
 
   const renderSchedulePickers = (dayOfWeek, dayIndex) => {
     return (
-      <View style={styles.pickerContent}>
-        <CustomText text={I18n.t(DAY_LOCALIZATION[dayOfWeek])} />
+      <View style={styles.content}>
+        <CustomText text={I18n.t(DAY_LOCALIZATION[dayOfWeek])} style={styles.dayTitle} />
         <TimePickers
           dayIndex={dayIndex}
           intervals={schedule[dayIndex].intervals}
@@ -76,11 +76,11 @@ const StaffSchedule = props => {
     );
   };
 
-  const renderHeaderMemo = useMemo(() => renderHeader({...props, schedule}), [props, schedule]);
+  const RenderHeaderMemo = () => useMemo(() => renderHeader({...props, schedule}), [props, schedule]);
 
   return (
     <Container>
-      {renderHeaderMemo}
+    <RenderHeaderMemo/>
       <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         {DAYS_OF_WEEK.map((day, index) => renderSchedulePickers(day, index))}

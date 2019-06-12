@@ -67,7 +67,7 @@ const size = {
     staffSchedule: {
       timePicker: {
         height: spacing.unit * 20,
-        width: spacing.unit * 40
+        width: spacing.unit * 42
       }
     },
     staffTable: {
