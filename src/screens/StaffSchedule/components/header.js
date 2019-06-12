@@ -2,23 +2,17 @@ import { Header, View } from "native-base";
 import React from "react";
 import { Alert } from "react-native";
 import { I18n } from "react-redux-i18n";
-import { validateSchedule } from "../../../services/schedule";
-import { showToast } from "../../../services/UIActions";
 import theme from "../../../styles";
 import { CustomText } from "../../common/text/customText";
 import { ButtonIcon } from "../../common/buttons/icon";
 import styles from "../styles";
 
 export const renderHeader = props => {
-  const { schedule, setStaffSchedule, currentUser } = props;
-  const acceptSchedule = () => {
+  const {  acceptSchedule, currentUser } = props;
+
+  const acceptScheduleDialog = () => {
     const performSetSchedule = () => {
-      validateSchedule(schedule)
-        ? setStaffSchedule({
-            targetUserId: currentUser.id,
-            schedule
-          })
-        : showToast(I18n.t("exceptions.crossingTime"));
+      acceptSchedule();
     };
     Alert.alert(
       I18n.t("settings.setSchedule.header"),
@@ -49,7 +43,7 @@ export const renderHeader = props => {
       </View>
       <ButtonIcon
         type={"Ionicons"}
-        event={acceptSchedule}
+        event={acceptScheduleDialog}
         icon={"ios-checkmark"}
         color={theme.colors.primary}
         size={theme.size.icons.large}

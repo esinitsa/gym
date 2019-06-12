@@ -20,6 +20,7 @@ import theme from "../../styles";
 import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
 import { TimePickers } from "./components/TimePickers";
+import { validateSchedule } from "../../services/schedule";
 import styles from "./styles";
 
 const StaffSchedule = props => {
@@ -61,6 +62,18 @@ const StaffSchedule = props => {
     setSchedule([...schedule]);
   };
 
+  const [errorStatus, setErrorStatus] = useState(Array(7).fill(false));
+  const acceptSchedule = () => {
+    const newErrorStatus = validateSchedule(schedule, errorStatus);
+    setErrorStatus([...newErrorStatus]);
+    errorStatus.includes(true)
+      ? showToast(I18n.t("exceptions.crossingTime"))
+      : props.setStaffSchedule({
+          targetUserId: props.currentUser.id,
+          schedule
+        });
+  };
+
   const renderSchedulePickers = (dayOfWeek, dayIndex) => {
     return (
       <View style={styles.content}>
@@ -72,15 +85,22 @@ const StaffSchedule = props => {
           addPickerLine={addPickerLine}
           removePickerLine={removePickerLine}
         />
+        {errorStatus[dayIndex] && (
+          <CustomText
+            text={"ERROR"}
+            style={styles.dayTitle}
+          />
+        )}
       </View>
     );
   };
 
-  const RenderHeaderMemo = () => useMemo(() => renderHeader({...props, schedule}), [props, schedule]);
+  const RenderHeaderMemo = () =>
+    useMemo(() => renderHeader({ ...props, acceptSchedule }), [props, schedule]);
 
   return (
     <Container>
-    <RenderHeaderMemo/>
+      <RenderHeaderMemo/>
       <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
       <SafeAreaView style={styles.container}>
         {DAYS_OF_WEEK.map((day, index) => renderSchedulePickers(day, index))}

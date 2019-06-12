@@ -2,18 +2,20 @@ import moment from "moment";
 import { head, last } from "lodash";
 import { TIME_FORMAT, HOURS } from "../constants";
 
-export const validateSchedule = schedule => {
-  let isValid = true;
-  schedule.map(item => {
+export const validateSchedule = (schedule, errorStatus) => {
+  schedule.map((item, index) => {
     if (item.intervals.length === 2) {
       const firstInterval = head(item.intervals);
       const lastInterval = last(item.intervals);
       if (crossingIntervals(firstInterval, lastInterval)) {
-        isValid = false;
+        errorStatus[index] = true;
+      }
+      else {
+        errorStatus[index] = false;
       }
     }
   });
-  return isValid;
+  return errorStatus;
 };
 
 export const compareTimeFromPickers = ({ from, to }) =>
