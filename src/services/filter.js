@@ -19,7 +19,7 @@ export const isActive = subscription =>
 
 export const reverseArray = (items, props) => {
   const item = get(items, props);
-  return _.isNil(item) ? [] : [...item];
+  return _.isNil(item) ? [] : reverse([item]);
 };
 
 export const isEqualUsers = (userInfo, currentUser) =>
