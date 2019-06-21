@@ -38,6 +38,45 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.title,
     fontWeight: theme.fonts.weight.bold
   },
+  card: {
+    paddingVertical: theme.size.padding.large,
+    paddingHorizontal: theme.size.padding.medium,
+    width: theme.size.parameters.calendarCardWidth,
+    height: theme.size.parameters.medium,
+    marginTop: theme.size.margin.medium,
+    borderRadius: theme.size.border.radius.secondary,
+    shadowColor: theme.shadows.color,
+    shadowOffset: theme.shadows.offset,
+    shadowOpacity: theme.shadows.opacity,
+    shadowRadius: theme.shadows.radius
+  },
+  cardItem: {
+    justifyContent: "center",
+    width: theme.size.parameters.fullWidth,
+    paddingTop: theme.size.padding.medium,
+    paddingBottom: theme.size.padding.medium
+  },
+  emptyItem: {
+    backgroundColor: theme.colors.light,
+    flex: 1,
+    justifyContent: "center"
+  },
+  itemText: {
+    fontSize: theme.fonts.size.standard,
+    color: theme.colors.text,
+    textAlign: "left"
+  },
+  item: {
+    backgroundColor: theme.colors.light,
+    padding: theme.size.padding.medium,
+    flex: 1,
+    justifyContent: "flex-start"
+  },
+  emptyItemText: {
+    fontSize: theme.fonts.size.subtitle,
+    color: theme.colors.secondary,
+    textAlign: "center"
+  },
   calendarItemContainer: {
     paddingLeft: theme.size.padding.empty,
     paddingBottom: theme.size.padding.empty,
@@ -96,45 +135,6 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.standard,
     fontWeight: theme.fonts.weight.bold
   },
-  card: {
-    paddingVertical: theme.size.padding.large,
-    paddingHorizontal: theme.size.padding.medium,
-    width: theme.size.parameters.calendarCardWidth,
-    height: theme.size.parameters.large,
-    marginTop: theme.size.margin.medium,
-    borderRadius: theme.size.border.radius.secondary,
-    shadowColor: theme.shadows.color,
-    shadowOffset: theme.shadows.offset,
-    shadowOpacity: theme.shadows.opacity,
-    shadowRadius: theme.shadows.radius
-  },
-  cardItem: {
-    justifyContent: "center",
-    width: theme.size.parameters.fullWidth,
-    paddingTop: theme.size.padding.medium,
-    paddingBottom: theme.size.padding.medium
-  },
-  emptyItem: {
-    backgroundColor: theme.colors.light,
-    flex: 1,
-    justifyContent: "center"
-  },
-  itemText: {
-    fontSize: theme.fonts.size.standard,
-    color: theme.colors.text,
-    textAlign: "left"
-  },
-  item: {
-    backgroundColor: theme.colors.light,
-    padding: theme.size.padding.medium,
-    flex: 1,
-    justifyContent: "flex-start"
-  },
-  emptyItemText: {
-    fontSize: theme.fonts.size.subtitle,
-    color: theme.colors.secondary,
-    textAlign: "center"
-  }
 });
 
 export default styles;

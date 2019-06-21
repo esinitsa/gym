@@ -50,6 +50,12 @@
     "cancel": "No, cancel",
     "confirm": "Yes, confirm visit"
   },
+  "makeAppointment": {
+    "header": "Make an appointment",
+    "description": "You want to confirm, make an appointment?",
+    "cancel": "No, cancel",
+    "confirm": "Yes, confirm appointment"
+  },
   "profile": {
     "numberOfVisits" : "Number of visits",
     "numberOfVisitsAbbreviated": "Number of visits",
@@ -178,6 +184,11 @@
       "friday":"Fri",
       "saturday":"Sat",
       "sunday":"Sun"
+    }
+  },
+  "schedule": {
+    "messages": {
+      "crossingIntervals": "Crossing Intervals"
     }
   },
   "picker": {

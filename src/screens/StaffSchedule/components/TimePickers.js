@@ -1,5 +1,5 @@
 import { View } from "native-base";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-native-datepicker";
 import { I18n } from "react-redux-i18n";
 import {
@@ -20,6 +20,10 @@ export const TimePickers = ({
   removePickerLine
 }) => {
   const [isExpanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    !intervals.length && setExpanded(false);
+  }, [intervals.length]);
 
   const changeToTime = index => time => {
     const onChangeToTime = onChangeTime(INTERVAL.to);
@@ -49,7 +53,8 @@ export const TimePickers = ({
           type={"Ionicons"}
           icon={"ios-add-circle-outline"}
           color={theme.colors.primary}
-          size={theme.size.icons.small}
+          size={theme.size.icons.timePicker}
+          iconStyle={styles.pickerController}
         />
       )
     );
@@ -64,7 +69,8 @@ export const TimePickers = ({
           type={"Ionicons"}
           icon={"ios-close-circle-outline"}
           color={theme.colors.primary}
-          size={theme.size.icons.small}
+          size={theme.size.icons.timePicker}
+          iconStyle={styles.pickerController}
         />
       )
     );
@@ -72,39 +78,39 @@ export const TimePickers = ({
 
   const renderSchedulePickers = ({ from, to }, index) => {
     return (
-      <View style={styles.pickerContent}>
-        <DatePicker
-          style={styles.dateContainer}
-          mode={DATE_TIME_PICKER_MODES.TIME}
-          date={from}
-          format={TIME_FORMAT}
-          placeholder={I18n.t("picker.placeholders.selectTime")}
-          confirmBtnText={I18n.t("picker.settings.confirm")}
-          cancelBtnText={I18n.t("picker.settings.cancel")}
-          showIcon={false}
-          customStyles={{
-            dateInput: styles.dateContainer
-          }}
-          onDateChange={changeFromTime(index)}
-        />
-        <DatePicker
-          style={styles.dateContainer}
-          mode={DATE_TIME_PICKER_MODES.TIME}
-          date={to}
-          format={TIME_FORMAT}
-          placeholder={I18n.t("picker.placeholders.selectTime")}
-          confirmBtnText={I18n.t("picker.settings.confirm")}
-          cancelBtnText={I18n.t("picker.settings.cancel")}
-          showIcon={false}
-          customStyles={{
-            dateInput: styles.dateContainer
-          }}
-          onDateChange={changeToTime(index)}
-        />
-        <View style={styles.pickerToggle}>
-          {renderAddButton()}
-          {renderRemoveButton(index)}
+      <View>
+        <View style={styles.pickerContent}>
+          <DatePicker
+            style={styles.dateContainer}
+            mode={DATE_TIME_PICKER_MODES.TIME}
+            date={from}
+            format={TIME_FORMAT}
+            placeholder={I18n.t("picker.placeholders.selectTime")}
+            confirmBtnText={I18n.t("picker.settings.confirm")}
+            cancelBtnText={I18n.t("picker.settings.cancel")}
+            showIcon={false}
+            customStyles={{
+              dateInput: styles.leftDateContainer
+            }}
+            onDateChange={changeFromTime(index)}
+          />
+          <DatePicker
+            style={styles.dateContainer}
+            mode={DATE_TIME_PICKER_MODES.TIME}
+            date={to}
+            format={TIME_FORMAT}
+            placeholder={I18n.t("picker.placeholders.selectTime")}
+            confirmBtnText={I18n.t("picker.settings.confirm")}
+            cancelBtnText={I18n.t("picker.settings.cancel")}
+            showIcon={false}
+            customStyles={{
+              dateInput: styles.rightDateContainer
+            }}
+            onDateChange={changeToTime(index)}
+          />
         </View>
+        {renderAddButton()}
+        {renderRemoveButton(index)}
       </View>
     );
   };

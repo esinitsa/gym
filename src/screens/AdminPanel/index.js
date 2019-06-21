@@ -91,7 +91,7 @@ class AdminPanel extends PureComponent {
   }, 1000);
 
   render() {
-    const { clients } = this.props.personal;
+    const { usersByRole } = this.props.personal;
     return (
       <Container style={styles.linearGradient}>
         {renderHeader(this.props, this.changeQRState)}
@@ -100,7 +100,7 @@ class AdminPanel extends PureComponent {
           <KeyboardAvoidingView style={styles.keyboardView} behavior="padding">
             <SearchBar handleInput={this.handleInput} />
             <FlatList
-              data={_.filter(clients, client =>
+              data={_.filter(usersByRole, client =>
                 contains(client, this.state.searchText.toLowerCase())
               )}
               keyExtractor={this._keyExtractor}

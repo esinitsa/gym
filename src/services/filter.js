@@ -1,4 +1,4 @@
-import _, { reverse, isEqual, get } from "lodash";
+import _, { reverse, isEqual, get, last } from "lodash";
 import { COUNT, EMPTY_RESPONSE } from "../constants";
 import { STAFF_ROLES } from "../constants/userTypes";
 import { NavigationType } from "../constants/navigationTypes";
@@ -33,4 +33,14 @@ export const checkUserRole = ({ roles }) => {
   } else {
     return NavigationType.Home;
   }
+};
+
+export const getLastActiveSubscription = user => {
+  const subscriptions = get(user, "subscriptions");
+  return subscriptions ? last(subscriptions) : [];
+};
+
+export const getPreviouslyValidated = user => {
+  const lastActiveSubscription = getLastActiveSubscription(user);
+  return get(lastActiveSubscription,"previouslyValidated",[]);
 };

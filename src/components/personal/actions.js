@@ -13,12 +13,14 @@ import {
   ADD_INTERNAL_RECORD_SUCCESS,
   GET_NOTES_AUTHOR_BY_ID_REQUEST,
   GET_NOTES_AUTHOR_BY_ID_SUCCESS,
-  GET_STAFF_SCHEDULE_BY_ID_REQUEST,
-  GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
+  GET_STAFF_BOOKED_SESSION_REQUEST,
+  GET_STAFF_BOOKED_SESSION_SUCCESS,
   SET_STAFF_SCHEDULE_REQUEST,
   SET_STAFF_SCHEDULE_SUCCESS,
   GET_USER_SCHEDULE_BY_ID_REQUEST,
   GET_USER_SCHEDULE_BY_ID_SUCCESS,
+  GET_STAFF_SCHEDULE_REQUEST,
+  GET_STAFF_SCHEDULE_SUCCESS,
   MAKE_APPOINTMENT_REQUEST,
   MAKE_APPOINTMENT_SUCCESS
 } from "./constants";
@@ -29,9 +31,10 @@ import {
   MAKE_APPOINTMENT,
   GET_USERS_BY_ROLE,
   GET_USER_SCHEDULE_BY_ID,
-  GET_STAFF_SCHEDULE_BY_ID,
+  GET_STAFF_BOOKED_SESSION,
   ADD_INTERNAL_RECORD,
-  SET_STAFF_SCHEDULE
+  SET_STAFF_SCHEDULE,
+  GET_STAFF_SCHEDULE
 } from "../../api/apiConstants";
 import { KEYS } from "../../constants/reducerTypeKeys";
 
@@ -42,9 +45,9 @@ const getMyClientsSuccess = clients => ({
 });
 
 const getUsersByRoleRequest = () => ({ type: GET_USERS_BY_ROLE_REQUEST });
-const getUsersByRoleSuccess = clients => ({
+const getUsersByRoleSuccess = usersByRole => ({
   type: GET_USERS_BY_ROLE_SUCCESS,
-  [KEYS[GET_USERS_BY_ROLE_SUCCESS]]: clients
+  [KEYS[GET_USERS_BY_ROLE_SUCCESS]]: usersByRole
 });
 
 const getUserScheduleByIdRequest = () => ({
@@ -58,17 +61,24 @@ const getUserScheduleByIdSuccess = userSchedule => ({
 const setStaffScheduleRequest = () => ({
   type: SET_STAFF_SCHEDULE_REQUEST
 });
-
 const setStaffScheduleSuccess = () => ({
   type: SET_STAFF_SCHEDULE_SUCCESS
 });
 
-const getStaffScheduleByIdRequest = () => ({
-  type: GET_STAFF_SCHEDULE_BY_ID_REQUEST
+const getStaffBookedSessionRequest = () => ({
+  type: GET_STAFF_BOOKED_SESSION_REQUEST
 });
-const getStaffScheduleByIdSuccess = staffSchedule => ({
-  type: GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
-  [KEYS[GET_STAFF_SCHEDULE_BY_ID_SUCCESS]]: staffSchedule
+const getStaffBookedSessionSuccess = userSchedule => ({
+  type: GET_STAFF_BOOKED_SESSION_SUCCESS,
+  [KEYS[GET_STAFF_BOOKED_SESSION_SUCCESS]]: userSchedule
+});
+
+const getStaffScheduleRequest = () => ({
+  type: GET_STAFF_SCHEDULE_REQUEST
+});
+const getStaffScheduleSuccess = staffSchedule => ({
+  type: GET_STAFF_SCHEDULE_SUCCESS,
+  [KEYS[GET_STAFF_SCHEDULE_SUCCESS]]: staffSchedule
 });
 
 const getUserRequest = () => ({ type: GET_USER_BY_ID_REQUEST });
@@ -136,16 +146,30 @@ export const getUserScheduleById = userId => dispatch => {
     .catch(error => console.log(error));
 };
 
-export const getStaffScheduleById = staffId => dispatch => {
-  dispatch(getStaffScheduleByIdRequest());
+export const getStaffBookedSession = staffId => dispatch => {
+  dispatch(getStaffBookedSessionRequest());
   api
-    .get(GET_STAFF_SCHEDULE_BY_ID, {
+    .get(GET_STAFF_BOOKED_SESSION, {
       params: {
         staffId
       }
     })
     .then(data => {
-      dispatch(getStaffScheduleByIdSuccess(data));
+      dispatch(getStaffBookedSessionSuccess(data));
+    })
+    .catch(error => console.log(error));
+};
+
+export const getStaffSchedule = staffId => dispatch => {
+  dispatch(getStaffScheduleRequest());
+  api
+    .get(GET_STAFF_SCHEDULE, {
+      params: {
+        staffId
+      }
+    })
+    .then(data => {
+      dispatch(getStaffScheduleSuccess(data));
     })
     .catch(error => console.log(error));
 };

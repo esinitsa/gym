@@ -49,6 +49,12 @@
     "cancel": "Закрыть",
     "confirm": "Да, подтвердить посещение"
   },
+  "makeAppointment": {
+    "header": "Записаться на занятие",
+    "description": "Вы хотите подтвердить запись?",
+    "cancel": "Отмена",
+    "confirm": "Да, подтвердить запись"
+  },
   "profile": {
     "numberOfVisits" : "Количество занятий",
     "numberOfVisitsAbbreviated": "Кол-во посещений",
@@ -177,6 +183,11 @@
       "friday":"Пят.",
       "saturday":"Сб.",
       "sunday":"Вс."
+    }
+  },
+  "schedule": {
+    "messages": {
+      "crossingIntervals": "Пересечение интервалов"
     }
   },
   "picker": {

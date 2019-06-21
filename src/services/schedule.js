@@ -1,6 +1,9 @@
-import moment from "moment";
+import Moment from "moment";
+import { extendMoment } from "moment-range";
 import { head, last } from "lodash";
 import { TIME_FORMAT, HOURS } from "../constants";
+
+const moment = extendMoment(Moment);
 
 export const validateSchedule = (schedule, errorStatus) => {
   schedule.map((item, index) => {
@@ -9,8 +12,7 @@ export const validateSchedule = (schedule, errorStatus) => {
       const lastInterval = last(item.intervals);
       if (crossingIntervals(firstInterval, lastInterval)) {
         errorStatus[index] = true;
-      }
-      else {
+      } else {
         errorStatus[index] = false;
       }
     }

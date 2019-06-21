@@ -66,7 +66,7 @@ const size = {
     },
     staffSchedule: {
       timePicker: {
-        height: spacing.unit * 20,
+        height: spacing.unit * 18,
         width: spacing.unit * 42
       }
     },
@@ -86,6 +86,7 @@ const size = {
     large: spacing.unit * 25,
     medium: spacing.unit * 17,
     small: spacing.unit * 12,
+    timePicker: spacing.unit * 13,
     dropDown: spacing.unit * 2,
   }
 };

@@ -45,7 +45,7 @@ const mapStateToProps = state => ({
   user: state.user,
   userInfo: state.personal.user,
   personal: state.personal,
-  staff: state.personal.clients
+  staff: state.personal.usersByRole
 });
 
 const mapDispatchToProps = dispatch => ({

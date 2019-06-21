@@ -9,11 +9,12 @@ const defaultProps = {
   type: "AntDesign",
   color: theme.colors.primary,
   size: theme.size.icons.small,
-  buttonStyle: null
+  buttonStyle: null,
+  iconStyle: null,
 };
 
 export const ButtonIcon = props => {
-  const { event, icon, type, color, size, buttonStyle } = {
+  const { event, icon, type, color, size, buttonStyle, iconStyle } = {
     ...defaultProps,
     ...props
   };
@@ -21,7 +22,7 @@ export const ButtonIcon = props => {
 
   return (
     <Button onPress={event} transparent style={buttonStyle}>
-      <IconType name={icon} color={color} size={size} solid />
+      <IconType name={icon} color={color} size={size} solid style={iconStyle}/>
     </Button>
   );
 };

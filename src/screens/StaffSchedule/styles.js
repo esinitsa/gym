@@ -4,16 +4,18 @@ import theme from "../../styles/index";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.container,
+    backgroundColor: theme.colors.container
+  },
+  pickersContainer: {
+    marginTop: theme.size.margin.large
   },
   content: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: theme.size.margin.medium,
-    marginHorizontal: theme.size.margin.large,
+    marginHorizontal: theme.size.margin.large
   },
   pickerContent: {
-    flexDirection: "row",
+    flexDirection: "row"
   },
   addNewPickerIcon: {
     width: theme.size.parameters.small,
@@ -50,13 +52,36 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     width: theme.size.parameters.staffSchedule.timePicker.width,
+    height: theme.size.parameters.staffSchedule.timePicker.height
+  },
+  leftDateContainer: {
+    width: theme.size.parameters.staffSchedule.timePicker.width,
     height: theme.size.parameters.staffSchedule.timePicker.height,
+    borderTopLeftRadius: theme.size.border.radius.secondary,
+    borderBottomLeftRadius: theme.size.border.radius.secondary
+  },
+  rightDateContainer: {
+    width: theme.size.parameters.staffSchedule.timePicker.width,
+    height: theme.size.parameters.staffSchedule.timePicker.height,
+    borderLeftWidth: theme.size.border.width.empty,
+    borderTopRightRadius: theme.size.border.radius.secondary,
+    borderBottomRightRadius: theme.size.border.radius.secondary
   },
   pickerToggle: {
-    paddingLeft: theme.size.margin.small
+    marginLeft: theme.size.margin.small
   },
   dayTitle: {
-    fontSize: theme.fonts.size.subtitle
+    fontSize: theme.fonts.size.subtitle,
+    alignSelf: "flex-start",
+    paddingTop: theme.size.padding.medium,
+    marginLeft: theme.size.margin.small
+  },
+  errorText: {
+    fontSize: theme.fonts.size.placeholder,
+    color: theme.colors.danger
+  },
+  pickerController: {
+    alignSelf: "flex-start"
   }
 });
 

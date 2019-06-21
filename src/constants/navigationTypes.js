@@ -13,5 +13,6 @@ export const NavigationType = {
   Calendar: "Calendar",
   StaffTable: "StaffTable",
   Appointment: "Appointment",
-  StaffSchedule: "StaffSchedule"
+  StaffSchedule: "StaffSchedule",
+  StaffCalendar: "StaffCalendar"
 };
