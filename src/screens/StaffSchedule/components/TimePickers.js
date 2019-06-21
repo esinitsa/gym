@@ -22,7 +22,9 @@ export const TimePickers = ({
   const [isExpanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    if (!intervals.length) setExpanded(false);
+    if (!intervals.length) {
+      setExpanded(false);
+    }
   }, [intervals.length]);
 
   const changeToTime = index => time => {
