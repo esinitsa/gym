@@ -74,6 +74,7 @@
     "validTill" : "Дата окончания",
     "makeAppointment": "Записаться на прием",
     "personalInfo": "Личная информация",
+    "viewSchedule": "Посмотреть расписание",
     "type": "Тип",
     "period": "Период",
     "active": "Активен",

@@ -126,9 +126,7 @@ export const getUsersByRole = role => dispatch => {
         role
       }
     })
-    .then(data => {
-      dispatch(getUsersByRoleSuccess(data));
-    })
+    .then(data => dispatch(getUsersByRoleSuccess(data)))
     .catch(error => console.log(error));
 };
 
@@ -140,9 +138,7 @@ export const getUserScheduleById = userId => dispatch => {
         userId
       }
     })
-    .then(data => {
-      dispatch(getUserScheduleByIdSuccess(data));
-    })
+    .then(data => dispatch(getUserScheduleByIdSuccess(data)))
     .catch(error => console.log(error));
 };
 
@@ -154,9 +150,7 @@ export const getStaffBookedSession = staffId => dispatch => {
         staffId
       }
     })
-    .then(data => {
-      dispatch(getStaffBookedSessionSuccess(data));
-    })
+    .then(data => dispatch(getStaffBookedSessionSuccess(data)))
     .catch(error => console.log(error));
 };
 
@@ -168,9 +162,7 @@ export const getStaffSchedule = staffId => dispatch => {
         staffId
       }
     })
-    .then(data => {
-      dispatch(getStaffScheduleSuccess(data));
-    })
+    .then(data => dispatch(getStaffScheduleSuccess(data)))
     .catch(error => console.log(error));
 };
 
@@ -178,9 +170,7 @@ export const setStaffSchedule = staffScheduleBody => dispatch => {
   dispatch(setStaffScheduleRequest());
   return api
     .post(SET_STAFF_SCHEDULE, staffScheduleBody)
-    .then(data => {
-      dispatch(setStaffScheduleSuccess());
-    })
+    .then(data => dispatch(setStaffScheduleSuccess()))
     .catch(error => console.log(error));
 };
 
@@ -210,9 +200,7 @@ export const makeAppointment = appointmentBody => dispatch => {
   dispatch(makeAppointmentRequest());
   return api
     .post(MAKE_APPOINTMENT, appointmentBody)
-    .then(data => {
-      dispatch(makeAppointmentSuccess());
-    })
+    .then(data => dispatch(makeAppointmentSuccess()))
     .catch(error => console.log(error));
 };
 

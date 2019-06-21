@@ -7,7 +7,10 @@ import { I18n } from "react-redux-i18n";
 import { getUserScheduleById } from "../../components/personal/actions";
 import CustomCalendar from "../common/calendar";
 import { renderHeader } from "./components/header";
-import { userScheduleLoadItems, getMarkedDates } from "../../services/dateManager";
+import {
+  userScheduleLoadItems,
+  getMarkedDates
+} from "../../services/dateManager";
 import { CustomText } from "../common/text/customText";
 import theme from "../../styles";
 import styles from "./styles";
@@ -19,7 +22,7 @@ class Calendar extends React.PureComponent {
 
   renderItem = ({ time, staff, staffRole, duration }) => {
     const { firstName, lastName } = staff;
-     return (
+    return (
       <Card style={styles.card}>
         <View style={styles.calendarItemContainer}>
           <View style={styles.listItem}>
@@ -68,7 +71,7 @@ class Calendar extends React.PureComponent {
   };
 
   render() {
-    const { schedule,  navigation } = this.props;
+    const { schedule, navigation } = this.props;
     const user = navigation.getParam("user");
     return (
       <Container>

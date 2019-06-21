@@ -22,7 +22,7 @@ export const TimePickers = ({
   const [isExpanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    !intervals.length && setExpanded(false);
+    if (!intervals.length) setExpanded(false);
   }, [intervals.length]);
 
   const changeToTime = index => time => {
@@ -45,7 +45,7 @@ export const TimePickers = ({
     setExpanded(false);
   };
 
-  const renderAddButton = () => {
+  const AddButton = () => {
     return (
       intervals.length < 2 && (
         <ButtonIcon
@@ -60,7 +60,7 @@ export const TimePickers = ({
     );
   };
 
-  const renderRemoveButton = index => {
+  const RemoveButton = index => {
     return (
       isExpanded &&
       index === intervals.length - 1 && (
@@ -109,8 +109,8 @@ export const TimePickers = ({
             onDateChange={changeToTime(index)}
           />
         </View>
-        {renderAddButton()}
-        {renderRemoveButton(index)}
+        <AddButton />
+        <RemoveButton index={index} />
       </View>
     );
   };

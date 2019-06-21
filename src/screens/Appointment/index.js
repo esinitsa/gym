@@ -157,7 +157,7 @@ class Appointment extends React.PureComponent {
           >
             <CustomText
               style={styles.buttonText}
-              text={"Посмотреть расписание"}
+              text={I18n.t("profile.viewSchedule")}
             />
           </TouchableOpacity>
           <TouchableOpacity

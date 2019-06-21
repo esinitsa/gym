@@ -97,9 +97,9 @@ class StaffCalendar extends React.PureComponent {
   };
 
   render() {
-    const { staffSchedule } = this.props;
-    const staff = this.props.navigation.getParam("staff");
-    const duration = this.props.navigation.getParam("duration");
+    const { staffSchedule, navigation } = this.props;
+    const staff = navigation.getParam("staff");
+    const duration = navigation.getParam("duration");
     return (
       <Container>
         {renderHeader(this.props)}
