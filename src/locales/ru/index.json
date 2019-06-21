@@ -35,6 +35,12 @@
       "description": "Вы хотите выйти?",
       "cancel": "Нет, отменить",
       "confirm": "Да, выйти"
+    },
+    "setSchedule": {
+      "header": "Расписание",
+      "description": "Вы хотите установить расписание?",
+      "cancel": "Отмена",
+      "confirm": "Да"
     }
   },
   "mark": {
@@ -42,6 +48,12 @@
     "description": "Вы хотите подтвердить посещение?",
     "cancel": "Закрыть",
     "confirm": "Да, подтвердить посещение"
+  },
+  "makeAppointment": {
+    "header": "Записаться на занятие",
+    "description": "Вы хотите подтвердить запись?",
+    "cancel": "Отмена",
+    "confirm": "Да, подтвердить запись"
   },
   "profile": {
     "numberOfVisits" : "Количество занятий",
@@ -62,6 +74,7 @@
     "validTill" : "Дата окончания",
     "makeAppointment": "Записаться на прием",
     "personalInfo": "Личная информация",
+    "viewSchedule": "Посмотреть расписание",
     "type": "Тип",
     "period": "Период",
     "active": "Активен",
@@ -114,13 +127,16 @@
     "invalidEmailOrPassword": "Неправильный адрес электронной почты или пароль"
   },
   "exceptions": {
-    "accountNotActivated": "Ваш аккаунт не активирован, попробуйте позже"
+    "accountNotActivated": "Ваш аккаунт не активирован, попробуйте позже",
+    "invalidTime": "Введите правильное время",
+    "crossingTime" : "Рабочее время не может пересекаться в один и тот же день"
   },
   "header": {
     "notes": "Заметки",
     "subscriptions": "Абонементы",
     "profile": "Профиль",
-    "calendar": "Календарь"
+    "calendar": "Календарь",
+    "schedule": "Расписание"
   },
   "calendar": {
     "monthNames": {
@@ -158,7 +174,7 @@
       "thursday": "Четверг",
       "friday": "Пятница",
       "saturday": "Суббота",
-      "sunday": "Суббота"
+      "sunday": "Воскресенье"
     },
     "dayNamesShort": {
       "monday": "Пон.",
@@ -168,6 +184,20 @@
       "friday":"Пят.",
       "saturday":"Сб.",
       "sunday":"Вс."
+    }
+  },
+  "schedule": {
+    "messages": {
+      "crossingIntervals": "Пересечение интервалов"
+    }
+  },
+  "picker": {
+    "placeholders" : {
+      "selectTime": "Выберите время"
+    },
+    "settings": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
     }
   }
 }

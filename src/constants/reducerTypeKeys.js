@@ -9,7 +9,8 @@ import {
   GET_ALL_MASSEURS_SUCCESS,
   GET_USERS_BY_ROLE_SUCCESS,
   GET_USER_SCHEDULE_BY_ID_SUCCESS,
-  GET_STAFF_SCHEDULE_BY_ID_SUCCESS
+  GET_STAFF_BOOKED_SESSION_SUCCESS,
+  GET_STAFF_SCHEDULE_SUCCESS
 } from "../components/personal/constants";
 
 export const KEYS = {
@@ -21,7 +22,8 @@ export const KEYS = {
   [GET_ALL_TRAINERS_SUCCESS]: "trainers",
   [GET_ALL_DOCTORS_SUCCESS]: "doctors",
   [GET_ALL_MASSEURS_SUCCESS]: "masseurs",
-  [GET_USERS_BY_ROLE_SUCCESS]: "clients",
+  [GET_USERS_BY_ROLE_SUCCESS]: "usersByRole",
   [GET_USER_SCHEDULE_BY_ID_SUCCESS]: "userSchedule",
-  [GET_STAFF_SCHEDULE_BY_ID_SUCCESS]: "staffSchedule"
+  [GET_STAFF_BOOKED_SESSION_SUCCESS]: "userSchedule",
+  [GET_STAFF_SCHEDULE_SUCCESS]: "staffSchedule"
 };

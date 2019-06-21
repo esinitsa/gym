@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
 import {
   getCurrentUser,
-  getUsersByRole,
+  getUserById,
   getUserScheduleById,
+  getUsersByRole,
   makeAppointment
 } from "../../components/personal/actions";
 import {
@@ -27,6 +28,7 @@ import { renderPicker } from "./components/picker";
 import { renderDateTimePicker } from "./components/dateTimePicker";
 import moment from "moment";
 import styles from "./styles";
+import { NavigationType } from "../../constants/navigationTypes";
 
 class Appointment extends React.PureComponent {
   state = {
@@ -41,8 +43,19 @@ class Appointment extends React.PureComponent {
   };
 
   componentDidMount() {
+    const staff = this.props.navigation.getParam("staff");
     this.props.getUserScheduleById(this.props.currentUser.id);
+    this.props.getUserById(staff.id);
   }
+
+  goTo = this.props.navigation.navigate;
+
+  goToStaffCalender = () =>
+    this.goTo(NavigationType.StaffCalendar, {
+      staff: this.props.staff[this.state.selectedStaff],
+      duration: APPOINTMENT_DURATIONS[this.state.selectedDuration],
+      role: STAFF_ROLES[this.state.selectedRole],
+    });
 
   makeAppointment = () => {
     const { currentUser, staff } = this.props;
@@ -140,6 +153,15 @@ class Appointment extends React.PureComponent {
           </View>
           <TouchableOpacity
             style={styles.button}
+            onPress={this.goToStaffCalender}
+          >
+            <CustomText
+              style={styles.buttonText}
+              text={I18n.t("profile.viewSchedule")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
             onPress={this.makeAppointment}
           >
             <CustomText
@@ -157,13 +179,14 @@ const mapStateToProps = state => ({
   user: state.user,
   currentUser: state.user.userProfile,
   userInfo: state.personal.user,
-  staff: state.personal.clients
+  staff: state.personal.usersByRole
 });
 
 const mapDispatchToProps = dispatch => ({
   makeAppointment: appointmentBody =>
     dispatch(makeAppointment(appointmentBody)),
   getUserScheduleById: id => dispatch(getUserScheduleById(id)),
+  getUserById: id => dispatch(getUserById(id)),
   getUsersByRole: role => dispatch(getUsersByRole(role)),
   getUserInfo: () => dispatch(getCurrentUser())
 });

@@ -10,8 +10,14 @@ export const GET_USER_BY_ID_SUCCESS = "@@user/getUserById/SUCCESS";
 export const GET_USER_SCHEDULE_BY_ID_REQUEST = "@@user/getUserScheduleById/REQUEST";
 export const GET_USER_SCHEDULE_BY_ID_SUCCESS = "@@user/getUserScheduleById/SUCCESS";
 
-export const GET_STAFF_SCHEDULE_BY_ID_REQUEST = "@@user/getStaffScheduleById/REQUEST";
-export const GET_STAFF_SCHEDULE_BY_ID_SUCCESS = "@@user/getStaffScheduleById/SUCCESS";
+export const GET_STAFF_BOOKED_SESSION_REQUEST = "@@user/getStaffBookedSession/REQUEST";
+export const GET_STAFF_BOOKED_SESSION_SUCCESS = "@@user/getStaffBookedSession/SUCCESS";
+
+export const GET_STAFF_SCHEDULE_REQUEST = "@@user/getStaffSchedule/REQUEST";
+export const GET_STAFF_SCHEDULE_SUCCESS = "@@user/getStaffSchedule/SUCCESS";
+
+export const SET_STAFF_SCHEDULE_REQUEST = "@@user/setStaffScheduleById/REQUEST";
+export const SET_STAFF_SCHEDULE_SUCCESS = "@@user/setStaffScheduleById/SUCCESS";
 
 export const GET_TRAINERS_REQUEST = "@@user/getTrainers/REQUEST";
 export const GET_TRAINERS_SUCCESS = "@@user/getTrainers/SUCCESS";
@@ -27,3 +33,6 @@ export const ADD_INTERNAL_RECORD_SUCCESS = "@@user/addInternalRecord/SUCCESS";
 
 export const MAKE_APPOINTMENT_REQUEST = "@@user/makeAppointment/REQUEST";
 export const MAKE_APPOINTMENT_SUCCESS = "@@user/makeAppointment/SUCCESS";
+
+export const UPDATE_SCHEDULE_REQUEST = "@@user/updateSchedule/REQUEST";
+export const UPDATE_SCHEDULE_SUCCESS = "@@user/updateSchedule/SUCCESS";

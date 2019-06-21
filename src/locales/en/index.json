@@ -12,7 +12,8 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "locale": "Locale",
-      "dateBirth": "Date Of Birth"
+      "dateBirth": "Date Of Birth",
+      "selectTime": "select time"
     },
     "messages": {
       "invalidLoginData": "Enter Valid Username & Password!",
@@ -35,6 +36,12 @@
       "description": "Do you want to log out?",
       "cancel": "No, cancel",
       "confirm": "Yes, log out"
+    },
+    "setSchedule": {
+      "header": "Schedule",
+      "description": "Do you want to set schedule?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
     }
   },
   "mark": {
@@ -42,6 +49,12 @@
     "description": "You want to confirm visit?",
     "cancel": "No, cancel",
     "confirm": "Yes, confirm visit"
+  },
+  "makeAppointment": {
+    "header": "Make an appointment",
+    "description": "You want to confirm, make an appointment?",
+    "cancel": "No, cancel",
+    "confirm": "Yes, confirm appointment"
   },
   "profile": {
     "numberOfVisits" : "Number of visits",
@@ -62,6 +75,7 @@
     "myCalendar": "My calendar",
     "makeAppointment": "Make an appointment",
     "personalInfo": "Personal information",
+    "viewSchedule": "View schedule",
     "type": "Type",
     "period": "Period",
     "active": "Active",
@@ -114,13 +128,16 @@
     "invalidEmailOrPassword": "Invalid email or password"
   },
   "exceptions": {
-    "accountNotActivated": "Your account is not activated, try again later"
+    "accountNotActivated": "Your account is not activated, try again later",
+    "invalidTime": "Enter the correct time",
+    "crossingTime" : "Working hours cannot cross on the same day"
   },
   "header": {
     "notes": "Notes",
     "subscriptions": "Subscriptions",
     "profile": "Profile",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "schedule": "Schedule"
   },
   "calendar": {
     "monthNames": {
@@ -168,6 +185,20 @@
       "friday":"Fri",
       "saturday":"Sat",
       "sunday":"Sun"
+    }
+  },
+  "schedule": {
+    "messages": {
+      "crossingIntervals": "Crossing Intervals"
+    }
+  },
+  "picker": {
+    "placeholders" : {
+      "selectTime": "Выберите время"
+    },
+    "settings": {
+      "confirm": "Готово",
+      "cancel": "Отмена"
     }
   }
 }

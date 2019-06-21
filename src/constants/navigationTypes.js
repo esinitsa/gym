@@ -12,5 +12,7 @@ export const NavigationType = {
   SubscriptionList: "SubscriptionList",
   Calendar: "Calendar",
   StaffTable: "StaffTable",
-  Appointment: "Appointment"
+  Appointment: "Appointment",
+  StaffSchedule: "StaffSchedule",
+  StaffCalendar: "StaffCalendar"
 };

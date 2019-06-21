@@ -13,10 +13,16 @@ import {
   MAKE_APPOINTMENT_SUCCESS,
   GET_USERS_BY_ROLE_REQUEST,
   GET_USERS_BY_ROLE_SUCCESS,
-  GET_STAFF_SCHEDULE_BY_ID_REQUEST,
-  GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
+  GET_STAFF_BOOKED_SESSION_REQUEST,
+  GET_STAFF_BOOKED_SESSION_SUCCESS,
   GET_USER_SCHEDULE_BY_ID_REQUEST,
-  GET_USER_SCHEDULE_BY_ID_SUCCESS
+  GET_USER_SCHEDULE_BY_ID_SUCCESS,
+  UPDATE_SCHEDULE_REQUEST,
+  UPDATE_SCHEDULE_SUCCESS,
+  SET_STAFF_SCHEDULE_REQUEST,
+  SET_STAFF_SCHEDULE_SUCCESS,
+  GET_STAFF_SCHEDULE_REQUEST,
+  GET_STAFF_SCHEDULE_SUCCESS
 } from "./constants";
 
 const initialState = {
@@ -52,7 +58,7 @@ export const personalReducer = (state = initialState, action) => {
     case GET_USERS_BY_ROLE_SUCCESS:
       return {
         ...state,
-        clients: action.clients,
+        usersByRole: action.usersByRole,
         isDataLoading: false
       };
     case GET_USER_BY_ID_REQUEST:
@@ -95,14 +101,27 @@ export const personalReducer = (state = initialState, action) => {
         userSchedule: action.userSchedule,
         isDataLoading: false
       };
-    case GET_STAFF_SCHEDULE_BY_ID_REQUEST:
+    case GET_STAFF_BOOKED_SESSION_REQUEST:
       return {
         ...state,
-        lastRequestType: GET_STAFF_SCHEDULE_BY_ID_REQUEST,
-        lastSuccessType: GET_STAFF_SCHEDULE_BY_ID_SUCCESS,
+        lastRequestType: GET_STAFF_BOOKED_SESSION_REQUEST,
+        lastSuccessType: GET_STAFF_BOOKED_SESSION_SUCCESS,
         isDataLoading: true
       };
-    case GET_STAFF_SCHEDULE_BY_ID_SUCCESS:
+    case GET_STAFF_BOOKED_SESSION_SUCCESS:
+      return {
+        ...state,
+        userSchedule: action.userSchedule,
+        isDataLoading: false
+      };
+    case GET_STAFF_SCHEDULE_REQUEST:
+      return {
+        ...state,
+        lastRequestType: GET_STAFF_SCHEDULE_REQUEST,
+        lastSuccessType: GET_STAFF_SCHEDULE_SUCCESS,
+        isDataLoading: true
+      };
+    case GET_STAFF_SCHEDULE_SUCCESS:
       return {
         ...state,
         staffSchedule: action.staffSchedule,
@@ -141,6 +160,31 @@ export const personalReducer = (state = initialState, action) => {
         lastSuccessType: ADD_INTERNAL_RECORD_SUCCESS
       };
     case MAKE_APPOINTMENT_SUCCESS:
+      return {
+        ...state,
+        isDataLoading: false
+      };
+    case UPDATE_SCHEDULE_REQUEST:
+      return {
+        ...state,
+        isDataLoading: true,
+        lastRequestType: UPDATE_SCHEDULE_REQUEST,
+        lastSuccessType: UPDATE_SCHEDULE_SUCCESS
+      };
+    case UPDATE_SCHEDULE_SUCCESS:
+      return {
+        ...state,
+        user: action.user,
+        isDataLoading: false
+      };
+    case SET_STAFF_SCHEDULE_REQUEST:
+      return {
+        ...state,
+        isDataLoading: true,
+        lastRequestType: UPDATE_SCHEDULE_REQUEST,
+        lastSuccessType: UPDATE_SCHEDULE_SUCCESS
+      };
+    case SET_STAFF_SCHEDULE_SUCCESS:
       return {
         ...state,
         isDataLoading: false
