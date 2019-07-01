@@ -4,11 +4,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { SafeAreaView, StatusBar, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
+import { getCurrentUser } from "../../components/personal/actions";
 import {
-  getCurrentUser,
   setStaffSchedule,
   getStaffBookedSession
-} from "../../components/personal/actions";
+} from "../../components/schedule/actions";
 import { BASIC_SCHEDULE } from "../../constants";
 import { DAYS_OF_WEEK, DAY_LOCALIZATION } from "../../constants/calendar";
 import {
@@ -97,7 +97,7 @@ const StaffSchedule = props => {
 
   const renderSchedulePickers = (dayOfWeek, dayIndex) => {
     return (
-      <View style={styles.content}>
+      <View key={dayIndex} style={styles.content}>
         <CustomText
           text={I18n.t(DAY_LOCALIZATION[dayOfWeek])}
           style={styles.dayTitle}

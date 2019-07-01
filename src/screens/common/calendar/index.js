@@ -21,7 +21,7 @@ export default class Calendar extends Component {
         rowHasChanged={this.rowHasChanged}
         pastScrollRange={1}
         futureScrollRange={2}
-         markedDates={markedDates}
+        markedDates={markedDates}
         theme={agendaTheme}
       />
     );
@@ -29,14 +29,14 @@ export default class Calendar extends Component {
 
   loadItems = day => {
     setTimeout(() => {
-      const { scheduleLoadItems, schedule, duration} = this.props;
+      const { scheduleLoadItems, schedule, duration, bookedSessions} = this.props;
       let items = this.state.items;
       for (let i = -30; i < 90; i++) {
         const date = calendarDateIterator(day, i);
         const strDate = getDateForCalendar(date);
         if (!items[strDate]) {
           items[strDate] = [];
-          items[strDate] = scheduleLoadItems(items[strDate],schedule, strDate, duration);
+          items[strDate] = scheduleLoadItems(items[strDate],schedule, strDate, duration, bookedSessions);
         }
       }
       const newItems = {};

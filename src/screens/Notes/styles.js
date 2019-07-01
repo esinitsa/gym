@@ -1,7 +1,5 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 import theme from "../../styles";
-
-const pickerView = Platform.OS === "ios" ? { flex: 1 } : { width: theme.size.parameters.pickerWidth };
 
 export default StyleSheet.create({
   container: {
@@ -119,7 +117,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     marginTop: theme.size.margin.large
   },
-  pickerView,
+  pickerView: theme.size.parameters.picker.view,
   pickerText: {
     color: theme.colors.text,
     fontSize: theme.fonts.size.subtitle,

@@ -42,7 +42,6 @@ const size = {
     pickerFrame: (DEVICE_WIDTH - 40) / 2,
     logo: spacing.unit * 75,
     rightView: spacing.unit * 23,
-    pickerWidth: spacing.unit * 70,
     userInfo: spacing.unit * 35,
     items: spacing.unit * 125,
     large: spacing.unit * 50,
@@ -80,6 +79,11 @@ const size = {
           schedule: spacing.unit * 55
         }
       }
+    },
+    picker: {
+      height: spacing.unit * 20,
+      width: spacing.unit * 70,
+      view: Platform.OS === "ios" ? { flex: 1 } : { width: spacing.unit * 70 }
     }
   },
   icons: {

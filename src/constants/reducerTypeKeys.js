@@ -8,10 +8,12 @@ import {
   GET_ALL_DOCTORS_SUCCESS,
   GET_ALL_MASSEURS_SUCCESS,
   GET_USERS_BY_ROLE_SUCCESS,
+} from "../components/personal/constants";
+import {
   GET_USER_SCHEDULE_BY_ID_SUCCESS,
   GET_STAFF_BOOKED_SESSION_SUCCESS,
   GET_STAFF_SCHEDULE_SUCCESS
-} from "../components/personal/constants";
+} from "../components/schedule/constants";
 
 export const KEYS = {
   [SUBSCRIPTION_VISIT_SUCCESS]: "user",

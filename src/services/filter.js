@@ -1,5 +1,7 @@
 import _, { reverse, isEqual, get, last } from "lodash";
 import { COUNT, EMPTY_RESPONSE } from "../constants";
+import moment from "moment";
+import { CALENDAR_FORMAT, DAY } from "../constants";
 import { STAFF_ROLES } from "../constants/userTypes";
 import { NavigationType } from "../constants/navigationTypes";
 
@@ -42,5 +44,11 @@ export const getLastActiveSubscription = user => {
 
 export const getPreviouslyValidated = user => {
   const lastActiveSubscription = getLastActiveSubscription(user);
-  return get(lastActiveSubscription,"previouslyValidated",[]);
+  return get(lastActiveSubscription, "previouslyValidated", []);
 };
+
+export const bookedSessionsDateFilter = (bookedSession, strDate) =>
+  _.filter(bookedSession, ({ startAt }) => {
+    const date = moment(startAt).format(CALENDAR_FORMAT);
+    return moment(date).isSame(moment(strDate, CALENDAR_FORMAT), DAY);
+  });

@@ -4,7 +4,7 @@ import { StatusBar } from "react-native";
 import { connect } from "react-redux";
 import { ROLES } from "../../constants/userTypes";
 import { I18n } from "react-redux-i18n";
-import { getUserScheduleById } from "../../components/personal/actions";
+import { getUserScheduleById } from "../../components/schedule/actions";
 import CustomCalendar from "../common/calendar";
 import { renderHeader } from "./components/header";
 import {
@@ -95,7 +95,7 @@ class Calendar extends React.PureComponent {
 const mapStateToProps = state => ({
   currentUser: state.user.userProfile,
   userInfo: state.personal.user,
-  schedule: state.personal.userSchedule
+  schedule: state.schedule.userSchedule
 });
 
 const mapDispatchToProps = dispatch => ({

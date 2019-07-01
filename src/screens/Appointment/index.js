@@ -3,30 +3,26 @@ import React from "react";
 import { StatusBar, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
+import { get } from "lodash";
 import {
   getCurrentUser,
   getUserById,
-  getUserScheduleById,
   getUsersByRole,
   makeAppointment
 } from "../../components/personal/actions";
 import {
   APPOINTMENT_DURATIONS,
   PICKER_TYPES,
-  DATE_TIME_PICKER_MODES
 } from "../../constants";
 import { STAFF_ROLES } from "../../constants/userTypes";
 import {
   convertDateToISOFormat,
-  getCurrentTime,
   convertMinutesToMilliseconds
 } from "../../services/dateManager";
 import theme from "../../styles";
 import { CustomText } from "../common/text/customText";
 import { renderHeader } from "./components/header";
 import { renderPicker } from "./components/picker";
-import { renderDateTimePicker } from "./components/dateTimePicker";
-import moment from "moment";
 import styles from "./styles";
 import { NavigationType } from "../../constants/navigationTypes";
 
@@ -34,18 +30,11 @@ class Appointment extends React.PureComponent {
   state = {
     selectedRole: 0,
     selectedStaff: 0,
-    selectedDuration: 0,
-    chosenDate: moment(),
-    date: moment(),
-    time: getCurrentTime(),
-    isDatePickerVisible: false,
-    isTimePickerVisible: false
+    selectedDuration: 0
   };
 
   componentDidMount() {
-    const staff = this.props.navigation.getParam("staff");
-    this.props.getUserScheduleById(this.props.currentUser.id);
-    this.props.getUserById(staff.id);
+    this.props.getUsersByRole(STAFF_ROLES[this.state.selectedRole]);
   }
 
   goTo = this.props.navigation.navigate;
@@ -54,7 +43,7 @@ class Appointment extends React.PureComponent {
     this.goTo(NavigationType.StaffCalendar, {
       staff: this.props.staff[this.state.selectedStaff],
       duration: APPOINTMENT_DURATIONS[this.state.selectedDuration],
-      role: STAFF_ROLES[this.state.selectedRole],
+      role: STAFF_ROLES[this.state.selectedRole]
     });
 
   makeAppointment = () => {
@@ -102,13 +91,7 @@ class Appointment extends React.PureComponent {
   };
 
   render() {
-    const {
-      selectedRole,
-      selectedStaff,
-      selectedDuration,
-      date,
-      time
-    } = this.state;
+    const { selectedRole, selectedStaff, selectedDuration } = this.state;
     return (
       <Container>
         {renderHeader(this.props)}
@@ -126,7 +109,7 @@ class Appointment extends React.PureComponent {
           {this.renderLabelWithPicker(I18n.t("labels.userName"), {
             selectedValue: selectedStaff,
             onValueChange: this.onValueChangeStaff,
-            pickerData: this.props.staff,
+            pickerData: get(this.props, "staff", []),
             type: PICKER_TYPES.STAFF
           })}
           {this.renderLabelWithPicker(I18n.t("labels.duration"), {
@@ -135,22 +118,6 @@ class Appointment extends React.PureComponent {
             pickerData: APPOINTMENT_DURATIONS,
             type: PICKER_TYPES.DURATION
           })}
-          <View style={styles.labelWithPickerView}>
-            <Left style={styles.leftView}>
-              {renderDateTimePicker(
-                DATE_TIME_PICKER_MODES.DATE,
-                date,
-                this.onChangeDate
-              )}
-            </Left>
-            <Right style={styles.rightView}>
-              {renderDateTimePicker(
-                DATE_TIME_PICKER_MODES.TIME,
-                time,
-                this.onChangeTime
-              )}
-            </Right>
-          </View>
           <TouchableOpacity
             style={styles.button}
             onPress={this.goToStaffCalender}
@@ -158,15 +125,6 @@ class Appointment extends React.PureComponent {
             <CustomText
               style={styles.buttonText}
               text={I18n.t("profile.viewSchedule")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.makeAppointment}
-          >
-            <CustomText
-              style={styles.buttonText}
-              text={I18n.t("profile.makeAppointment")}
             />
           </TouchableOpacity>
         </View>
@@ -185,7 +143,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   makeAppointment: appointmentBody =>
     dispatch(makeAppointment(appointmentBody)),
-  getUserScheduleById: id => dispatch(getUserScheduleById(id)),
   getUserById: id => dispatch(getUserById(id)),
   getUsersByRole: role => dispatch(getUsersByRole(role)),
   getUserInfo: () => dispatch(getCurrentUser())
