@@ -7,8 +7,10 @@ export const DATE_FORMAT = "DD MMM YYYY";
 export const ISO_FORMAT = "YYYY-MM-DDTHH:mm:ss.SSS[Z]";
 export const CALENDAR_FORMAT = "YYYY-MM-DD";
 export const TIME_FORMAT = "HH:mm";
+export const DAY = "day";
 export const HOURS = "hours";
 export const MINUTE = "minute";
+export const ADD_MINUTES = "minutes";
 export const INTERVAL = {
   to: "to",
   from: "from"

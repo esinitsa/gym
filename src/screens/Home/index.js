@@ -62,10 +62,12 @@ class Home extends React.PureComponent {
     const preview = notes ? _.slice(notes, 0, DEFAULT_COUNT_OF_NOTES) : [];
     if (!preview.length) {
       return (
-        <CustomText
-          style={styles.emptyListItemInfo}
-          text={I18n.t("profile.emptySubscriptions")}
-        />
+        <CardItem style={styles.cardItem}>
+          <CustomText
+            style={styles.emptyListItemInfo}
+            text={I18n.t("profile.emptyNotes")}
+          />
+        </CardItem>
       );
     }
 
@@ -173,7 +175,7 @@ class Home extends React.PureComponent {
             <Right style={styles.calendarView}>
               <TouchableOpacity
                 style={styles.rightCalendarCardItem}
-                onPress={this.goToStaffTable}
+                onPress={this.goToAppointment}
               >
                 <CustomText
                   style={styles.calendarCardText}
@@ -206,14 +208,17 @@ class Home extends React.PureComponent {
       user: this.props.userInfo
     });
 
-  goToStaffTable = () => this.goTo(NavigationType.StaffTable);
+  goToAppointment = () => this.goTo(NavigationType.Appointment);
 
   render() {
     const { userProfile } = this.props.user;
     return (
       <Container>
         {renderHeader(this.props)}
-        <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
+        <StatusBar
+          backgroundColor={theme.colors.light}
+          barStyle="dark-content"
+        />
         <SafeAreaView style={styles.container}>
           <ScrollView>
             {this.renderUserInfoCard(this.props.userInfo)}

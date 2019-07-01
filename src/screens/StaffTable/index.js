@@ -13,6 +13,8 @@ import theme from "../../styles";
 import styles from "./styles";
 
 class StaffTable extends React.PureComponent {
+  _keyExtractor = item => item.id;
+
   render() {
     return (
       <Container style={styles.container}>
@@ -25,7 +27,7 @@ class StaffTable extends React.PureComponent {
         <FlatList
           data={this.props.staff}
           keyExtractor={this._keyExtractor}
-          renderItem={(staff, index) => (
+          renderItem={ staff => (
             <View style={styles.listItem}>
               <StaffItem
                 user={this.props.userInfo}

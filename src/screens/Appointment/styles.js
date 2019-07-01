@@ -1,10 +1,5 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 import theme from "../../styles/index";
-
-const pickerView =
-  Platform.OS === "ios"
-    ? { flex: 1 }
-    : { width: theme.size.parameters.pickerWidth };
 
 const styles = StyleSheet.create({
   container: {
@@ -59,17 +54,18 @@ const styles = StyleSheet.create({
     marginTop: theme.size.margin.medium
   },
   pickerContainer: {
-    width: theme.size.parameters.pickerWidth,
-    paddingHorizontal: theme.size.padding.small
+    width: theme.size.parameters.picker.width,
+    paddingHorizontal: theme.size.padding.small,
   },
   pickerFrame: {
-    height: theme.size.parameters.small,
+    height: theme.size.parameters.picker.height,
     width: theme.size.parameters.fullWidth,
     borderColor: theme.colors.secondary,
-    borderWidth: 1,
+    borderWidth: theme.size.border.width.empty,
+    borderBottomWidth: theme.size.border.width.primary,
     alignItems: "center"
   },
-  pickerView,
+  pickerView: theme.size.parameters.picker.view,
   pickerText: {
     paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit,

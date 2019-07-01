@@ -1,14 +1,18 @@
 import { Container, Card, View, Left, Right } from "native-base";
 import React from "react";
 import { StatusBar, TouchableOpacity, Alert } from "react-native";
+import { get } from "lodash";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
+import { makeAppointment } from "../../components/personal/actions";
 import {
   getStaffSchedule,
-  getUserScheduleById,
-  makeAppointment
-} from "../../components/personal/actions";
-import { staffScheduleLoadItems } from "../../services/dateManager";
+  getStaffBookedSession
+} from "../../components/schedule/actions";
+import {
+  staffScheduleLoadItems,
+  convertMinutesToMilliseconds
+} from "../../services/dateManager";
 import CustomCalendar from "../common/calendar";
 import { renderHeader } from "./components/header";
 import { EMPTY_OBJECT } from "../../constants";
@@ -18,9 +22,10 @@ import styles from "./styles";
 
 class StaffCalendar extends React.PureComponent {
   componentDidMount() {
-    const staff = this.props.navigation.getParam("staff");
-    this.props.getStaffSchedule(staff.id);
-    this.props.getUserScheduleById(this.props.currentUser.id);
+    const { navigation, getBookedSession, getStaffScheduleById } = this.props;
+    const staff = navigation.getParam("staff");
+    getStaffScheduleById(staff.id);
+    getBookedSession(staff.id);
   }
 
   acceptMakeAppointment = (startAt, duration, staff) => () => {
@@ -54,7 +59,11 @@ class StaffCalendar extends React.PureComponent {
 
   renderItem = ({ time, staff, startAt, duration }) => {
     const { firstName, lastName } = staff;
-    const makeAnAppointment = this.acceptMakeAppointment(startAt, duration, staff);
+    const makeAnAppointment = this.acceptMakeAppointment(
+      startAt,
+      convertMinutesToMilliseconds(duration),
+      staff
+    );
     return (
       <TouchableOpacity onPress={makeAnAppointment}>
         <Card style={styles.card}>
@@ -97,7 +106,7 @@ class StaffCalendar extends React.PureComponent {
   };
 
   render() {
-    const { staffSchedule, navigation } = this.props;
+    const { navigation } = this.props;
     const staff = navigation.getParam("staff");
     const duration = navigation.getParam("duration");
     return (
@@ -108,7 +117,8 @@ class StaffCalendar extends React.PureComponent {
           barStyle="dark-content"
         />
         <CustomCalendar
-          schedule={staffSchedule}
+          schedule={get(this.props, "staffSchedule", [])}
+          bookedSessions={get(this.props, "schedule", [])}
           scheduleLoadItems={staffScheduleLoadItems}
           renderItem={this.renderItem}
           renderEmptyDate={this.renderEmptyDate}
@@ -124,13 +134,13 @@ class StaffCalendar extends React.PureComponent {
 const mapStateToProps = state => ({
   currentUser: state.user.userProfile,
   userInfo: state.personal.user,
-  schedule: state.personal.userSchedule,
-  staffSchedule: state.personal.staffSchedule
+  schedule: state.schedule.userSchedule,
+  staffSchedule: state.schedule.staffSchedule
 });
 
 const mapDispatchToProps = dispatch => ({
-  getStaffSchedule: id => dispatch(getStaffSchedule(id)),
-  getUserScheduleById: id => dispatch(getUserScheduleById(id)),
+  getStaffScheduleById: id => dispatch(getStaffSchedule(id)),
+  getBookedSession: staffId => dispatch(getStaffBookedSession(staffId)),
   makeAppointment: appointmentBody => dispatch(makeAppointment(appointmentBody))
 });
 

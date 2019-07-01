@@ -80,7 +80,7 @@ export const TimePickers = ({
 
   const renderSchedulePickers = ({ from, to }, index) => {
     return (
-      <View>
+      <View key={index}>
         <View style={styles.pickerContent}>
           <DatePicker
             style={styles.dateContainer}
