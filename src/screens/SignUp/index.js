@@ -4,6 +4,7 @@ import { SafeAreaView, TouchableOpacity, StatusBar } from "react-native";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import { signUpUser } from "../../components/login/actions";
+import { signupSubmit } from "../../components/onBoarding/actions";
 import { I18n } from "react-redux-i18n";
 import theme from "../../styles";
 import styles from "./styles";
@@ -19,6 +20,7 @@ import {
   minLength4
 } from "../../services/validations";
 import { NavigationType } from "../../constants/navigationTypes";
+import OnBoardingSignUpForm from "../OnBoarding/SignUp";
 import ButtonSubmit from "../common/buttons/submit";
 
 class SignUpForm extends React.PureComponent {
@@ -54,6 +56,7 @@ class SignUpForm extends React.PureComponent {
         })
         .then(() => {
           showToast(I18n.t("login.messages.signUpSuccess"));
+          this.props.onBoardingSignup();
           this.goToLogin();
         })
         .catch(error => {
@@ -70,9 +73,12 @@ class SignUpForm extends React.PureComponent {
 
   render() {
     return (
-     <Container>
+      <Container>
         <SafeAreaView style={styles.container}>
-          <StatusBar backgroundColor={theme.colors.container} barStyle="dark-content" />
+          <StatusBar
+            backgroundColor={theme.colors.container}
+            barStyle="dark-content"
+          />
           <View style={styles.formContainer}>
             <Field
               name="email"
@@ -120,7 +126,8 @@ class SignUpForm extends React.PureComponent {
             </TouchableOpacity>
           </View>
         </SafeAreaView>
-        </Container>
+        <OnBoardingSignUpForm />
+      </Container>
     );
   }
 }
@@ -141,7 +148,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onSignUp: (email, password, fullName, lastName, locale) =>
-    dispatch(signUpUser(email, password, fullName, lastName, locale))
+    dispatch(signUpUser(email, password, fullName, lastName, locale)),
+  onBoardingSignup: () => dispatch(signupSubmit())
 });
 
 export default connect(

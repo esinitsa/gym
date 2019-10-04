@@ -5,17 +5,17 @@ import { WebView } from "react-native-webview";
 import { I18n } from "react-redux-i18n";
 import Icon from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
-import { showToast } from "../../../services/UIActions";
-import { DEFAULT_COUNT, EMPTY_RESPONSE } from "../../../constants";
-import { checkType, isActive } from "../../../services/filter";
+import { showToast } from "../../../../services/UIActions";
+import { DEFAULT_COUNT, EMPTY_RESPONSE } from "../../../../constants";
+import { NONE, BOX_NONE } from "../../../../constants/onBoardingStates";
+import { checkType, isActive } from "../../../../services/filter";
 import {
   getDateWithFormat,
   lastDateFromArray
-} from "../../../services/dateManager";
-import { CustomText } from "../text/customText";
-import OnBoardingExtendArrow from "../../OnBoarding/common/Subscriptions/ExtendArrow";
+} from "../../../../services/dateManager";
+import { CustomText } from "../../../common/text/customText";
 import styles from "./styles";
-import theme from "../../../styles";
+import theme from "../../../../styles";
 
 export default class SubscriptionItem extends React.PureComponent {
   state = {
@@ -67,7 +67,7 @@ export default class SubscriptionItem extends React.PureComponent {
         ) : (
           <Octicons
             name={"calendar"}
-            color="white"
+            color='white'
             size={theme.size.icons.medium}
           />
         )}
@@ -128,10 +128,8 @@ export default class SubscriptionItem extends React.PureComponent {
     );
   };
 
-  handleExpand = () =>{
+  handleExpand = () =>
     this.setState(state => ({ isExpanded: !state.isExpanded }));
-    this.props.onBoardingExtendCard();
-  }
 
   renderAdditionalInfoRow = (label, value, color) => {
     return (
@@ -168,11 +166,11 @@ export default class SubscriptionItem extends React.PureComponent {
     );
   };
   render() {
-    const { subscription, withExtension, isAdminPreview, stepExtendCard } = this.props;
+    const { subscription, withExtension, isAdminPreview } = this.props;
     const { isExpanded } = this.state;
     return (
-      <View style={styles.container}>
-        <View style={styles.subscriptionInfoView}>
+      <View pointerEvents={BOX_NONE} style={styles.container}>
+        <View pointerEvents={BOX_NONE} style={styles.subscriptionInfoView}>
           <View style={styles.rowView}>
             <View style={styles.typeIcon}>
               {this.renderSubscriptionType(subscription, "subscriptionType")}
@@ -194,18 +192,15 @@ export default class SubscriptionItem extends React.PureComponent {
             </View>
           </View>
           {withExtension && (
-            <View style={styles.extendArrow}>
-              <View style={styles.clickableArrow}>
-                <TouchableOpacity onPress={this.handleExpand}>
-                  <Icon
-                    name={isExpanded ? "up" : "down"}
-                    color={theme.colors.primary}
-                    size={theme.size.icons.small}
-                    solid
-                  />
-                </TouchableOpacity>
-              </View>
-              <OnBoardingExtendArrow stepExtendCard={stepExtendCard} />
+            <View pointerEvents='none' style={styles.clickableArrow}>
+              <TouchableOpacity>
+                <Icon
+                  name={isExpanded ? "up" : "down"}
+                  color={theme.colors.primary}
+                  size={theme.size.icons.small}
+                  solid
+                />
+              </TouchableOpacity>
             </View>
           )}
         </View>

@@ -1,37 +1,35 @@
-import { Body, Button, Header, Left, Right, View } from "native-base";
+import { Body, Button, Header, Left, Right } from "native-base";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
-import { I18n } from "react-redux-i18n";
-import theme from "../../../styles";
-import { CustomText } from "../../common/text/customText";
-import { isEqualUsers } from "../../../services/filter";
 import { NavigationType } from "../../../constants/navigationTypes";
+import { CustomText } from "../../common/text/customText";
+import { I18n } from "react-redux-i18n";
 import OnBoardingHeaderLeftArrow from "../../OnBoarding/common/Header/LeftArrow";
+import { isEqualUsers } from "../../../services/filter";
 import styles from "../styles";
+import theme from "../../../styles";
 
 export const renderHeader = props => {
   const {
     userInfo,
     currentUser,
-    subscriptions: { stepGoToHome },
-    onBoardingGoToHome
+    notes: { stepGoToHome }
   } = props;
 
   const goTo = (screen, params) => props.navigation.navigate(screen, params);
 
   const goToHome = () => {
-    onBoardingGoToHome();
     isEqualUsers(userInfo, currentUser)
       ? goTo(NavigationType.Home)
       : goTo(NavigationType.Profile, {
-          id: userInfo.id
+          id: props.userInfo.id
         });
   };
 
   return (
     <Header style={styles.header} noShadow>
       <Left style={styles.leftHeader}>
-        <Button onPress={goToHome} transparent>
+        <Button onPress={goToHome} transparent style={styles.profileIconHeader}>
           <Icon
             name={"left"}
             color={theme.colors.primary}
@@ -44,7 +42,7 @@ export const renderHeader = props => {
       </Left>
       <Body style={styles.headerBody}>
         <CustomText
-          text={I18n.t("header.subscriptions")}
+          text={I18n.t("header.notes")}
           style={styles.bodyHeaderText}
         />
         <CustomText

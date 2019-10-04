@@ -4,12 +4,18 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { NavigationType } from "../../../constants/navigationTypes";
 import { CustomText } from "../../common/text/customText";
 import { I18n } from "react-redux-i18n";
+import OnBoardingHeaderLeftArrow from "../../OnBoarding/common/Header/LeftArrow";
 import { isEqualUsers } from "../../../services/filter";
 import styles from "../styles";
 import theme from "../../../styles";
 
 export const renderHeader = props => {
-  const { userInfo, currentUser } = props;
+  const {
+    userInfo,
+    currentUser,
+    notes: { stepGoToHome },
+    onBoardingGoToHome
+  } = props;
 
   const goTo = (screen, params) => props.navigation.navigate(screen, params);
 
@@ -19,6 +25,7 @@ export const renderHeader = props => {
       : goTo(NavigationType.Profile, {
           id: props.userInfo.id
         });
+    onBoardingGoToHome();
   };
 
   return (
@@ -33,9 +40,13 @@ export const renderHeader = props => {
             style={styles.backArrowIcon}
           />
         </Button>
+        <OnBoardingHeaderLeftArrow step={stepGoToHome} />
       </Left>
       <Body style={styles.headerBody}>
-        <CustomText text={I18n.t("header.notes")} style={styles.bodyHeaderText} />
+        <CustomText
+          text={I18n.t("header.notes")}
+          style={styles.bodyHeaderText}
+        />
         <CustomText
           text={`${userInfo.firstName} ${userInfo.lastName}`}
           style={styles.headerUsername}

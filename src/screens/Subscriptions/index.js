@@ -9,6 +9,8 @@ import {
 import { reverseArray, isEqualUsers } from "../../services/filter";
 import SubscriptionItem from "../common/subscriptions/listItem";
 import { renderHeader } from "./components/header";
+import { subscriptionsExtendCard, subscriptionGoToHome } from "../../components/onBoarding/actions";
+import OnBoardingSubscriptions from "../OnBoarding/Subscriptions";
 import theme from "../../styles";
 import styles from "./styles";
 
@@ -32,8 +34,12 @@ class Subscriptions extends React.PureComponent {
   _keyExtractor = (item, index) => `${index}${item.id}`;
 
   renderListItem = subscription => {
-    const { userInfo } = this.props;
-    const { currentUser } = this.props;
+    const {
+      userInfo,
+      currentUser,
+      subscriptions: { stepExtendCard },
+      onBoardingExtendCard
+    } = this.props;
     return (
       <Card style={styles.card}>
         <View style={styles.listItem}>
@@ -45,6 +51,8 @@ class Subscriptions extends React.PureComponent {
             isAdminPreview={!isEqualUsers(userInfo, currentUser)}
             subscription={subscription.item}
             withExtension
+            stepExtendCard={stepExtendCard}
+            onBoardingExtendCard={onBoardingExtendCard}
           />
         </View>
       </Card>
@@ -66,7 +74,10 @@ class Subscriptions extends React.PureComponent {
     return (
       <Container>
         {renderHeader(this.props)}
-        <StatusBar backgroundColor={theme.colors.light} barStyle="dark-content" />
+        <StatusBar
+          backgroundColor={theme.colors.light}
+          barStyle="dark-content"
+        />
         <SafeAreaView style={styles.container} behavior="padding">
           {this.renderContent()}
         </SafeAreaView>
@@ -78,7 +89,8 @@ const mapStateToProps = state => ({
   personal: state.personal,
   currentUser: state.user.userProfile,
   userInfo: state.personal.user,
-  user: state.user
+  user: state.user,
+  subscriptions: state.onBoarding.subscriptions
 });
 
 const mapDispatchToProps = dispatch => {
@@ -86,7 +98,9 @@ const mapDispatchToProps = dispatch => {
     getUser: id => dispatch(getUserById(id)),
     markUserVisit: subscriptionId =>
       dispatch(processSubscriptionVisit(subscriptionId)),
-    getUserInfo: id => dispatch(getUserById(id))
+    getUserInfo: id => dispatch(getUserById(id)),
+    onBoardingExtendCard: () => dispatch(subscriptionsExtendCard()),
+    onBoardingGoToHome: () => dispatch(subscriptionGoToHome())
   };
 };
 

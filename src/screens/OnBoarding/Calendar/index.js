@@ -1,27 +1,22 @@
-import { Container, Card, View, Left, Right } from "native-base";
+import { Card, Left, Right, View } from "native-base";
 import React from "react";
 import { StatusBar } from "react-native";
 import { connect } from "react-redux";
-import { ROLES } from "../../constants/userTypes";
 import { I18n } from "react-redux-i18n";
-import { getUserScheduleById } from "../../components/schedule/actions";
-import OnBoardingCalendar from "../OnBoarding/Calendar";
-import CustomCalendar from "../common/calendar";
-import { renderHeader } from "./components/header";
-import { calendarGoToHome } from "../../components/onBoarding/actions";
+import { getUserScheduleById } from "../../../components/schedule/actions";
+import { ROLES } from "../../../constants/userTypes";
 import {
-  userScheduleLoadItems,
-  getMarkedDates
-} from "../../services/dateManager";
-import { CustomText } from "../common/text/customText";
-import theme from "../../styles";
+  getMarkedDates,
+  userScheduleLoadItems
+} from "../../../services/dateManager";
+import theme from "../../../styles";
+import CustomCalendar from "../../common/calendar";
+import { CustomText } from "../../common/text/customText";
+import { renderHeader } from "./components/header";
+import { NONE, BOX_NONE } from "../../../constants/onBoardingStates";
 import styles from "./styles";
 
-class Calendar extends React.PureComponent {
-  componentDidMount() {
-    this.props.getUserScheduleById(this.props.currentUser.id);
-  }
-
+class OnBoardingCalendar extends React.PureComponent {
   renderItem = ({ time, staff, staffRole, duration }) => {
     const { firstName, lastName } = staff;
     return (
@@ -76,8 +71,10 @@ class Calendar extends React.PureComponent {
     const { schedule, navigation } = this.props;
     const user = navigation.getParam("user");
     return (
-      <Container>
-        {renderHeader(this.props)}
+      <View pointerEvents={BOX_NONE} style={styles.container}>
+        <View pointerEvents={NONE} style={styles.headerContainer}>
+          {renderHeader(this.props)}
+        </View>
         <StatusBar
           backgroundColor={theme.colors.light}
           barStyle='dark-content'
@@ -89,9 +86,7 @@ class Calendar extends React.PureComponent {
           renderItem={this.renderItem}
           renderEmptyDate={this.renderEmptyDate}
         />
-
-        <OnBoardingCalendar navigation={navigation} />
-      </Container>
+      </View>
     );
   }
 }
@@ -99,16 +94,14 @@ class Calendar extends React.PureComponent {
 const mapStateToProps = state => ({
   currentUser: state.user.userProfile,
   userInfo: state.personal.user,
-  schedule: state.schedule.userSchedule,
-  calendar: state.onBoarding.calendar
+  schedule: state.schedule.userSchedule
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUserScheduleById: id => dispatch(getUserScheduleById(id)),
-  onBoardingGoToHome: () => dispatch(calendarGoToHome())
+  getUserScheduleById: id => dispatch(getUserScheduleById(id))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Calendar);
+)(OnBoardingCalendar);

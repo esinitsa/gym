@@ -1,37 +1,30 @@
 import _ from "lodash";
-import { Card, CardItem, Container, Left, Right } from "native-base";
+import { Card, CardItem, Left, Right } from "native-base";
 import React from "react";
 import {
   Modal,
   SafeAreaView,
-  ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
-  StatusBar
+  View
 } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
-import { userLogOut } from "../../components/login/actions";
-import { getCurrentUser } from "../../components/personal/actions";
-import { NavigationType } from "../../constants/navigationTypes";
-import { EMPTY_RESPONSE } from "../../constants";
-import { DEFAULT_COUNT_OF_NOTES } from "../../constants/settingsConstants";
-import theme from "../../styles";
-import NoteItem from "../common/notes/listItem";
-import SubscriptionItem from "../common/subscriptions/listItem";
-import { CustomText } from "../common/text/customText";
-import OnBoardingHome from "../OnBoarding/Home";
-import {
-  homeGoToSubscriptions,
-  homeGoToNotes,
-  homeGoToMyCalendar
-} from "../../components/onBoarding/actions";
-import { renderHeader } from "./components/header";
+import { userLogOut } from "../../../components/login/actions";
+import { getCurrentUser } from "../../../components/personal/actions";
+import { EMPTY_RESPONSE } from "../../../constants";
+import { DEFAULT_COUNT_OF_NOTES } from "../../../constants/settingsConstants";
+import theme from "../../../styles";
+import { NONE, BOX_NONE } from "../../../constants/onBoardingStates";
+import NoteItem from "../../common/notes/listItem";
+import SubscriptionItem from "../../common/subscriptions/listItem";
+import { CustomText } from "../../common/text/customText";
+
+import OnBoardingHomeHeader from "./components/header";
 import styles from "./styles";
 
-class Home extends React.PureComponent {
+class OnBoardingHome extends React.PureComponent {
   state = {
     qrcodeVisible: false
   };
@@ -124,27 +117,35 @@ class Home extends React.PureComponent {
   );
 
   renderSubscriptionCard = (subscriptions, userProfile) => (
-    <TouchableOpacity onPress={this.goToSubscriptions}>
-      <View style={styles.touchableCard}>
-        <Card style={styles.card}>
-          <CardItem header bordered style={styles.cardItem}>
-            <CustomText
-              text={I18n.t("profile.currentSubscription")}
-              style={styles.headlineText}
-            />
-          </CardItem>
-          <CardItem style={styles.cardItem}>
-            {this.checkLastVisitSubscription(subscriptions, userProfile)}
-          </CardItem>
-        </Card>
-      </View>
-    </TouchableOpacity>
+    <View
+      style={[
+        styles.touchableCard,
+        { opacity: this.props.home.stepGoToSubscriptions === "none" ? 1 : 0 }
+      ]}
+    >
+      <Card style={styles.card}>
+        <CardItem header bordered style={styles.cardItem}>
+          <CustomText
+            text={I18n.t("profile.currentSubscription")}
+            style={styles.headlineText}
+          />
+        </CardItem>
+        <CardItem style={styles.cardItem}>
+          {this.checkLastVisitSubscription(subscriptions, userProfile)}
+        </CardItem>
+      </Card>
+    </View>
   );
 
   renderNotesCard = userProfile => {
     const notes = _.get(userProfile, "internalRecords", EMPTY_RESPONSE);
     return (
-      <View style={styles.touchableCard}>
+      <View
+        style={[
+          styles.touchableCard,
+          { opacity: this.props.home.stepGoToNotes === "none" ? 1 : 0 }
+        ]}
+      >
         <Card style={styles.card}>
           <CardItem header bordered style={styles.cardItem}>
             <CustomText
@@ -159,20 +160,43 @@ class Home extends React.PureComponent {
   };
 
   renderCalendarCard = () => {
+    const { stepGoToMyCalendar, stepGoToMakeAnAppointment } = this.props.home;
     return (
-      <View style={styles.touchableCard}>
-        <Card style={styles.calendarCard}>
+      <View
+        style={[
+          styles.touchableCard,
+          {
+            opacity:
+              stepGoToMyCalendar === NONE || stepGoToMakeAnAppointment === NONE
+                ? 1
+                : 1
+          }
+        ]}
+        pointerEvents={BOX_NONE}
+      >
+        <Card style={styles.calendarCard} pointerEvents={BOX_NONE}>
           <CardItem header bordered style={styles.cardItem}>
             <CustomText
               text={I18n.t("profile.calendar")}
               style={styles.headlineText}
             />
           </CardItem>
-          <CardItem bordered style={styles.calendarCardItem}>
-            <Left style={styles.calendarView}>
+          <CardItem
+            bordered
+            style={styles.calendarCardItem}
+            pointerEvents={BOX_NONE}
+          >
+            <Left
+              style={styles.calendarView}
+              pointerEvents={stepGoToMyCalendar}
+            >
               <TouchableOpacity
-                style={styles.leftCalendarCardItem}
-                onPress={this.goToCalendar}
+                style={[
+                  styles.leftCalendarCardItem,
+                  {
+                    backgroundColor: "rgba(0,0,0,0.3)"
+                  }
+                ]}
               >
                 <CustomText
                   style={styles.calendarCardText}
@@ -180,11 +204,11 @@ class Home extends React.PureComponent {
                 />
               </TouchableOpacity>
             </Left>
-            <Right style={styles.calendarView}>
-              <TouchableOpacity
-                style={styles.rightCalendarCardItem}
-                onPress={this.goToAppointment}
-              >
+            <Right
+              style={styles.calendarView}
+              pointerEvents={stepGoToMakeAnAppointment}
+            >
+              <TouchableOpacity style={styles.rightCalendarCardItem}>
                 <CustomText
                   style={styles.calendarCardText}
                   text={I18n.t("profile.makeAppointment")}
@@ -197,100 +221,65 @@ class Home extends React.PureComponent {
     );
   };
 
-  goTo = (screen, params) => this.props.navigation.navigate(screen, params);
-
-  goToSubscriptions = () => {
-    this.goTo(NavigationType.Subscriptions, {
-      id: this.props.user.userProfile.id
-    });
-    this.props.homeGoToSubscriptions();
-  };
-
-  goToUserNotes = () => {
-    this.goTo(NavigationType.UserNotes, {
-      id: this.props.user.userProfile.id
-    });
-    this.props.homeGoToNotes();
-  };
-
-  goToCalendar = () => {
-    this.goTo(NavigationType.Calendar, {
-      user: this.props.userInfo
-    });
-    this.props.homeGoToMyCalendar();
-  };
-
-  goToAppointment = () => this.goTo(NavigationType.Appointment);
-
   render() {
     const { userProfile } = this.props.user;
+    const { stepGoToSubscriptions, stepGoToNotes } = this.props.home;
     return (
-      <Container>
-        {renderHeader(this.props)}
-        <StatusBar
-          backgroundColor={theme.colors.light}
-          barStyle='dark-content'
-        />
-        <SafeAreaView style={styles.container}>
-          <ScrollView>
-            {this.renderUserInfoCard(this.props.userInfo)}
+      <SafeAreaView pointerEvents={BOX_NONE} style={styles.container}>
+        <OnBoardingHomeHeader />
+        <View pointerEvents={BOX_NONE} style={styles.scrollView}>
+          {this.renderUserInfoCard(this.props.userInfo)}
+          <View pointerEvents={stepGoToSubscriptions}>
             {this.renderSubscriptionCard(
               _.get(userProfile, "subscriptions", EMPTY_RESPONSE),
               userProfile
             )}
-            <TouchableOpacity onPress={this.goToUserNotes}>
-              {this.renderNotesCard(userProfile)}
-            </TouchableOpacity>
-            <View pointerEvents='box-none'>
-              {this.renderCalendarCard(userProfile)}
-            </View>
-          </ScrollView>
-          <Modal
-            animationType='fade'
-            transparent
-            visible={this.state.qrcodeVisible}
-          >
-            <TouchableWithoutFeedback onPress={this.visibleMyQRCode}>
-              <View style={styles.touchableView}>
-                <View style={styles.modalView}>
-                  <QRCode
-                    value={_.get(userProfile, "id", EMPTY_RESPONSE)}
-                    size={theme.size.parameters.items}
-                  />
-                </View>
+          </View>
+          <View pointerEvents={stepGoToNotes}>
+            {this.renderNotesCard(userProfile)}
+          </View>
+          <View pointerEvents={BOX_NONE}>
+            {this.renderCalendarCard(userProfile)}
+          </View>
+        </View>
+        <Modal
+          animationType='fade'
+          transparent
+          visible={this.state.qrcodeVisible}
+        >
+          <TouchableWithoutFeedback>
+            <View style={styles.touchableView}>
+              <View style={styles.modalView}>
+                <QRCode
+                  value={_.get(userProfile, "id", EMPTY_RESPONSE)}
+                  size={theme.size.parameters.items}
+                />
               </View>
-            </TouchableWithoutFeedback>
-          </Modal>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.visibleMyQRCode}
-          >
-            <CustomText
-              style={styles.buttonText}
-              text={I18n.t("general.QRCode")}
-            />
-          </TouchableOpacity>
-        </SafeAreaView>
-        <OnBoardingHome />
-      </Container>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+        <TouchableOpacity style={styles.button} onPress={this.visibleMyQRCode}>
+          <CustomText
+            style={styles.buttonText}
+            text={I18n.t("general.QRCode")}
+          />
+        </TouchableOpacity>
+      </SafeAreaView>
     );
   }
 }
 
 const mapStateToProps = state => ({
   user: state.user,
-  userInfo: state.personal.user
+  home: state.onBoarding.home
 });
 
 const mapDispatchToProps = dispatch => ({
   getUserInfo: () => dispatch(getCurrentUser()),
-  onLogOut: () => dispatch(userLogOut()),
-  homeGoToSubscriptions: () => dispatch(homeGoToSubscriptions()),
-  homeGoToNotes: () => dispatch(homeGoToNotes()),
-  homeGoToMyCalendar: () => dispatch(homeGoToMyCalendar())
+  onLogOut: () => dispatch(userLogOut())
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(OnBoardingHome);

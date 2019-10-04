@@ -8,9 +8,16 @@ import { loginUser, refreshToken } from "../../components/login/actions";
 import { NavigationType } from "../../constants/navigationTypes";
 import { showToast } from "../../services/UIActions";
 import theme from "../../styles";
+import {
+  loginGoToSignup,
+  loginInputEmail,
+  loginInputPassword,
+  loginGoToHome
+} from "../../components/onBoarding/actions";
 import ButtonSubmit from "../common/buttons/submit";
 import { CustomText } from "../common/text/customText";
 import { checkUserRole } from "../../services/filter";
+import OnBoardingLoginForm from "../OnBoarding/Login";
 import styles from "./styles";
 
 class LoginForm extends React.PureComponent {
@@ -39,7 +46,10 @@ class LoginForm extends React.PureComponent {
 
   goTo = (screen, params) => this.props.navigation.navigate(screen, params);
 
-  goToSignUp = () => this.goTo(NavigationType.SignUp);
+  goToSignup = () => {
+    this.goTo(NavigationType.SignUp);
+    this.props.activateSignup();
+  };
 
   renderInput = ({ input }) => {
     return (
@@ -63,7 +73,10 @@ class LoginForm extends React.PureComponent {
     return (
       <Container>
         <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor={theme.colors.container} barStyle="dark-content" />
+          <StatusBar
+            backgroundColor={theme.colors.container}
+            barStyle="dark-content"
+          />
           <Image style={styles.logo} source={theme.images.logo} />
           <View style={styles.loginView}>
             <Field name="login" component={this.renderInput} type="text" />
@@ -80,11 +93,15 @@ class LoginForm extends React.PureComponent {
           </View>
           <View style={styles.signUpView}>
             <Text style={styles.text}>{I18n.t("login.hint.or")}</Text>
-            <TouchableOpacity onPress={this.goToSignUp} activeOpacity={1}>
-              <CustomText style={styles.signUpText} text={I18n.t("login.buttons.signup")} />
+            <TouchableOpacity onPress={this.goToSignup} activeOpacity={1}>
+              <CustomText
+                style={styles.signUpText}
+                text={I18n.t("login.buttons.signup")}
+              />
             </TouchableOpacity>
           </View>
         </SafeAreaView>
+        <OnBoardingLoginForm />
       </Container>
     );
   }
@@ -106,6 +123,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onLogin: (login, password) => dispatch(loginUser(login, password)),
   refreshToken: auth => dispatch(refreshToken(auth)),
+  activateSignup: () => dispatch(loginGoToSignup()),
+  activateInputEmail: () => dispatch(loginInputEmail()),
+  activateInputPassword: () => dispatch(loginInputPassword()),
+  activateHome: () => dispatch(loginGoToHome())
 });
 
 export default connect(

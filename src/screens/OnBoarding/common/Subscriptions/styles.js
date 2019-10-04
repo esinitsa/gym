@@ -1,14 +1,16 @@
 import { StyleSheet } from "react-native";
-import theme from "../../../styles";
+import theme from "../../../../styles";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "transparent"
   },
   subscriptionInfoView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    flex: 1
+    flex: 1,
+    backgroundColor: "transparent"
   },
   rowView: {
     flexDirection: "row",
@@ -75,12 +77,9 @@ const styles = StyleSheet.create({
   infoViewText: {
     fontWeight: theme.fonts.weight.bold
   },
-  extendArrow: {
-    alignContent: "center",
-    alignItems: "flex-end",
-    alignSelf: "center",
-  },
   clickableArrow: {
+    position: "absolute",
+    opacity: 1,
     paddingLeft: theme.size.padding.medium
   },
   activeLabel: {
