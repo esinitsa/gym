@@ -9,7 +9,10 @@ import {
 import { reverseArray, isEqualUsers } from "../../services/filter";
 import SubscriptionItem from "../common/subscriptions/listItem";
 import { renderHeader } from "./components/header";
-import { subscriptionsExtendCard, subscriptionGoToHome } from "../../components/onBoarding/actions";
+import {
+  subscriptionsExtendCard,
+  subscriptionGoToHome
+} from "../../components/onBoarding/actions";
 import OnBoardingSubscriptions from "../OnBoarding/Subscriptions";
 import theme from "../../styles";
 import styles from "./styles";
@@ -76,11 +79,15 @@ class Subscriptions extends React.PureComponent {
         {renderHeader(this.props)}
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle="dark-content"
+          barStyle='dark-content'
         />
-        <SafeAreaView style={styles.container} behavior="padding">
+        <SafeAreaView
+          style={[styles.container, { backgroundColor: "red" }]}
+          behavior='padding'
+        >
           {this.renderContent()}
         </SafeAreaView>
+        <OnBoardingSubscriptions />
       </Container>
     );
   }

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Card, CardItem, Left, Right } from "native-base";
+import { Card, CardItem, Left, Right, Text } from "native-base";
 import React from "react";
 import {
   Modal,
@@ -11,15 +11,22 @@ import {
 import QRCode from "react-native-qrcode-svg";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
+import { NavigationType } from "../../../constants/navigationTypes";
 import { userLogOut } from "../../../components/login/actions";
 import { getCurrentUser } from "../../../components/personal/actions";
 import { EMPTY_RESPONSE } from "../../../constants";
 import { DEFAULT_COUNT_OF_NOTES } from "../../../constants/settingsConstants";
+import {
+  homeGoToSubscriptions,
+  homeGoToNotes,
+  homeGoToMyCalendar
+} from "../../../components/onBoarding/actions";
 import theme from "../../../styles";
-import { NONE, BOX_NONE } from "../../../constants/onBoardingStates";
+import { NONE, BOX_NONE, AUTO } from "../../../constants/onBoardingStates";
 import NoteItem from "../../common/notes/listItem";
 import SubscriptionItem from "../../common/subscriptions/listItem";
 import { CustomText } from "../../common/text/customText";
+import StepHelper from "../common/StepHelper";
 
 import OnBoardingHomeHeader from "./components/header";
 import styles from "./styles";
@@ -36,6 +43,8 @@ class OnBoardingHome extends React.PureComponent {
   visibleMyQRCode = () => {
     this.setState({ qrcodeVisible: !this.state.qrcodeVisible });
   };
+
+  goTo = (screen, params) => this.props.navigation.navigate(screen, params);
 
   checkLastVisitSubscription = (subscriptions, userProfile) => {
     const lastVisitSubscription = _.last(subscriptions);
@@ -82,7 +91,7 @@ class OnBoardingHome extends React.PureComponent {
   };
 
   renderUserInfoCard = userInfo => (
-    <View style={styles.touchableCard}>
+    <View style={[styles.touchableCard, { opacity: 0 }]}>
       <Card style={styles.card}>
         <CardItem header bordered style={styles.cardItem}>
           <CustomText
@@ -116,46 +125,72 @@ class OnBoardingHome extends React.PureComponent {
     </View>
   );
 
-  renderSubscriptionCard = (subscriptions, userProfile) => (
-    <View
-      style={[
-        styles.touchableCard,
-        { opacity: this.props.home.stepGoToSubscriptions === "none" ? 1 : 0 }
-      ]}
-    >
-      <Card style={styles.card}>
-        <CardItem header bordered style={styles.cardItem}>
-          <CustomText
-            text={I18n.t("profile.currentSubscription")}
-            style={styles.headlineText}
-          />
-        </CardItem>
-        <CardItem style={styles.cardItem}>
-          {this.checkLastVisitSubscription(subscriptions, userProfile)}
-        </CardItem>
-      </Card>
-    </View>
-  );
+  goToSubscriptions = () => {
+    if (this.props.home.stepGoToSubscriptions === "none") {
+      this.goTo(NavigationType.Subscriptions, {
+        id: this.props.user.userProfile.id
+      });
+      this.props.homeGoToSubscriptions();
+    }
+  };
 
-  renderNotesCard = userProfile => {
-    const notes = _.get(userProfile, "internalRecords", EMPTY_RESPONSE);
-    return (
+  renderSubscriptionCard = (subscriptions, userProfile) => (
+    <TouchableOpacity onPress={this.goToSubscriptions}>
       <View
         style={[
           styles.touchableCard,
-          { opacity: this.props.home.stepGoToNotes === "none" ? 1 : 0 }
+          { opacity: this.props.home.stepGoToSubscriptions === "none" ? 1 : 0 }
         ]}
       >
         <Card style={styles.card}>
           <CardItem header bordered style={styles.cardItem}>
             <CustomText
-              text={I18n.t("profile.lastNotes")}
+              text={I18n.t("profile.currentSubscription")}
               style={styles.headlineText}
             />
           </CardItem>
-          {this.checkLastVisitNote(notes, userProfile)}
+          <CardItem style={styles.cardItem}>
+            {this.checkLastVisitSubscription(subscriptions, userProfile)}
+          </CardItem>
         </Card>
       </View>
+      {this.props.home.stepGoToSubscriptions === "none" && (
+        <StepHelper text='Test' />
+      )}
+    </TouchableOpacity>
+  );
+
+  goToUserNotes = () => {
+    if (this.props.home.stepGoToNotes === "none") {
+      this.goTo(NavigationType.UserNotes, {
+        id: this.props.user.userProfile.id
+      });
+      this.props.homeGoToNotes();
+    }
+  };
+
+  renderNotesCard = userProfile => {
+    const notes = _.get(userProfile, "internalRecords", EMPTY_RESPONSE);
+    return (
+      <TouchableOpacity onPress={this.goToUserNotes}>
+        <View
+          style={[
+            styles.touchableCard,
+            { opacity: this.props.home.stepGoToNotes === "none" ? 1 : 0 }
+          ]}
+        >
+          <Card style={styles.card}>
+            <CardItem header bordered style={styles.cardItem}>
+              <CustomText
+                text={I18n.t("profile.lastNotes")}
+                style={styles.headlineText}
+              />
+            </CardItem>
+            {this.checkLastVisitNote(notes, userProfile)}
+          </Card>
+        </View>
+        {this.props.home.stepGoToNotes === "none" && <StepHelper text='Test' />}
+      </TouchableOpacity>
     );
   };
 
@@ -169,7 +204,7 @@ class OnBoardingHome extends React.PureComponent {
             opacity:
               stepGoToMyCalendar === NONE || stepGoToMakeAnAppointment === NONE
                 ? 1
-                : 1
+                : 0
           }
         ]}
         pointerEvents={BOX_NONE}
@@ -193,9 +228,11 @@ class OnBoardingHome extends React.PureComponent {
               <TouchableOpacity
                 style={[
                   styles.leftCalendarCardItem,
-                  {
-                    backgroundColor: "rgba(0,0,0,0.3)"
-                  }
+                  stepGoToMyCalendar === AUTO
+                    ? {
+                        backgroundColor: "rgba(0,0,0,0.3)"
+                      }
+                    : {}
                 ]}
               >
                 <CustomText
@@ -208,7 +245,16 @@ class OnBoardingHome extends React.PureComponent {
               style={styles.calendarView}
               pointerEvents={stepGoToMakeAnAppointment}
             >
-              <TouchableOpacity style={styles.rightCalendarCardItem}>
+              <TouchableOpacity
+                style={[
+                  styles.rightCalendarCardItem,
+                  stepGoToMakeAnAppointment === AUTO
+                    ? {
+                        backgroundColor: "rgba(0,0,0,0.3)"
+                      }
+                    : {}
+                ]}
+              >
                 <CustomText
                   style={styles.calendarCardText}
                   text={I18n.t("profile.makeAppointment")}
@@ -229,15 +275,11 @@ class OnBoardingHome extends React.PureComponent {
         <OnBoardingHomeHeader />
         <View pointerEvents={BOX_NONE} style={styles.scrollView}>
           {this.renderUserInfoCard(this.props.userInfo)}
-          <View pointerEvents={stepGoToSubscriptions}>
-            {this.renderSubscriptionCard(
-              _.get(userProfile, "subscriptions", EMPTY_RESPONSE),
-              userProfile
-            )}
-          </View>
-          <View pointerEvents={stepGoToNotes}>
-            {this.renderNotesCard(userProfile)}
-          </View>
+          {this.renderSubscriptionCard(
+            _.get(userProfile, "subscriptions", EMPTY_RESPONSE),
+            userProfile
+          )}
+          {this.renderNotesCard(userProfile)}
           <View pointerEvents={BOX_NONE}>
             {this.renderCalendarCard(userProfile)}
           </View>
@@ -276,7 +318,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUserInfo: () => dispatch(getCurrentUser()),
-  onLogOut: () => dispatch(userLogOut())
+  onLogOut: () => dispatch(userLogOut()),
+  homeGoToSubscriptions: () => dispatch(homeGoToSubscriptions()),
+  homeGoToNotes: () => dispatch(homeGoToNotes()),
+  homeGoToMyCalendar: () => dispatch(homeGoToMyCalendar())
 });
 
 export default connect(

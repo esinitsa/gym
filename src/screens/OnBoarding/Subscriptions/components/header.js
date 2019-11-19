@@ -13,7 +13,7 @@ export const renderHeader = props => {
     subscriptions: { stepExtendCard }
   } = props;
   return (
-    <Header style={styles.header} noShadow>
+    <Header style={[styles.header, { position: "absolute" }]} noShadow>
       <Left>
         <TouchableOpacity transparent style={styles.leftHeader}>
           <Icon

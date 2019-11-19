@@ -271,7 +271,7 @@ class Home extends React.PureComponent {
             />
           </TouchableOpacity>
         </SafeAreaView>
-        <OnBoardingHome />
+        <OnBoardingHome navigation={this.props.navigation} />
       </Container>
     );
   }

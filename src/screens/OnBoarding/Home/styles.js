@@ -3,6 +3,7 @@ import theme from "../../../styles/index";
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "rgba(0,0,0,0.6)",
     position: "absolute",
     height: "100%",
     width: "100%",

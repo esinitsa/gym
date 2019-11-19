@@ -49,14 +49,8 @@ class OnBoardingSubscriptions extends React.PureComponent {
   render() {
     return (
       <View pointerEvents={BOX_NONE} style={styles.container}>
-        <View pointerEvents={NONE} style={styles.headerContainer}>
-          {renderHeader(this.props)}
-        </View>
-        <SafeAreaView
-          pointerEvents={NONE}
-          style={styles.safeArea}
-          behavior='padding'
-        >
+        {renderHeader(this.props)}
+        <SafeAreaView pointerEvents={NONE} style={styles.safeArea}>
           {this.renderContent()}
         </SafeAreaView>
       </View>

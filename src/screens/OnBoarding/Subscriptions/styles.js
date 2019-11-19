@@ -5,16 +5,15 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     width: "100%",
-    height: "100%",
-    backgroundColor: "transparent"
+    height: "100%"
   },
   safeArea: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "transparent"
+    backgroundColor: "red"
   },
   card: {
-    backgroundColor: "transparent",
+    backgroundColor: "#fff",
     paddingVertical: theme.size.padding.large,
     paddingHorizontal: theme.size.padding.medium,
     width: theme.size.parameters.cardWidth,
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     top: 0
   },
   headerContainer: {
-    width:"100%"
+    width: "100%"
   },
   header: {
     borderBottomColor: theme.colors.container,
@@ -56,8 +55,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.subtitle,
     fontWeight: theme.fonts.weight.bold
   },
-  leftHeader: {
-  },
+  leftHeader: {},
   backArrowIcon: {
     paddingLeft: theme.size.padding.backArrow
   },
