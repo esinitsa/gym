@@ -7,7 +7,7 @@ import theme from "../../../../styles";
 import styles from "../styles";
 
 export const renderHeader = props => {
-  const { userInfo, currentUser } = props;
+  const { userInfo } = props;
   return (
     <Header style={styles.header} noShadow>
       <Left style={styles.leftHeader}>

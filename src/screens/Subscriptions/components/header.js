@@ -1,4 +1,4 @@
-import { Body, Button, Header, Left, Right, View } from "native-base";
+import { Body, Button, Header, Left, Right } from "native-base";
 import React from "react";
 import Icon from "react-native-vector-icons/AntDesign";
 import { I18n } from "react-redux-i18n";

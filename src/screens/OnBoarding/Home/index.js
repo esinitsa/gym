@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Card, CardItem, Left, Right, Text } from "native-base";
+import { Card, CardItem, Left, Right } from "native-base";
 import React from "react";
 import {
   Modal,
@@ -11,23 +11,22 @@ import {
 import QRCode from "react-native-qrcode-svg";
 import { connect } from "react-redux";
 import { I18n } from "react-redux-i18n";
-import { NavigationType } from "../../../constants/navigationTypes";
 import { userLogOut } from "../../../components/login/actions";
+import {
+  homeGoToMyCalendar,
+  homeGoToNotes,
+  homeGoToSubscriptions
+} from "../../../components/onBoarding/actions";
 import { getCurrentUser } from "../../../components/personal/actions";
 import { EMPTY_RESPONSE } from "../../../constants";
+import { NavigationType } from "../../../constants/navigationTypes";
+import { AUTO, BOX_NONE, NONE } from "../../../constants/onBoardingStates";
 import { DEFAULT_COUNT_OF_NOTES } from "../../../constants/settingsConstants";
-import {
-  homeGoToSubscriptions,
-  homeGoToNotes,
-  homeGoToMyCalendar
-} from "../../../components/onBoarding/actions";
 import theme from "../../../styles";
-import { NONE, BOX_NONE, AUTO } from "../../../constants/onBoardingStates";
 import NoteItem from "../../common/notes/listItem";
 import SubscriptionItem from "../../common/subscriptions/listItem";
 import { CustomText } from "../../common/text/customText";
 import StepHelper from "../common/StepHelper";
-
 import OnBoardingHomeHeader from "./components/header";
 import styles from "./styles";
 
@@ -155,7 +154,7 @@ class OnBoardingHome extends React.PureComponent {
         </Card>
       </View>
       {this.props.home.stepGoToSubscriptions === "none" && (
-        <StepHelper text='Test' />
+        <StepHelper text="Test" />
       )}
     </TouchableOpacity>
   );
@@ -189,7 +188,7 @@ class OnBoardingHome extends React.PureComponent {
             {this.checkLastVisitNote(notes, userProfile)}
           </Card>
         </View>
-        {this.props.home.stepGoToNotes === "none" && <StepHelper text='Test' />}
+        {this.props.home.stepGoToNotes === "none" && <StepHelper text="Test" />}
       </TouchableOpacity>
     );
   };
@@ -269,7 +268,6 @@ class OnBoardingHome extends React.PureComponent {
 
   render() {
     const { userProfile } = this.props.user;
-    const { stepGoToSubscriptions, stepGoToNotes } = this.props.home;
     return (
       <SafeAreaView pointerEvents={BOX_NONE} style={styles.container}>
         <OnBoardingHomeHeader />
@@ -285,7 +283,7 @@ class OnBoardingHome extends React.PureComponent {
           </View>
         </View>
         <Modal
-          animationType='fade'
+          animationType="fade"
           transparent
           visible={this.state.qrcodeVisible}
         >

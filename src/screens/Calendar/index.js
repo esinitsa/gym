@@ -80,7 +80,7 @@ class Calendar extends React.PureComponent {
         {renderHeader(this.props)}
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle='dark-content'
+          barStyle="dark-content"
         />
         <CustomCalendar
           markedDates={getMarkedDates(user)}

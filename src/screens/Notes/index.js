@@ -60,7 +60,7 @@ class UserNotes extends React.PureComponent {
     return (
       <Item>
         <Input
-          autoCapitalize='none'
+          autoCapitalize="none"
           style={styles.input}
           autoCorrect={false}
           multiline={true}
@@ -77,7 +77,7 @@ class UserNotes extends React.PureComponent {
         <Form>
           <Picker
             note
-            mode='dropdown'
+            mode="dropdown"
             style={styles.pickerView}
             textStyle={styles.pickerText}
             selectedValue={this.state.selected}
@@ -152,7 +152,7 @@ class UserNotes extends React.PureComponent {
                   />
                   <View style={styles.editIconView}>
                     <Icon
-                      name='edit'
+                      name="edit"
                       color={theme.colors.primary}
                       size={theme.size.icons.small}
                       solid
@@ -162,7 +162,7 @@ class UserNotes extends React.PureComponent {
               </TouchableOpacity>
               {isExpanded && (
                 <CardItem style={styles.noteCardItem}>
-                  <Field name='note' component={this.renderInput} type='note' />
+                  <Field name="note" component={this.renderInput} type="note" />
                   <View style={styles.saveNoteView}>
                     {this.renderPicker()}
                     <Right>
@@ -207,7 +207,7 @@ class UserNotes extends React.PureComponent {
         {renderHeader(this.props)}
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle='dark-content'
+          barStyle="dark-content"
         />
         <SafeAreaView style={styles.container}>
           {this.renderContent()}

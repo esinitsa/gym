@@ -79,11 +79,11 @@ class Subscriptions extends React.PureComponent {
         {renderHeader(this.props)}
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle='dark-content'
+          barStyle="dark-content"
         />
         <SafeAreaView
           style={[styles.container, { backgroundColor: "red" }]}
-          behavior='padding'
+          behavior="padding"
         >
           {this.renderContent()}
         </SafeAreaView>

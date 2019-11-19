@@ -1,21 +1,21 @@
 import _ from "lodash";
 import React from "react";
-import { TouchableOpacity, View, Alert } from "react-native";
-import { WebView } from "react-native-webview";
-import { I18n } from "react-redux-i18n";
+import { Alert, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
-import { showToast } from "../../../../services/UIActions";
+import { WebView } from "react-native-webview";
+import { I18n } from "react-redux-i18n";
 import { DEFAULT_COUNT, EMPTY_RESPONSE } from "../../../../constants";
-import { NONE, BOX_NONE } from "../../../../constants/onBoardingStates";
-import { checkType, isActive } from "../../../../services/filter";
+import { BOX_NONE } from "../../../../constants/onBoardingStates";
 import {
   getDateWithFormat,
   lastDateFromArray
 } from "../../../../services/dateManager";
+import { checkType, isActive } from "../../../../services/filter";
+import { showToast } from "../../../../services/UIActions";
+import theme from "../../../../styles";
 import { CustomText } from "../../../common/text/customText";
 import styles from "./styles";
-import theme from "../../../../styles";
 
 export default class SubscriptionItem extends React.PureComponent {
   state = {
@@ -67,7 +67,7 @@ export default class SubscriptionItem extends React.PureComponent {
         ) : (
           <Octicons
             name={"calendar"}
-            color='white'
+            color="white"
             size={theme.size.icons.medium}
           />
         )}
@@ -192,7 +192,7 @@ export default class SubscriptionItem extends React.PureComponent {
             </View>
           </View>
           {withExtension && (
-            <View pointerEvents='none' style={styles.clickableArrow}>
+            <View pointerEvents="none" style={styles.clickableArrow}>
               <TouchableOpacity>
                 <Icon
                   name={isExpanded ? "up" : "down"}

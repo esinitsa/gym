@@ -229,7 +229,7 @@ class Home extends React.PureComponent {
         {renderHeader(this.props)}
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle='dark-content'
+          barStyle="dark-content"
         />
         <SafeAreaView style={styles.container}>
           <ScrollView>
@@ -241,12 +241,12 @@ class Home extends React.PureComponent {
             <TouchableOpacity onPress={this.goToUserNotes}>
               {this.renderNotesCard(userProfile)}
             </TouchableOpacity>
-            <View pointerEvents='box-none'>
+            <View pointerEvents="box-none">
               {this.renderCalendarCard(userProfile)}
             </View>
           </ScrollView>
           <Modal
-            animationType='fade'
+            animationType="fade"
             transparent
             visible={this.state.qrcodeVisible}
           >

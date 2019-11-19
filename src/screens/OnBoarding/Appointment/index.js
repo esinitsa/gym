@@ -97,7 +97,7 @@ class Appointment extends React.PureComponent {
         </View>
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle='dark-content'
+          barStyle="dark-content"
         />
         <View style={styles.content}>
           {this.renderLabelWithPicker(I18n.t("labels.role"), {

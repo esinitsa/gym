@@ -1,4 +1,4 @@
-import { Body, Button, Header, Left, Right, View } from "native-base";
+import { Body, Header, Left, Right, View } from "native-base";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -8,10 +8,7 @@ import { CustomText } from "../../../common/text/customText";
 import styles from "../styles";
 
 export const renderHeader = props => {
-  const {
-    userInfo,
-    subscriptions: { stepExtendCard }
-  } = props;
+  const { userInfo } = props;
   return (
     <Header style={[styles.header, { position: "absolute" }]} noShadow>
       <Left>

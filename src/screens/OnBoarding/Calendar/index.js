@@ -77,7 +77,7 @@ class OnBoardingCalendar extends React.PureComponent {
         </View>
         <StatusBar
           backgroundColor={theme.colors.light}
-          barStyle='dark-content'
+          barStyle="dark-content"
         />
         <CustomCalendar
           markedDates={getMarkedDates(user)}
